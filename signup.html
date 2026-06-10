@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - StacklyRealty</title>
+    <meta name="description" content="Create your StacklyRealty account and join our premium real estate portal.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b1329;
+            --secondary: #1a233d;
+            --accent: #c5a880;
+            --mint: #e2d4be;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(135deg, rgba(11, 19, 41, 0.9) 0%, rgba(26, 35, 61, 0.75) 100%),
+                url('assets/bg.webp') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        /* ── Preloader ── */
+        #preloader {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 16px;
+            transition: opacity 0.7s ease;
+        }
+        #preloader img {
+            width: 120px;
+            height: auto;
+            object-fit: contain;
+            animation: preloaderPulse 1.5s ease-in-out infinite;
+        }
+        #preloader h2 {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes preloaderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50%       { transform: scale(1.08); opacity: 1; }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.6; }
+        }
+        .preloader-hidden { opacity: 0; pointer-events: none; }
+
+        /* ── Floating particles ── */
+        .bg-particles {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            overflow: hidden;
+        }
+        .bg-particles span {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(197, 168, 128, 0.25);
+            animation: float 8s ease-in-out infinite;
+        }
+        .bg-particles span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; animation-duration: 10s; }
+        .bg-particles span:nth-child(2) { top: 60%; left: 80%; animation-delay: 2s; animation-duration: 12s; width: 8px; height: 8px; }
+        .bg-particles span:nth-child(3) { top: 40%; left: 50%; animation-delay: 4s; animation-duration: 9s; }
+        .bg-particles span:nth-child(4) { top: 80%; left: 25%; animation-delay: 1s; animation-duration: 11s; width: 10px; height: 10px; }
+        .bg-particles span:nth-child(5) { top: 15%; left: 70%; animation-delay: 3s; animation-duration: 13s; }
+        .bg-particles span:nth-child(6) { top: 70%; left: 40%; animation-delay: 5s; animation-duration: 8s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            25%      { transform: translateY(-30px) translateX(15px); opacity: 0.6; }
+            50%      { transform: translateY(-15px) translateX(-10px); opacity: 0.4; }
+            75%      { transform: translateY(-40px) translateX(20px); opacity: 0.5; }
+        }
+
+        /* ── Centered Card ── */
+        .signup-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 520px;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: 40px 38px;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.35),
+                0 0 0 1px rgba(197, 168, 128, 0.15);
+            backdrop-filter: blur(20px);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        /* Custom scrollbar for the form card */
+        .form-card::-webkit-scrollbar { width: 5px; }
+        .form-card::-webkit-scrollbar-track { background: transparent; }
+        .form-card::-webkit-scrollbar-thumb { background: var(--mint); border-radius: 4px; }
+
+        .form-logo { text-align: center; margin-bottom: 6px; }
+        .form-logo img {
+            height: 65px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        .form-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+        }
+
+        /* Section headings */
+        .form-section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--primary);
+            border-left: 3px solid var(--mint);
+            padding-left: 10px;
+            margin: 20px 0 12px;
+        }
+
+        /* Form groups */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.86rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.93rem;
+            color: var(--text-dark);
+            background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.18);
+            background: #fff;
+        }
+        .form-group small {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .password-wrap { position: relative; }
+        .password-wrap input { padding-right: 60px; }
+        .toggle-pw {
+            position: absolute; right: 12px; top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none; cursor: pointer;
+            color: var(--text-muted); font-size: 0.82rem;
+            font-weight: 600; font-family: 'Inter', sans-serif;
+            transition: color 0.2s;
+        }
+        .toggle-pw:hover { color: var(--primary); }
+
+        /* Two-col grid */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* Terms */
+        .terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .terms-row input[type=checkbox] {
+            width: 16px; height: 16px;
+            margin-top: 2px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+        .terms-row label {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .terms-row a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .terms-row a:hover { text-decoration: underline; }
+
+        /* Conditional fields */
+        .conditional-fields { display: none; }
+
+        /* Submit button */
+        .btn-signup {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent) 0%, #a18256 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
+            margin-top: 4px;
+        }
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4);
+        }
+        .btn-signup:active { transform: translateY(0); }
+
+        /* Alert messages */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+        .alert-error   { background: #fee2e2; color: #991b1b; border-left: 4px solid var(--danger); }
+        .alert-success  { background: #dcfce7; color: #166534; border-left: 4px solid var(--success); }
+
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .login-link a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .login-link a:hover { opacity: 0.75; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── MOBILE RESPONSIVE ── */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .form-card {
+                padding: 24px 16px;
+                border-radius: 18px;
+            }
+            .form-title { font-size: 1.5rem; }
+            .form-logo img { height: 55px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
+        <h2>Finding Your Dream Property...</h2>
+    </div>
+
+    <!-- Background particles -->
+    <div class="bg-particles">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <!-- ── Centered Signup Card ── -->
+    <div class="signup-wrapper">
+        <div class="form-card">
+            <div class="form-logo">
+                <a href="index.html"><img src="assets/blue logo.webp" alt="StacklyRealty Logo"></a>
+            </div>
+            <h2 class="form-title">Create Account</h2>
+            <p class="form-subtitle">Join the StacklyRealty premium portal</p>
+            
+            <div id="signupError" class="alert alert-error">Please fill all fields correctly.</div>
+            <div id="signupSuccess" class="alert alert-success">✅ Account created! Redirecting to login... 🏢</div>
+
+            <form id="signupForm" autocomplete="off">
+
+                <p class="form-section-title">👤 Personal Information</p>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="e.g. Ravi Kumar" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@domain.com" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" placeholder="10-digit number" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location / District</label>
+                    <input type="text" id="location" placeholder="e.g. Trichy, Tamil Nadu" required>
+                </div>
+
+                <p class="form-section-title">🔒 Account Security</p>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrap">
+                        <input type="password" id="password" placeholder="Min 8 characters" required>
+                        <button type="button" class="toggle-pw" onclick="togglePassword('password', this)">Show</button>
+                    </div>
+                    <small>Must be at least 8 characters. Mix letters, numbers & symbols.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-wrap">
+                        <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+                        <button type="button" class="toggle-pw" onclick="togglePassword('confirmPassword', this)">Show</button>
+                    </div>
+                </div>
+
+                <p class="form-section-title">🏢 Role Selection</p>
+
+                <div class="form-group">
+                    <label for="role">Select Your Role</label>
+                    <select id="role" required onchange="handleRoleChange()">
+                        <option value="">-- Choose your role --</option>
+                        <option value="seller">🏠 Property Seller / Owner</option>
+                        <option value="buyer">🔑 Property Buyer / Tenant</option>
+                        <option value="agent">👔 Real Estate Agent</option>
+                        <option value="admin">⚙️ Admin</option>
+                    </select>
+                </div>
+
+                <!-- Seller Fields -->
+                <div id="sellerFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="companyName">Company / Developer Name (Optional)</label>
+                        <input type="text" id="companyName" placeholder="e.g. Stackly Developers">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyType">Primary Property Type</label>
+                            <select id="propertyType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Residential">Residential</option>
+                                <option value="Commercial">Commercial</option>
+                                <option value="Land">Land / Plots</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="portfolioSize">Estimated Listings Count</label>
+                            <input type="number" id="portfolioSize" placeholder="e.g. 5" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent Fields -->
+                <div id="agentFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="agencyName">Real Estate Agency / Brokerage</label>
+                        <input type="text" id="agencyName" placeholder="e.g. Luxe Realty Group">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="licenseNumber">RERA / License Number</label>
+                            <input type="text" id="licenseNumber" placeholder="e.g. RERA-TN-12345">
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <input type="number" id="experience" placeholder="e.g. 5" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buyer Fields -->
+                <div id="buyerFields" class="conditional-fields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prefLocation">Preferred Location</label>
+                            <input type="text" id="prefLocation" placeholder="e.g. Chennai, Salem">
+                        </div>
+                        <div class="form-group">
+                            <label for="budgetRange">Preferred Budget Range</label>
+                            <input type="text" id="budgetRange" placeholder="e.g. ₹50L - ₹1.5Cr">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Fields -->
+                <div id="adminFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="adminKey">Admin Access Key</label>
+                        <input type="password" id="adminKey" placeholder="Enter secret admin key">
+                        <small>Contact the system administrator for the access key.</small>
+                    </div>
+                </div>
+
+                <div class="terms-row">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="#">Terms &amp; Conditions</a> and
+                        <a href="#">Privacy Policy</a> of StacklyRealty.
+                    </label>
+                </div>
+
+                <button type="button" class="btn-signup" onclick="handleSignup()">Create Account →</button>
+
+                <p class="login-link">Already have an account? <a href="index.html">Login Here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pre = document.getElementById('preloader');
+                pre.classList.add('preloader-hidden');
+                setTimeout(() => pre.style.display = 'none', 700);
+            }, 1200);
+        });
+
+        // Toggle Password
+        function togglePassword(id, btn) {
+            const inp = document.getElementById(id);
+            if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
+            else { inp.type = 'password'; btn.textContent = 'Show'; }
+        }
+
+        // Role-specific fields
+        function handleRoleChange() {
+            const role = document.getElementById('role').value;
+            document.getElementById('sellerFields').style.display = role === 'seller' ? 'block' : 'none';
+            document.getElementById('agentFields').style.display  = role === 'agent'  ? 'block' : 'none';
+            document.getElementById('buyerFields').style.display  = role === 'buyer'  ? 'block' : 'none';
+            document.getElementById('adminFields').style.display  = role === 'admin'  ? 'block' : 'none';
+        }
+
+        // Signup Handler
+        function handleSignup() {
+            const errEl = document.getElementById('signupError');
+            const sucEl = document.getElementById('signupSuccess');
+            errEl.style.display = 'none';
+            sucEl.style.display = 'none';
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email    = document.getElementById('email').value.trim();
+            const mobile   = document.getElementById('mobile').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const password = document.getElementById('password').value;
+            const confirm  = document.getElementById('confirmPassword').value;
+            const role     = document.getElementById('role').value;
+            const terms    = document.getElementById('terms').checked;
+
+            const showError = (msg) => {
+                errEl.style.display = 'block';
+                errEl.textContent = '⚠️ ' + msg;
+                errEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+
+            if (!fullName) return showError('Full Name is required.');
+            if (!email) return showError('Email Address is required.');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Enter a valid email address.');
+            if (!mobile) return showError('Mobile Number is required.');
+            if (!/^[0-9]{10}$/.test(mobile)) return showError('Enter a valid 10-digit mobile number.');
+            if (!location) return showError('Location / District is required.');
+            if (!password) return showError('Password is required.');
+            if (password.length < 8) return showError('Password must be at least 8 characters.');
+            if (password !== confirm) return showError('Passwords do not match.');
+            if (!role) return showError('Please select your role.');
+            if (role === 'admin' && !document.getElementById('adminKey').value.trim()) return showError('Admin Access Key is required.');
+            if (role === 'seller' && !document.getElementById('companyName').value.trim()) return showError('Company Name is required for Seller role.');
+            if (role === 'agent' && !document.getElementById('licenseNumber').value.trim()) return showError('RERA / License Number is required for Agent role.');
+            if (!terms) return showError('You must accept the Terms & Conditions.');
+
+            const users = JSON.parse(localStorage.getItem('realty_users') || '[]');
+            if (users.some(u => u.email === email)) return showError('This email is already registered.');
+
+            const newUser = {
+                id: 'U' + String(Math.floor(100 + Math.random() * 900)),
+                name: fullName, email, mobile, location, password, role,
+                regDate: new Date().toISOString().split('T')[0],
+                status: 'Active'
+            };
+            users.push(newUser);
+            localStorage.setItem('realty_users', JSON.stringify(users));
+
+            sucEl.style.display = 'block';
+            document.getElementById('signupForm').style.opacity = '0.5';
+            document.getElementById('signupForm').style.pointerEvents = 'none';
+            setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+        }
+    </script>
+</body>
+</html>

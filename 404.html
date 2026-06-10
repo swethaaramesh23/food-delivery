@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Listing Expired | StacklyRealty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0b1329;
+            --secondary-color: #1a233d;
+            --accent-color: #c5a880;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f8fafc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            max-width: 650px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated wilting plant */
+        .plant-icon {
+            font-size: 7rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: wilt 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 8px 20px rgba(197,168,128,0.3));
+        }
+
+        @keyframes wilt {
+            0%   { transform: rotate(0deg); }
+            25%  { transform: rotate(-8deg); }
+            50%  { transform: rotate(0deg); }
+            75%  { transform: rotate(8deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .error-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 4px 6px 0px rgba(197, 168, 128, 0.18);
+            letter-spacing: -4px;
+        }
+
+        .error-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #1e3a2f;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .error-description {
+            font-size: 1.15rem;
+            color: #475569;
+            line-height: 1.75;
+            margin-bottom: 40px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 38px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(197, 168, 128, 0.3);
+        }
+
+        .btn-home:hover {
+            background: var(--secondary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(197, 168, 128, 0.4);
+            color: #fff;
+        }
+
+        .btn-home::before {
+            content: '🏡';
+            font-size: 0.7 rem;
+        }
+
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            margin: 24px auto;
+        }
+
+        .footer-note {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 480px) {
+            .error-number { font-size: 6rem; }
+            .error-title  { font-size: 1.6rem; }
+            .error-description { font-size: 1rem; }
+            .plant-icon { font-size: 5rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="error-container">
+        <span class="plant-icon">🏚️</span>
+        <div class="error-number">404</div>
+        <div class="divider"></div>
+        <h1 class="error-title">Oops! Property seems to be off the market.</h1>
+        <p class="error-description">
+            The page you're looking for doesn't exist or the listing has expired.
+        </p>
+        <a href="index.html" class="btn-home">Back to Home</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - StacklyRealty</title>
+    <meta name="description" content="Reset your StacklyRealty password.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b1329;
+            --secondary: #1a233d;
+            --accent: #c5a880;
+            --mint: #e2d4be;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(135deg, rgba(11, 19, 41, 0.9) 0%, rgba(26, 35, 61, 0.75) 100%),
+                url('assets/bg.webp') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 16px;
+            transition: opacity 0.7s ease;
+        }
+        #preloader img { width: 120px; height: auto; object-fit: contain; animation: preloaderPulse 1.5s ease-in-out infinite; }
+        #preloader h2 { color: #fff; font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; animation: pulse 1.5s ease-in-out infinite; }
+        @keyframes preloaderPulse { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .preloader-hidden { opacity: 0; pointer-events: none; }
+
+        /* Particles */
+        .bg-particles {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .bg-particles span {
+            position: absolute; width: 6px; height: 6px;
+            border-radius: 50%; background: rgba(197,168,128,0.25);
+            animation: float 8s ease-in-out infinite;
+        }
+        .bg-particles span:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; animation-duration: 10s; }
+        .bg-particles span:nth-child(2) { top: 65%; left: 75%; animation-delay: 2s; animation-duration: 12s; width: 8px; height: 8px; }
+        .bg-particles span:nth-child(3) { top: 40%; left: 50%; animation-delay: 4s; animation-duration: 9s; }
+        .bg-particles span:nth-child(4) { top: 80%; left: 30%; animation-delay: 1s; animation-duration: 11s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-30px) translateX(15px); opacity: 0.5; }
+        }
+
+        /* Centered Card */
+        .forgot-wrapper {
+            position: relative; z-index: 1;
+            width: 100%; max-width: 420px;
+            animation: fadeUp 0.7s ease both;
+        }
+        .form-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 24px;
+            padding: 44px 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(197, 168, 128, 0.15);
+            backdrop-filter: blur(20px);
+        }
+        .form-logo { text-align: center; margin-bottom: 8px; }
+        .form-logo img { height: 72px; object-fit: contain; }
+        .form-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem; font-weight: 800;
+            color: var(--primary); text-align: center;
+            margin-bottom: 4px;
+        }
+        .form-subtitle {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.9rem; margin-bottom: 28px; line-height: 1.5;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block; font-weight: 600;
+            font-size: 0.88rem; color: var(--text-dark);
+            margin-bottom: 7px;
+        }
+        .form-group input {
+            width: 100%; padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px; font-size: 0.95rem;
+            color: var(--text-dark); background: #fafafa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none; font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.18);
+            background: #fff;
+        }
+        .btn-submit {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, var(--accent) 0%, #a18256 100%);
+            color: #fff; border: none; border-radius: 12px;
+            font-size: 1rem; font-weight: 700;
+            font-family: 'Outfit', sans-serif; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
+            margin-top: 8px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4); }
+        .btn-submit:active { transform: translateY(0); }
+
+        .alert {
+            padding: 12px 16px; border-radius: 10px;
+            margin-bottom: 18px; font-size: 0.9rem;
+            font-weight: 500; display: none;
+        }
+        .alert-success { background: #dcfce7; color: #166534; border-left: 4px solid var(--success); }
+
+        .back-link {
+            display: block; margin-top: 22px;
+            text-align: center; font-size: 0.9rem;
+            color: var(--primary); font-weight: 600;
+            text-decoration: none;
+        }
+        .back-link:hover { opacity: 0.75; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .form-card { padding: 28px 20px; border-radius: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
+        <h2>Finding Your Dream Property...</h2>
+    </div>
+
+    <div class="bg-particles">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="forgot-wrapper">
+        <div class="form-card">
+            <div class="form-logo">
+                <a href="index.html"><img src="assets/blue logo.webp" alt="StacklyRealty Logo"></a>
+            </div>
+            <h2 class="form-title">Forgot Password?</h2>
+            <p class="form-subtitle">Enter your registered email address and we'll send you a reset link.</p>
+
+            <div id="forgotSuccess" class="alert alert-success">✅ If this email exists, a reset link has been sent.</div>
+
+            <form id="forgotForm" onsubmit="handleForgot(event); return false;">
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address</label>
+                    <input type="email" id="forgotEmail" required placeholder="example@domain.com">
+                </div>
+                <button type="submit" class="btn-submit">Send Reset Link →</button>
+                <a href="index.html" class="back-link">← Back to Login</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pre = document.getElementById('preloader');
+                pre.classList.add('preloader-hidden');
+                setTimeout(() => pre.style.display = 'none', 700);
+            }, 1000);
+        });
+
+        // Form handler
+        function handleForgot(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const email = document.getElementById('forgotEmail').value.trim();
+            if (!email) return false;
+            document.getElementById('forgotSuccess').style.display = 'block';
+            const form = document.getElementById('forgotForm');
+            form.style.opacity = '0.5';
+            form.style.pointerEvents = 'none';
+            setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+            return false;
+        }
+    </script>
+</body>
+</html>

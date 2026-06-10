@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard | StacklyRealty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #0b1329;
+            --secondary-color: #1a233d;
+            --accent-color: #c5a880;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --border: #e2e8f0;
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+        .slide-up { animation: slideUp 0.6s ease-out forwards; opacity: 0; transform: translateY(30px); }
+        .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .zoom-hover { overflow: hidden; }
+        .zoom-hover img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
+        .zoom-hover:hover img { transform: scale(1.1); }
+        .pulse { animation: pulse 2s infinite; }
+        .shake { animation: shake 0.5s ease-in-out infinite; transform-origin: top center; }
+        .bounce { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .bounce:hover { transform: scale(1.05); }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(197, 168, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); } }
+        @keyframes shake { 0% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } 100% { transform: rotate(0deg); } }
+        
+        /* Staggered Delays */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary-color);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0; top: 0; z-index: 200;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .sidebar-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .nav-items { flex: 1; padding: 20px 0; overflow-y: auto; }
+        /* Custom scrollbar for sidebar */
+        .nav-items::-webkit-scrollbar { width: 5px; }
+        .nav-items::-webkit-scrollbar-track { background: transparent; }
+        .nav-items::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        
+        .nav-item {
+            padding: 14px 24px;
+            display: flex; align-items: center; gap: 12px;
+            color: #cbd5e1; text-decoration: none;
+            transition: all 0.3s ease; font-weight: 500;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        .nav-item .icon { transition: transform 0.3s ease; display: inline-block; }
+        .nav-item:hover { background-color: rgba(255,255,255,0.08); color: #fff; }
+        .nav-item:hover .icon { transform: rotate(15deg) scale(1.1); }
+        .nav-item.active { background-color: rgba(255,255,255,0.08); color: #fff; border-left: 4px solid var(--accent-color); }
+        
+        .sidebar-footer { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .logout-btn {
+            display: block; width: 100%; padding: 12px;
+            background: rgba(239, 68, 68, 0.1); color: #f87171;
+            text-align: center; border-radius: 6px; text-decoration: none;
+            font-weight: 600; transition: 0.3s;
+        }
+        .logout-btn:hover { background: rgba(239, 68, 68, 0.2); }
+
+        /* Main Content */
+        .main-content {
+            flex: 1; margin-left: 260px; padding: 0; display: flex; flex-direction: column;
+            background: var(--bg-color); min-height: 100vh; width: calc(100% - 260px);
+        }
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fff; padding: 15px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo-center {
+            position: absolute; left: 50%; transform: translateX(-50%);
+        }
+        .logo-center img { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { display: block; width: 25px; height: 3px; background: var(--text-dark); border-radius: 3px; }
+        
+        .user-profile {
+            display: flex; align-items: center; gap: 15px;
+        }
+        .user-badge {
+            background: var(--bg-color); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--border);
+        }
+        .notification-bell {
+            position: relative; cursor: pointer; font-size: 1.2rem;
+        }
+        .notification-bell .badge {
+            position: absolute; top: -5px; right: -8px; background: var(--danger); color: white;
+            font-size: 0.6rem; padding: 2px 5px; border-radius: 10px; font-weight: bold;
+        }
+
+        /* Section Container */
+        .section-container { padding: 30px; display: none; flex: 1; }
+        .section-container.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .section-header { margin-bottom: 25px; }
+        .section-title { font-family: var(--font-heading); font-size: 1.8rem; color: var(--primary-color); }
+
+        /* Dashboard Grid */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .col-3 { grid-column: span 3; } .col-4 { grid-column: span 4; } .col-6 { grid-column: span 6; } .col-8 { grid-column: span 8; } .col-12 { grid-column: span 12; }
+        
+        /* Stats Cards */
+        .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); font-family: var(--font-heading); margin: 10px 0; }
+        .stat-label { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+        .stat-trend { font-size: 0.85rem; font-weight: 600; }
+        .trend-up { color: var(--success); } .trend-down { color: var(--danger); }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        th { background: #f8fafc; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
+        tr { transition: background 0.2s; }
+        tr:hover td { background: #f8fafc; }
+        
+        /* Badges & Buttons */
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+        .bg-success { background: #dcfce7; color: #166534; }
+        .bg-warning { background: #fef9c3; color: #854d0e; }
+        .bg-danger { background: #fee2e2; color: #991b1b; }
+        .bg-primary { background: rgba(11, 19, 41, 0.1); color: var(--primary-color); }
+        
+        .btn { padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none; display: inline-block; transition: all 0.2s; }
+        .btn-primary { background: var(--primary-color); color: #fff; }
+        .btn-primary:hover { background: var(--secondary-color); }
+        .btn-accent { background: var(--accent-color); color: #fff; }
+        .btn-accent:hover { background: #b0926a; }
+
+        /* Property Cards */
+        .property-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+        .property-img { height: 180px; width: 100%; position: relative; }
+        .property-badge { position: absolute; top: 10px; right: 10px; z-index: 10; }
+        .property-info { padding: 15px; flex: 1; display: flex; flex-direction: column; }
+        .property-price { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--primary-color); }
+        
+        /* Progress Bars */
+        .progress-bar-container { width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+        .progress-bar { height: 100%; background: var(--accent-color); width: 0%; transition: width 1.5s ease-out; }
+        
+        /* Timeline */
+        .timeline { position: relative; padding-left: 20px; margin-top: 15px; }
+        .timeline::before { content: ''; position: absolute; left: 4px; top: 0; height: 100%; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 20px; }
+        .timeline-item::before { content: ''; position: absolute; left: -20px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-color); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--accent-color); }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+        .tab { padding: 10px 20px; cursor: pointer; font-weight: 600; color: var(--text-muted); border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .tab:hover, .tab.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
+
+        /* Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Preloader */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.6s ease; }
+        #preloader img { width: 120px; animation: pulse 1.5s infinite; }
+
+        /* Responsive */
+        .sidebar-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 150; }
+        @media (max-width: 1024px) { .col-3, .col-4 { grid-column: span 6; } }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+            .hamburger { display: flex; }
+            .sidebar-overlay.active { display: block; }
+            .col-6, .col-8, .col-3, .col-4 { grid-column: span 12; }
+            .logo-center { display: none; }
+            .top-bar { flex-direction: row; justify-content: space-between; align-items: center; padding: 15px 20px; }
+            .user-profile { margin-left: auto; }
+            .hamburger { margin-right: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
+        <h2 style="margin-top:20px; font-family: var(--font-heading); color: var(--primary-color);">Finding your dream property...</h2>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Agent Panel</h2>
+        </div>
+        <nav class="nav-items">
+            <a onclick="showSection('overview')" class="nav-item active" id="nav-overview"><span class="icon">📊</span> Overview</a>
+            <a onclick="showSection('property')" class="nav-item" id="nav-property"><span class="icon">🏢</span> Properties</a>
+            <a onclick="showSection('users')" class="nav-item" id="nav-users"><span class="icon">👥</span> Users</a>
+            <a onclick="showSection('analytics')" class="nav-item" id="nav-analytics"><span class="icon">📈</span> Analytics</a>
+            <a onclick="showSection('leads')" class="nav-item" id="nav-leads"><span class="icon">🎯</span> Leads</a>
+            <a onclick="showSection('reports')" class="nav-item" id="nav-reports"><span class="icon">📑</span> Reports</a>
+            <a onclick="showSection('notifications')" class="nav-item" id="nav-notifications"><span class="icon">🔔</span> Notifications</a>
+            <a onclick="showSection('extras')" class="nav-item" id="nav-extras"><span class="icon">✨</span> Extras</a>
+            <a onclick="showSection('settings')" class="nav-item" id="nav-settings"><span class="icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="logout-btn bounce">🚪 Log Out</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="logo-center slide-up">
+                <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
+            </div>
+            <div class="user-profile slide-up delay-1">
+                <div class="notification-bell shake" onclick="showSection('notifications')">
+                    🔔<span class="badge pulse">3</span>
+                </div>
+                <span class="user-badge" id="agentNameDisplay">👋 Agent User</span>
+            </div>
+        </header>
+
+        <!-- 1. Overview Section -->
+        <section id="sec-overview" class="section-container active">
+            <div class="section-header slide-up">
+                <h1 class="section-title">Welcome back!</h1>
+                <p style="color: var(--text-muted); margin-top: 5px;">Here is your summary for today.</p>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card col-3 hover-lift slide-up delay-1">
+                    <div class="stat-label">Total Properties</div>
+                    <div class="stat-value counter" data-target="1248">0</div>
+                    <div class="stat-trend trend-up">↑ 12% this month</div>
+                </div>
+                <div class="card col-3 hover-lift slide-up delay-2">
+                    <div class="stat-label">Active Listings</div>
+                    <div class="stat-value counter" data-target="856">0</div>
+                    <div class="stat-trend trend-up">↑ 5% this month</div>
+                </div>
+                <div class="card col-3 hover-lift slide-up delay-3">
+                    <div class="stat-label">Sold Properties</div>
+                    <div class="stat-value counter" data-target="392">0</div>
+                    <div class="stat-trend trend-up">↑ 18% this month</div>
+                </div>
+                <div class="card col-3 hover-lift slide-up delay-4">
+                    <div class="stat-label">Monthly Revenue</div>
+                    <div class="stat-value counter" data-target="145" data-prefix="₹" data-suffix="Cr">0</div>
+                    <div class="stat-trend trend-up">↑ 8% this month</div>
+                </div>
+                
+                <div class="card col-8 slide-up delay-1">
+                    <h3 style="margin-bottom: 15px;">Revenue Overview</h3>
+                    <div style="height: 300px;"><canvas id="revenueChart"></canvas></div>
+                </div>
+                <div class="card col-4 slide-up delay-2">
+                    <h3 style="margin-bottom: 15px;">Recent Activities</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>New Listing Added</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Luxury Villa in Ooty</p>
+                            <small>10 mins ago</small>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Deal Closed</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Apartment in Chennai</p>
+                            <small>2 hours ago</small>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>New User Registered</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">John Doe</p>
+                            <small>5 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Property Dashboard -->
+        <section id="sec-property" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Property Management</h1>
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <input type="text" id="propSearchInput" placeholder="Search properties..." style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; width: 300px; max-width: 100%;">
+                    <select id="propCategorySelect" style="padding: 10px; border: 1px solid var(--border); border-radius: 6px;">
+                        <option value="all">All Categories</option>
+                        <option value="residential">Residential</option>
+                        <option value="commercial">Commercial</option>
+                    </select>
+                    <button class="btn btn-primary bounce">+ Add Property</button>
+                </div>
+            </div>
+            <div class="dashboard-grid">
+                <!-- Cards -->
+                <div class="card col-4 property-card hover-lift slide-up delay-1">
+                    <div class="property-img zoom-hover">
+                        <span class="status-badge property-badge bg-success">Available</span>
+                        <img src="assets/1.webp" alt="House">
+                    </div>
+                    <div class="property-info">
+                        <h3 style="margin-bottom: 5px;">Modern Villa in ECR</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Chennai, Tamil Nadu</p>
+                        <div class="property-price">₹4.5 Cr</div>
+                        <button class="btn btn-primary bounce" style="margin-top: 15px; width: 100%;">View Details</button>
+                    </div>
+                </div>
+                <div class="card col-4 property-card hover-lift slide-up delay-2">
+                    <div class="property-img zoom-hover">
+                        <span class="status-badge property-badge bg-danger">Sold</span>
+                        <img src="assets/2.webp" alt="House">
+                    </div>
+                    <div class="property-info">
+                        <h3 style="margin-bottom: 5px;">Luxury Penthouse</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Coimbatore</p>
+                        <div class="property-price">₹2.1 Cr</div>
+                        <button class="btn btn-primary bounce" style="margin-top: 15px; width: 100%;">View Details</button>
+                    </div>
+                </div>
+                <div class="card col-4 property-card hover-lift slide-up delay-3">
+                    <div class="property-img zoom-hover">
+                        <span class="status-badge property-badge bg-warning">Rented</span>
+                        <img src="assets/3.webp" alt="House">
+                    </div>
+                    <div class="property-info">
+                        <h3 style="margin-bottom: 5px;">Commercial Office Space</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Trichy</p>
+                        <div class="property-price">₹55,000 / mo</div>
+                        <button class="btn btn-primary bounce" style="margin-top: 15px; width: 100%;">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. User Dashboard -->
+        <section id="sec-users" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">User Dashboard</h1>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card col-8 slide-up delay-1" style="overflow-x: auto;">
+                    <h3 style="margin-bottom: 15px;">Recent Registrations</h3>
+                    <table>
+                        <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+                        <tbody>
+                            <tr class="fade-in delay-1">
+                                <td><div style="font-weight: 600;">Alice Smith</div><small style="color:var(--text-muted);">alice@example.com</small></td>
+                                <td><span class="status-badge bg-primary">Buyer</span></td>
+                                <td><span class="status-badge bg-success">Active</span></td>
+                                <td>Today</td>
+                            </tr>
+                            <tr class="fade-in delay-2">
+                                <td><div style="font-weight: 600;">Bob Jones</div><small style="color:var(--text-muted);">bob@example.com</small></td>
+                                <td><span class="status-badge bg-primary">Seller</span></td>
+                                <td><span class="status-badge bg-success">Active</span></td>
+                                <td>Yesterday</td>
+                            </tr>
+                            <tr class="fade-in delay-3">
+                                <td><div style="font-weight: 600;">Charlie Brown</div><small style="color:var(--text-muted);">charlie@example.com</small></td>
+                                <td><span class="status-badge bg-primary">Agent</span></td>
+                                <td><span class="status-badge bg-danger">Blocked</span></td>
+                                <td>2 days ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card col-4 slide-up delay-2">
+                    <h3 style="margin-bottom: 15px;">User Growth</h3>
+                    <div class="stat-value counter" data-target="2500">0</div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Total registered users across all platforms.</p>
+                    <div style="margin-top: 20px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.85rem; font-weight:600;"><span>Buyers</span><span>60%</span></div>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 60%;"></div></div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.85rem; font-weight:600;"><span>Sellers</span><span>30%</span></div>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 30%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Analytics Dashboard -->
+        <section id="sec-analytics" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Analytics & Insights</h1>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card col-6 slide-up delay-1">
+                    <h3 style="margin-bottom: 15px;">Property Type Distribution</h3>
+                    <div style="height: 300px;"><canvas id="pieChart"></canvas></div>
+                </div>
+                <div class="card col-6 slide-up delay-2">
+                    <h3 style="margin-bottom: 15px;">Monthly Sales Volume</h3>
+                    <div style="height: 300px;"><canvas id="barChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Lead Management Dashboard -->
+        <section id="sec-leads" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Lead Management</h1>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card col-12 slide-up delay-1">
+                    <h3 style="margin-bottom: 15px;">Active Leads</h3>
+                    <table>
+                        <thead><tr><th>Lead Name</th><th>Property Interest</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><div style="font-weight: 600;">Sara Connor</div><small>sara@mail.com</small></td>
+                                <td>Modern Villa in ECR</td>
+                                <td><span class="status-badge bg-warning pulse">Hot Lead</span></td>
+                                <td><button class="btn btn-accent bounce">Follow Up</button></td>
+                            </tr>
+                            <tr>
+                                <td><div style="font-weight: 600;">Tom Hardy</div><small>tom@mail.com</small></td>
+                                <td>Commercial Office</td>
+                                <td><span class="status-badge bg-primary">Contacted</span></td>
+                                <td><button class="btn btn-accent bounce">Follow Up</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Reports Dashboard -->
+        <section id="sec-reports" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Generated Reports</h1>
+            </div>
+            <div class="dashboard-grid">
+                <div class="card col-4 slide-up delay-1 hover-lift" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
+                    <h3>Monthly Sales Report</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 10px 0;">Summary of all closed deals in the current month.</p>
+                    <button class="btn btn-primary bounce" style="width: 100%;">Download PDF</button>
+                </div>
+                <div class="card col-4 slide-up delay-2 hover-lift" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📈</div>
+                    <h3>Annual Growth Report</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 10px 0;">Year-over-year growth analytics.</p>
+                    <button class="btn btn-primary bounce" style="width: 100%;">Download Excel</button>
+                </div>
+                <div class="card col-4 slide-up delay-3 hover-lift" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">👥</div>
+                    <h3>User Engagement</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 10px 0;">Detailed stats on platform usage.</p>
+                    <button class="btn btn-primary bounce" style="width: 100%;">Download CSV</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Settings Dashboard -->
+        <section id="sec-settings" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Platform Settings</h1>
+            </div>
+            <div class="card slide-up delay-1">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('tab-profile', this)">Profile</div>
+                    <div class="tab" onclick="switchTab('tab-notifications', this)">Notifications</div>
+                    <div class="tab" onclick="switchTab('tab-theme', this)">Theme</div>
+                </div>
+                <div id="tab-profile" class="tab-content active">
+                    <h3 style="margin-bottom: 15px;">Profile Settings</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 600px;">
+                        <div>
+                            <label style="display:block; margin-bottom:5px; font-weight:600; font-size:0.9rem;">First Name</label>
+                            <input type="text" value="Stackly" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom:5px; font-weight:600; font-size:0.9rem;">Last Name</label>
+                            <input type="text" value="User" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                        </div>
+                    </div>
+                    <button class="btn btn-success bounce" style="background:var(--success); color:white; margin-top:20px;" onclick="alert('✅ Profile Saved Successfully!')">Save Changes</button>
+                </div>
+                <div id="tab-notifications" class="tab-content">
+                    <h3 style="margin-bottom: 15px;">Notification Preferences</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 400px; padding: 10px 0; border-bottom: 1px solid var(--border);">
+                        <span style="font-weight: 600;">Email Alerts</span>
+                        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 400px; padding: 10px 0;">
+                        <span style="font-weight: 600;">SMS Alerts</span>
+                        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                    </div>
+                </div>
+                <div id="tab-theme" class="tab-content">
+                    <h3 style="margin-bottom: 15px;">Appearance</h3>
+                    <p>Dark mode toggle coming soon.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Notification Dashboard -->
+        <section id="sec-notifications" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">System Notifications</h1>
+            </div>
+            <div class="card slide-up delay-1" style="max-width: 800px;">
+                <div class="timeline">
+                    <div class="timeline-item slide-up delay-1">
+                        <h4>⚠️ System Maintenance</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Scheduled downtime on Saturday at 2 AM.</p>
+                    </div>
+                    <div class="timeline-item slide-up delay-2">
+                        <h4>🔔 New Feature Released</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">You can now export reports in PDF format.</p>
+                    </div>
+                    <div class="timeline-item slide-up delay-3">
+                        <h4>✅ Password Updated</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Your account password was changed successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Extra Sections -->
+        <section id="sec-extras" class="section-container">
+            <div class="section-header fade-in">
+                <h1 class="section-title">Extra Widgets & Tools</h1>
+            </div>
+            <div class="dashboard-grid">
+                <!-- Weather Widget -->
+                <div class="card col-4 slide-up delay-1 hover-lift" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3 style="font-size: 2rem;">28°C</h3>
+                            <p>Chennai, India</p>
+                        </div>
+                        <div style="font-size: 3rem; animation: pulse 3s infinite;">☀️</div>
+                    </div>
+                    <p style="margin-top: 15px; font-weight: 600;">Perfect weather for property visits!</p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card col-8 slide-up delay-2">
+                    <h3 style="margin-bottom: 15px;">Quick Actions</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <button class="btn btn-primary bounce">📅 Schedule Visit</button>
+                        <button class="btn btn-accent bounce">📧 Email Users</button>
+                        <button class="btn btn-primary bounce">🖨️ Print Brochure</button>
+                        <button class="btn btn-accent bounce">⚙️ Advanced Settings</button>
+                    </div>
+                </div>
+                
+                <!-- Customer Reviews (Auto Sliding mock) -->
+                <div class="card col-12 slide-up delay-3">
+                    <h3 style="margin-bottom: 15px;">Recent Reviews</h3>
+                    <div style="display: flex; gap: 20px; overflow-x: auto; padding-bottom: 10px;">
+                        <div style="min-width: 300px; padding: 15px; background: var(--bg-color); border-radius: 8px;">
+                            <div style="color: var(--warning); margin-bottom: 5px;">⭐⭐⭐⭐⭐</div>
+                            <p style="font-size: 0.9rem; font-style: italic;">"StacklyRealty made finding my dream home incredibly easy!"</p>
+                            <h5 style="margin-top: 10px;">- Sarah M.</h5>
+                        </div>
+                        <div style="min-width: 300px; padding: 15px; background: var(--bg-color); border-radius: 8px;">
+                            <div style="color: var(--warning); margin-bottom: 5px;">⭐⭐⭐⭐⭐</div>
+                            <p style="font-size: 0.9rem; font-style: italic;">"Great property management tools for sellers. Highly recommend."</p>
+                            <h5 style="margin-top: 10px;">- Raj K.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Set Username
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.name) {
+                document.getElementById('agentNameDisplay').textContent = '👋 ' + currentUser.name;
+            }
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 600);
+            }, 1200);
+            
+            // Trigger counters
+            runCounters();
+        });
+
+        // Sidebar Navigation
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-container').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            // Show target section
+            document.getElementById('sec-' + sectionId).classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.getElementById('nav-' + sectionId).classList.add('active');
+            
+            // Close sidebar on mobile
+            if(window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+
+            // Rerun counters if overview
+            if(sectionId === 'overview') runCounters();
+        }
+
+        // Tabs
+        function switchTab(tabId, el) {
+            const parent = el.closest('.card');
+            parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Counter Up Animation
+        function runCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                counter.innerText = '0';
+                const target = +counter.getAttribute('data-target');
+                const prefix = counter.getAttribute('data-prefix') || '';
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const increment = target / 50; 
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if(current < target) {
+                        counter.innerText = prefix + Math.ceil(current).toLocaleString() + suffix;
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = prefix + target.toLocaleString() + suffix;
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Initialize Charts
+        window.addEventListener('DOMContentLoaded', () => {
+            // Revenue Line Chart
+            const ctx1 = document.getElementById('revenueChart');
+            if(ctx1) {
+                new Chart(ctx1.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Revenue (Lakhs)',
+                            data: [45, 52, 61, 59, 75, 84],
+                            borderColor: '#c5a880',
+                            backgroundColor: 'rgba(197, 168, 128, 0.1)',
+                            borderWidth: 2, fill: true, tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // Pie Chart
+            const ctx2 = document.getElementById('pieChart');
+            if(ctx2) {
+                new Chart(ctx2.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Residential', 'Commercial', 'Land'],
+                        datasets: [{
+                            data: [60, 25, 15],
+                            backgroundColor: ['#0b1329', '#c5a880', '#e2d4be']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // Bar Chart
+            const ctx3 = document.getElementById('barChart');
+            if(ctx3) {
+                new Chart(ctx3.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                        datasets: [{
+                            label: 'Sales Vol',
+                            data: [120, 150, 180, 220],
+                            backgroundColor: '#0b1329'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // Property Filter Logic
+            const searchInput = document.getElementById('propSearchInput');
+            const categorySelect = document.getElementById('propCategorySelect');
+            if(searchInput && categorySelect) {
+                const filterProps = () => {
+                    const term = searchInput.value.toLowerCase();
+                    const cat = categorySelect.value;
+                    document.querySelectorAll('.property-card').forEach(card => {
+                        const text = card.innerText.toLowerCase();
+                        const matchTerm = text.includes(term);
+                        const matchCat = cat === 'all' || text.includes(cat);
+                        card.style.display = (matchTerm && matchCat) ? 'flex' : 'none';
+                    });
+                };
+                searchInput.addEventListener('input', filterProps);
+                categorySelect.addEventListener('change', filterProps);
+            }
+        });
+    </script>
+    <!-- Button linker added by script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll("button, a.btn, a[class*='btn']").forEach(el => {
+                if (!el.classList.contains('hamburger')) {
+                    if(el.tagName === 'A') {
+                        el.href = '404.html';
+                    } else {
+                        el.onclick = (e) => {
+                            e.preventDefault();
+                            window.location.href = '404.html';
+                        };
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

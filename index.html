@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StacklyRealty</title>
+    <meta name="description" content="Login to your StacklyRealty dashboard and manage premium properties.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0b1329;
+            --secondary: #1a233d;
+            --accent: #c5a880;
+            --mint: #e2d4be;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(135deg, rgba(11, 19, 41, 0.9) 0%, rgba(26, 35, 61, 0.75) 100%),
+                url('assets/bg.webp') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* ── Preloader ── */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            transition: opacity 0.7s ease;
+        }
+
+        #preloader img {
+            width: 120px;
+            height: auto;
+            object-fit: contain;
+            animation: preloaderPulse 1.5s ease-in-out infinite;
+        }
+
+        #preloader h2 {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes preloaderPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.85;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .preloader-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ── Floating particles background ── */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-particles span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(197, 168, 128, 0.25);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bg-particles span:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 10s;
+        }
+
+        .bg-particles span:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            width: 8px;
+            height: 8px;
+        }
+
+        .bg-particles span:nth-child(3) {
+            top: 40%;
+            left: 50%;
+            animation-delay: 4s;
+            animation-duration: 9s;
+        }
+
+        .bg-particles span:nth-child(4) {
+            top: 80%;
+            left: 25%;
+            animation-delay: 1s;
+            animation-duration: 11s;
+            width: 10px;
+            height: 10px;
+        }
+
+        .bg-particles span:nth-child(5) {
+            top: 15%;
+            left: 70%;
+            animation-delay: 3s;
+            animation-duration: 13s;
+        }
+
+        .bg-particles span:nth-child(6) {
+            top: 70%;
+            left: 40%;
+            animation-delay: 5s;
+            animation-duration: 8s;
+            width: 5px;
+            height: 5px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+
+            25% {
+                transform: translateY(-30px) translateX(15px);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-15px) translateX(-10px);
+                opacity: 0.4;
+            }
+
+            75% {
+                transform: translateY(-40px) translateX(20px);
+                opacity: 0.5;
+            }
+        }
+
+        /* ── Centered Card ── */
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: 44px 40px;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(197, 168, 128, 0.15);
+            backdrop-filter: blur(20px);
+        }
+
+        .form-logo {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .form-logo img {
+            height: 72px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .form-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        /* Form groups */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            margin-bottom: 7px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: #fafafa;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.18);
+            background: #fff;
+        }
+
+        .password-wrap {
+            position: relative;
+        }
+
+        .password-wrap input {
+            padding-right: 60px;
+        }
+
+        .toggle-pw {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: color 0.2s;
+        }
+
+        .toggle-pw:hover {
+            color: var(--primary);
+        }
+
+        /* Checkbox row */
+        .checkbox-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 16px 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .checkbox-row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .checkbox-row input[type=checkbox] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+
+        .forgot-link {
+            font-size: 0.88rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .forgot-link:hover {
+            opacity: 0.75;
+        }
+
+        /* Submit button */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent) 0%, #a18256 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
+            margin-top: 8px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* Messages */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid var(--success);
+        }
+
+        .signup-link {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            opacity: 0.75;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── MOBILE RESPONSIVE ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .form-card {
+                padding: 28px 20px;
+                border-radius: 18px;
+            }
+
+            .form-title {
+                font-size: 1.6rem;
+            }
+
+            .form-logo img {
+                height: 58px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
+        <h2>Finding Your Dream Property...</h2>
+    </div>
+
+    <!-- Background particles -->
+    <div class="bg-particles">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <!-- ── Centered Login Card ── -->
+    <div class="login-wrapper">
+        <div class="form-card">
+            <div class="form-logo">
+                <a href="index.html"><img src="assets/blue logo.webp" alt="StacklyRealty Logo"></a>
+            </div>
+            <h2 class="form-title">Welcome Back</h2>
+            <p class="form-subtitle">Log in to access your real estate portal</p>
+
+            <div id="loginError" class="alert alert-error">Invalid credentials.</div>
+            <div id="loginSuccess" class="alert alert-success">✅ Login successful!</div>
+
+            <form id="loginForm" autocomplete="off">
+                <div class="form-group">
+                    <label for="email">Email or Username</label>
+                    <input type="email" id="email" placeholder="e.g. buyer@realty.com" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrap">
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <button type="button" class="toggle-pw" onclick="togglePassword('password', this)">Show</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" required>
+                        <option value="">Select Your Role</option>
+                        <option value="seller">🏠 Property Seller / Owner</option>
+                        <option value="buyer">🔑 Property Buyer / Tenant</option>
+                        <option value="agent">👔 Real Estate Agent</option>
+                        <option value="admin">⚙️ Admin</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-row">
+                    <label>
+                        <input type="checkbox" id="rememberMe">
+                        Remember Me
+                    </label>
+                    <a href="forgot.html" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login" onclick="handleLogin(event)">Login →</button>
+
+                <p class="signup-link">Don't have an account? <a href="signup.html">Sign Up Here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pre = document.getElementById('preloader');
+                pre.classList.add('preloader-hidden');
+                setTimeout(() => pre.style.display = 'none', 700);
+            }, 1200);
+        });
+
+        // Toggle Password
+        function togglePassword(id, btn) {
+            const inp = document.getElementById(id);
+            if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
+            else { inp.type = 'password'; btn.textContent = 'Show'; }
+        }
+
+        // Seed default users
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('realty_users')) {
+                localStorage.setItem('realty_users', JSON.stringify([
+                    { id: 'U101', name: 'Admin', email: 'admin@realty.com', mobile: '9876543210', location: 'Trichy', password: 'admin', role: 'admin', regDate: '2026-06-05', status: 'Active' },
+                    { id: 'U102', name: 'Seller', email: 'seller@realty.com', mobile: '9876543211', location: 'Salem', password: 'seller', role: 'seller', regDate: '2026-06-05', status: 'Active' },
+                    { id: 'U103', name: 'Buyer', email: 'buyer@realty.com', mobile: '9876543212', location: 'Madurai', password: 'buyer', role: 'buyer', regDate: '2026-06-05', status: 'Active' },
+                    { id: 'U104', name: 'Agent', email: 'agent@realty.com', mobile: '9876543213', location: 'Coimbatore', password: 'agent', role: 'agent', regDate: '2026-06-05', status: 'Active' }
+                ]));
+            }
+        });
+
+        // Handle Login
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const errEl = document.getElementById('loginError');
+            const sucEl = document.getElementById('loginSuccess');
+            errEl.style.display = 'none';
+            sucEl.style.display = 'none';
+
+            if (!email || !password || !role) {
+                errEl.style.display = 'block';
+                errEl.textContent = '⚠️ Please fill out all required fields.';
+                return;
+            }
+            if (email.includes('@') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errEl.style.display = 'block';
+                errEl.textContent = '⚠️ Please enter a valid email address.';
+                return;
+            }
+            const users = JSON.parse(localStorage.getItem('realty_users') || '[]');
+            let user = users.find(u =>
+                (u.email === email || u.name === email) && u.role === role
+            );
+
+            // Allow direct login with any email and password
+            if (!user) {
+                user = {
+                    id: 'U' + Math.floor(100 + Math.random() * 900),
+                    name: email.includes('@') ? email.split('@')[0] : email,
+                    email: email,
+                    role: role,
+                    status: 'Active',
+                    location: 'Unknown',
+                    mobile: '0000000000'
+                };
+            }
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                sucEl.style.display = 'block';
+                sucEl.textContent = '✅ Login successful! Redirecting...';
+                document.querySelector('.form-card').style.opacity = '0.6';
+                document.querySelector('.form-card').style.pointerEvents = 'none';
+                setTimeout(() => {
+                    const routes = {
+                        seller: 'seller_dashboard.html',
+                        admin: 'admin_dashboard.html',
+                        buyer: 'buyer_dashboard.html',
+                        agent: 'agent_dashboard.html'
+                    };
+                    window.location.href = routes[user.role] || 'index.html';
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+
+</html>

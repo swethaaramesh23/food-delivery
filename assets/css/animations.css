@@ -1,0 +1,177 @@
+/* ==============================
+   Custom Animations & Effects
+   ============================== */
+
+/* Hero Section */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  animation: zoomBg 20s infinite alternate ease-in-out;
+}
+@keyframes zoomBg {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+.hero-title .hero-letter {
+  opacity: 0;
+  display: inline-block;
+  animation: fadeInLetter 1s forwards;
+}
+@keyframes fadeInLetter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-btn {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpBtn 0.8s forwards;
+  animation-delay: 0.5s;
+}
+@keyframes slideUpBtn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating Leaves */
+.leaves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.leaf {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url('assets/leaf.png') no-repeat center/contain;
+  animation: floatLeaf 10s linear infinite;
+}
+@keyframes floatLeaf {
+  0% { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* About Section */
+.about-img, .about-content {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.about-section.visible .about-img,
+.about-section.visible .about-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+.about-img { transform: translateX(-50px); }
+.about-content { transform: translateX(50px); }
+
+/* Services Cards */
+.service-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.service-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.service-card:hover .service-icon {
+  animation: bounceRotate 1s infinite;
+}
+@keyframes bounceRotate {
+  0%,100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(15deg) translateY(-5px); }
+}
+/* Staggered appearance */
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+.service-card:nth-child(4) { animation-delay: 0.4s; }
+.service-card:nth-child(5) { animation-delay: 0.5s; }
+.service-card:nth-child(6) { animation-delay: 0.6s; }
+.service-card:nth-child(7) { animation-delay: 0.7s; }
+.service-card:nth-child(8) { animation-delay: 0.8s; }
+
+/* Product Cards (Crop Cards) */
+.crop-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.crop-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.crop-card img {
+  transition: transform 0.5s ease;
+}
+.crop-card:hover img {
+  transform: scale(1.05);
+}
+.crop-card .cta-button {
+  box-shadow: 0 0 0 0 rgba(255,255,0,0.7);
+  animation: glow 1.5s infinite;
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 5px 0 rgba(255,255,0,0.7); }
+  50% { box-shadow: 0 0 15px 5px rgba(255,255,0,0.9); }
+  100% { box-shadow: 0 0 5px 0 rgba(255,255,0,0.7); }
+}
+
+/* How It Works Timeline */
+.how-it-steps .step-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.how-it-steps .step-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.progress-line {
+  width: 0%;
+  height: 4px;
+  background: var(--primary-color);
+  transition: width 0.5s ease;
+}
+.progress-line.filled { width: 100%; }
+
+/* Testimonials Slider */
+.testimonial-item {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.8s ease;
+}
+.testimonial-item.active { opacity: 1; }
+.star { display: inline-block; animation: starPop 1s ease; }
+@keyframes starPop { 0% { transform: scale(0); opacity:0; } 80% { transform: scale(1.2); opacity:1; } 100% { transform:scale(1); } }
+
+/* News Cards */
+.news-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.news-card.visible { opacity:1; transform:translateY(0); }
+.news-card img { transition: transform 0.5s ease; }
+.news-card:hover img { transform: scale(1.05); }
+.read-more-arrow { display:inline-block; transition: transform 0.3s ease; }
+.read-more:hover .read-more-arrow { transform: translateX(5px); }
+
+/* Contact Form */
+.contact-field {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.contact-field.visible { opacity:1; transform:translateY(0); }
+.submit-btn { animation: pulseBtn 2s infinite; }
+@keyframes pulseBtn { 0%,100% { transform:scale(1); } 50% { transform:scale(1.05); } }
