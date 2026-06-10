@@ -7,9 +7,9 @@
 
 :root {
     /* Color Palette */
-    --primary: #FF6B35;
-    --primary-rgb: 255, 107, 53;
-    --primary-hover: #e05621;
+    --primary: #16a34a;
+    --primary-rgb: 22, 163, 74;
+    --primary-hover: #15803d;
     --secondary: #1A1A1A;
     --secondary-rgb: 26, 26, 26;
     --background: #FFFFFF; /* Pure White Background as requested */
@@ -20,10 +20,10 @@
     --text-main: #2C2C2C;
     --text-muted: #666666;
     --card-bg: rgba(255, 255, 255, 0.95);
-    --card-border: rgba(255, 107, 53, 0.15);
+    --card-border: rgba(22, 163, 74, 0.15);
     --white: #FFFFFF;
     --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 10px 25px -5px rgba(255, 107, 53, 0.08);
+    --shadow-md: 0 10px 25px -5px rgba(22, 163, 74, 0.08);
     --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
     
     /* Layout Constants */
@@ -966,6 +966,26 @@ button {
 }
 
 .menu-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.food-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    z-index: 10;
+    text-transform: uppercase;
+}
+.badge-veg { background: #16a34a; color: white; }
+.badge-bestseller { background: #FF9500; color: white; }
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -2365,3 +2385,9 @@ section, .section-padding, body, main {
         height: auto;
     }
 }
+
+
+
+/* Accessibility Focus States */
+*:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+

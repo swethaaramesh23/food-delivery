@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 observer.unobserve(target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.1 });
     
     counterElements.forEach(el => statsObserver.observe(el));
 
@@ -583,3 +583,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+
+    // Dynamic Footer Year
+    document.querySelectorAll('.current-year').forEach(el => { el.innerText = new Date().getFullYear(); });
