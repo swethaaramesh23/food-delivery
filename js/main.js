@@ -92,18 +92,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const navMenu = document.getElementById("nav-menu");
     
     if (navToggle && navMenu) {
-        navToggle.addEventListener("click", () => {
+        // Create nav overlay dynamically
+        let navOverlay = document.getElementById("nav-overlay");
+        if (!navOverlay) {
+            navOverlay = document.createElement("div");
+            navOverlay.className = "nav-overlay";
+            navOverlay.id = "nav-overlay";
+            document.body.appendChild(navOverlay);
+        }
+
+        function toggleNav() {
             navMenu.classList.toggle("open");
+            navOverlay.classList.toggle("open");
             const spans = navToggle.querySelectorAll("span");
             if (navMenu.classList.contains("open")) {
+                document.body.style.overflow = "hidden"; // Disable scroll
                 spans[0].style.transform = "rotate(45deg) translate(6px, 6px)";
                 spans[1].style.opacity = "0";
                 spans[2].style.transform = "rotate(-45deg) translate(6px, -6px)";
             } else {
+                document.body.style.overflow = ""; // Enable scroll
                 spans[0].style.transform = "none";
                 spans[1].style.opacity = "1";
                 spans[2].style.transform = "none";
             }
+        }
+
+                navToggle.addEventListener("click", toggleNav);
+        navOverlay.addEventListener("click", toggleNav);
+
+        // Close menu on link click
+        const navLinks = navMenu.querySelectorAll(".nav-link");
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                if (navMenu.classList.contains("open")) {
+                    toggleNav();
+                }
+            });
         });
     }
 
@@ -149,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartItemsList = document.getElementById("cart-items-list");
     const cartSubtotalVal = document.getElementById("cart-subtotal-val");
     
-    let cart = JSON.parse(localStorage.getItem("stackly_cart")) || [];
+    let cart = []; try { cart = JSON.parse(localStorage.getItem("stackly_cart")) || []; } catch(e) { cart = []; }
     
     function saveCart() {
         localStorage.setItem("stackly_cart", JSON.stringify(cart));
@@ -556,3 +581,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dynamic dashboard button removed to always show Login as requested
 
 });
+
+

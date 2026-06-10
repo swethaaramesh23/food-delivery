@@ -346,8 +346,7 @@ button {
     gap: 20px;
 }
 
-.action-btn {
-    font-size: 1.3rem;
+.action-btn { z-index: 1001; cursor: pointer; font-size: 1.3rem;
     color: var(--secondary);
     position: relative;
     transition: var(--transition-fast);
@@ -1051,10 +1050,7 @@ button {
     font-family: 'Outfit', sans-serif;
 }
 
-.add-to-cart-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.add-to-cart-btn { width: auto; padding: 0 16px; height: 40px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
     background-color: var(--secondary);
     color: var(--white);
     display: flex;
@@ -2136,8 +2132,7 @@ textarea.form-input {
         flex-wrap: wrap;
     }
     
-    .hero-img-wrapper {
-        order: -1;
+    .hero-img-wrapper { order: -1; display: flex !important; opacity: 1 !important; visibility: visible !important; z-index: 1; 
         margin-bottom: 30px;
     }
     
@@ -2335,4 +2330,38 @@ section, .section-padding, body, main {
 @keyframes preloaderBounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
+}
+
+
+
+
+
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+.nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 767px) {
+    .deal-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    .deal-card img {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+    }
 }

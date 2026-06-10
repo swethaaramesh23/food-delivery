@@ -231,6 +231,7 @@ body.dashboard-body.sidebar-collapsed .dashboard-main {
     gap: 24px;
 }
 
+.topbar-title { flex: 1; text-align: center; }
 .topbar-title h2 {
     font-size: 1.8rem;
     margin-bottom: 4px;
@@ -1085,7 +1086,8 @@ body.dashboard-body.sidebar-collapsed .dashboard-main {
     }
 
     /* Fix topbar title overflow */
-    .topbar-title h2 {
+    .topbar-title { flex: 1; text-align: center; }
+.topbar-title h2 {
         font-size: 1.4rem;
     }
 
@@ -1109,3 +1111,4 @@ body.dashboard-body.sidebar-collapsed .dashboard-main {
         height: 42px !important;
     }
 }
+
