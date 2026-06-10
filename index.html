@@ -1,601 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - StacklyRealty</title>
-    <meta name="description" content="Login to your StacklyRealty dashboard and manage premium properties.">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0b1329;
-            --secondary: #1a233d;
-            --accent: #c5a880;
-            --mint: #e2d4be;
-            --white: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --success: #10b981;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background:
-                linear-gradient(135deg, rgba(11, 19, 41, 0.9) 0%, rgba(26, 35, 61, 0.75) 100%),
-                url('assets/bg.webp') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        /* ── Preloader ── */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            transition: opacity 0.7s ease;
-        }
-
-        #preloader img {
-            width: 120px;
-            height: auto;
-            object-fit: contain;
-            animation: preloaderPulse 1.5s ease-in-out infinite;
-        }
-
-        #preloader h2 {
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes preloaderPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.85;
-            }
-
-            50% {
-                transform: scale(1.08);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        .preloader-hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* ── Floating particles background ── */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-particles span {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(197, 168, 128, 0.25);
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .bg-particles span:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-            animation-duration: 10s;
-        }
-
-        .bg-particles span:nth-child(2) {
-            top: 60%;
-            left: 80%;
-            animation-delay: 2s;
-            animation-duration: 12s;
-            width: 8px;
-            height: 8px;
-        }
-
-        .bg-particles span:nth-child(3) {
-            top: 40%;
-            left: 50%;
-            animation-delay: 4s;
-            animation-duration: 9s;
-        }
-
-        .bg-particles span:nth-child(4) {
-            top: 80%;
-            left: 25%;
-            animation-delay: 1s;
-            animation-duration: 11s;
-            width: 10px;
-            height: 10px;
-        }
-
-        .bg-particles span:nth-child(5) {
-            top: 15%;
-            left: 70%;
-            animation-delay: 3s;
-            animation-duration: 13s;
-        }
-
-        .bg-particles span:nth-child(6) {
-            top: 70%;
-            left: 40%;
-            animation-delay: 5s;
-            animation-duration: 8s;
-            width: 5px;
-            height: 5px;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0.3;
-            }
-
-            25% {
-                transform: translateY(-30px) translateX(15px);
-                opacity: 0.6;
-            }
-
-            50% {
-                transform: translateY(-15px) translateX(-10px);
-                opacity: 0.4;
-            }
-
-            75% {
-                transform: translateY(-40px) translateX(20px);
-                opacity: 0.5;
-            }
-        }
-
-        /* ── Centered Card ── */
-        .login-wrapper {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 440px;
-            animation: fadeUp 0.7s ease both;
-        }
-
-        .form-card {
-            background: rgba(255, 255, 255, 0.97);
-            border-radius: 24px;
-            padding: 44px 40px;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.35),
-                0 0 0 1px rgba(197, 168, 128, 0.15);
-            backdrop-filter: blur(20px);
-        }
-
-        .form-logo {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .form-logo img {
-            height: 72px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-        }
-
-        .form-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        .form-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 28px;
-        }
-
-        /* Form groups */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.88rem;
-            color: var(--text-dark);
-            margin-bottom: 7px;
-            letter-spacing: 0.3px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            background: #fafafa;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.18);
-            background: #fff;
-        }
-
-        .password-wrap {
-            position: relative;
-        }
-
-        .password-wrap input {
-            padding-right: 60px;
-        }
-
-        .toggle-pw {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            transition: color 0.2s;
-        }
-
-        .toggle-pw:hover {
-            color: var(--primary);
-        }
-
-        /* Checkbox row */
-        .checkbox-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 16px 0;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .checkbox-row label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        .checkbox-row input[type=checkbox] {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary);
-        }
-
-        .forgot-link {
-            font-size: 0.88rem;
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .forgot-link:hover {
-            opacity: 0.75;
-        }
-
-        /* Submit button */
-        .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--accent) 0%, #a18256 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
-            margin-top: 8px;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        /* Messages */
-        .alert {
-            padding: 12px 16px;
-            border-radius: 10px;
-            margin-bottom: 18px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: none;
-        }
-
-        .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border-left: 4px solid var(--danger);
-        }
-
-        .alert-success {
-            background: #dcfce7;
-            color: #166534;
-            border-left: 4px solid var(--success);
-        }
-
-        .signup-link {
-            margin-top: 22px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .signup-link a {
-            color: var(--primary);
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .signup-link a:hover {
-            opacity: 0.75;
-        }
-
-        /* ── ANIMATIONS ── */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ── MOBILE RESPONSIVE ── */
-        @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
-
-            .form-card {
-                padding: 28px 20px;
-                border-radius: 18px;
-            }
-
-            .form-title {
-                font-size: 1.6rem;
-            }
-
-            .form-logo img {
-                height: 58px;
-            }
-        }
-    </style>
+    <meta name="description" content="Foodies - The best food delivery service in town.">
+    <title>Foodies - Modern Food Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
-<body>
-
-    <!-- Preloader -->
+<body class="home-page">
+    <!-- 1. Preloader -->
     <div id="preloader">
-        <img src="assets/blue logo.webp" alt="StacklyRealty Logo">
-        <h2>Finding Your Dream Property...</h2>
-    </div>
-
-    <!-- Background particles -->
-    <div class="bg-particles">
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-    </div>
-
-    <!-- ── Centered Login Card ── -->
-    <div class="login-wrapper">
-        <div class="form-card">
-            <div class="form-logo">
-                <a href="index.html"><img src="assets/blue logo.webp" alt="StacklyRealty Logo"></a>
-            </div>
-            <h2 class="form-title">Welcome Back</h2>
-            <p class="form-subtitle">Log in to access your real estate portal</p>
-
-            <div id="loginError" class="alert alert-error">Invalid credentials.</div>
-            <div id="loginSuccess" class="alert alert-success">✅ Login successful!</div>
-
-            <form id="loginForm" autocomplete="off">
-                <div class="form-group">
-                    <label for="email">Email or Username</label>
-                    <input type="email" id="email" placeholder="e.g. buyer@realty.com" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="password-wrap">
-                        <input type="password" id="password" placeholder="Enter your password" required>
-                        <button type="button" class="toggle-pw" onclick="togglePassword('password', this)">Show</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" required>
-                        <option value="">Select Your Role</option>
-                        <option value="seller">🏠 Property Seller / Owner</option>
-                        <option value="buyer">🔑 Property Buyer / Tenant</option>
-                        <option value="agent">👔 Real Estate Agent</option>
-                        <option value="admin">⚙️ Admin</option>
-                    </select>
-                </div>
-
-                <div class="checkbox-row">
-                    <label>
-                        <input type="checkbox" id="rememberMe">
-                        Remember Me
-                    </label>
-                    <a href="forgot.html" class="forgot-link">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="btn-login" onclick="handleLogin(event)">Login →</button>
-
-                <p class="signup-link">Don't have an account? <a href="signup.html">Sign Up Here</a></p>
-            </form>
+        <div class="loader">
+            <i class="fas fa-hamburger fa-spin"></i>
+            <h2>Loading Tasty Food...</h2>
         </div>
     </div>
 
-    <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const pre = document.getElementById('preloader');
-                pre.classList.add('preloader-hidden');
-                setTimeout(() => pre.style.display = 'none', 700);
-            }, 1200);
-        });
+    <!-- 2. Sticky Header & Navigation -->
+    <header id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Foodies Logo">
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="offers.html" class="nav-link">Offers</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
 
-        // Toggle Password
-        function togglePassword(id, btn) {
-            const inp = document.getElementById(id);
-            if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
-            else { inp.type = 'password'; btn.textContent = 'Show'; }
-        }
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+                <div class="auth-links">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-        // Seed default users
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!localStorage.getItem('realty_users')) {
-                localStorage.setItem('realty_users', JSON.stringify([
-                    { id: 'U101', name: 'Admin', email: 'admin@realty.com', mobile: '9876543210', location: 'Trichy', password: 'admin', role: 'admin', regDate: '2026-06-05', status: 'Active' },
-                    { id: 'U102', name: 'Seller', email: 'seller@realty.com', mobile: '9876543211', location: 'Salem', password: 'seller', role: 'seller', regDate: '2026-06-05', status: 'Active' },
-                    { id: 'U103', name: 'Buyer', email: 'buyer@realty.com', mobile: '9876543212', location: 'Madurai', password: 'buyer', role: 'buyer', regDate: '2026-06-05', status: 'Active' },
-                    { id: 'U104', name: 'Agent', email: 'agent@realty.com', mobile: '9876543213', location: 'Coimbatore', password: 'agent', role: 'agent', regDate: '2026-06-05', status: 'Active' }
-                ]));
-            }
-        });
+    <!-- 3. Hero Section -->
+    <section id="home" class="hero section">
+        <div class="container hero-container grid">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <h4 class="subtitle">🚀 Fastest Delivery</h4>
+                <h1 class="title">Enjoy Delicious Food in <span>Your Home</span></h1>
+                <p class="description">
+                    We deliver the best and freshest food directly to your doorstep. Choose from our wide variety of delicious meals.
+                </p>
+                <div class="hero-btns">
+                    <a href="menu.html" class="btn btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn btn-outline play-btn"><i class="fas fa-play"></i> Watch Video</a>
+                </div>
+                <div class="floating-icons">
+                    <i class="fas fa-pizza-slice float-icon i1"></i>
+                    <i class="fas fa-hamburger float-icon i2"></i>
+                    <i class="fas fa-ice-cream float-icon i3"></i>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="hero-img-bg"></div>
+                <img src="image/0.webp" alt="Delicious Burger" class="main-img">
+                <div class="review-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="r-img"><img src="image/1a.webp" alt="User"></div>
+                    <div class="r-text">
+                        <h5>John Doe</h5>
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Handle Login
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const role = document.getElementById('role').value;
-            const errEl = document.getElementById('loginError');
-            const sucEl = document.getElementById('loginSuccess');
-            errEl.style.display = 'none';
-            sucEl.style.display = 'none';
+    <!-- 4. About Us Preview -->
+    <section class="about section bg-light">
+        <div class="container grid about-container">
+            <div class="about-img" data-aos="fade-right">
+                <img src="image/1.webp" alt="About Foodies">
+                <div class="experience-badge">
+                    <h3>10+</h3>
+                    <p>Years Experience</p>
+                </div>
+            </div>
+            <div class="about-content" data-aos="fade-left">
+                <h4 class="subtitle">About Us</h4>
+                <h2 class="title">We Cook The Best Tasty Food</h2>
+                <p>We cook the best food in the entire city, with excellent customer service, the best meals and at the best price, visit us.</p>
+                <ul class="about-list">
+                    <li><i class="fas fa-check-circle"></i> Fresh and organic ingredients</li>
+                    <li><i class="fas fa-check-circle"></i> Experienced & professional chefs</li>
+                    <li><i class="fas fa-check-circle"></i> Highest standards of cleanliness</li>
+                </ul>
+                <a href="about.html" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </section>
 
-            if (!email || !password || !role) {
-                errEl.style.display = 'block';
-                errEl.textContent = '⚠️ Please fill out all required fields.';
-                return;
-            }
-            if (email.includes('@') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                errEl.style.display = 'block';
-                errEl.textContent = '⚠️ Please enter a valid email address.';
-                return;
-            }
-            const users = JSON.parse(localStorage.getItem('realty_users') || '[]');
-            let user = users.find(u =>
-                (u.email === email || u.name === email) && u.role === role
-            );
+    <!-- 5. Featured Services -->
+    <section id="services" class="services section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">What We Serve</h4>
+            <h2 class="title">Your Favorite Food Delivery Partner</h2>
+        </div>
+        <div class="container grid services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i class="fas fa-shipping-fast"></i></div>
+                <h3>Easy To Order</h3>
+                <p>You only need a few steps in ordering food, and we'll take care of the rest.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i class="fas fa-box-open"></i></div>
+                <h3>Fastest Delivery</h3>
+                <p>Delivery that is always on time even faster, handled by our professionals.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box"><i class="fas fa-medal"></i></div>
+                <h3>Best Quality</h3>
+                <p>Not only fast for us quality is also number one. We provide the best.</p>
+            </div>
+        </div>
+    </section>
 
-            // Allow direct login with any email and password
-            if (!user) {
-                user = {
-                    id: 'U' + Math.floor(100 + Math.random() * 900),
-                    name: email.includes('@') ? email.split('@')[0] : email,
-                    email: email,
-                    role: role,
-                    status: 'Active',
-                    location: 'Unknown',
-                    mobile: '0000000000'
-                };
-            }
-            if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                sucEl.style.display = 'block';
-                sucEl.textContent = '✅ Login successful! Redirecting...';
-                document.querySelector('.form-card').style.opacity = '0.6';
-                document.querySelector('.form-card').style.pointerEvents = 'none';
-                setTimeout(() => {
-                    const routes = {
-                        seller: 'seller_dashboard.html',
-                        admin: 'admin_dashboard.html',
-                        buyer: 'buyer_dashboard.html',
-                        agent: 'agent_dashboard.html'
-                    };
-                    window.location.href = routes[user.role] || 'index.html';
-                }, 1500);
-            }
-        }
-    </script>
+    <!-- 6. Popular Food Menu -->
+    <section id="menu" class="menu section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Our Menu</h4>
+            <h2 class="title">Popular Food Categories</h2>
+        </div>
+        <div class="container grid menu-grid mt-3">
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="menu-img"><img src="image/2.webp" alt="Menu 1"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                    <h3>Cheesy Beef Burger</h3>
+                    <p>Delicious beef patty with extra cheese.</p>
+                    <div class="menu-bottom">
+                        <span class="price">$12.50</span>
+                        <button class="btn-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="menu-img"><img src="image/3.webp" alt="Menu 2"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.5</div>
+                    <h3>Spicy Pepperoni Pizza</h3>
+                    <p>Hot and spicy pizza with lots of pepperoni.</p>
+                    <div class="menu-bottom">
+                        <span class="price">$15.00</span>
+                        <button class="btn-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="menu-img"><img src="image/4.webp" alt="Menu 3"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                    <h3>Crispy Fried Chicken</h3>
+                    <p>Golden crispy chicken served with fries.</p>
+                    <div class="menu-bottom">
+                        <span class="price">$10.99</span>
+                        <button class="btn-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="menu-img"><img src="image/5.webp" alt="Menu 4"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                    <h3>Veggie Salad Bowl</h3>
+                    <p>Fresh vegetables mixed with olive oil.</p>
+                    <div class="menu-bottom">
+                        <span class="price">$8.50</span>
+                        <button class="btn-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center mt-3">
+            <a href="menu.html" class="btn btn-outline">View Full Menu</a>
+        </div>
+    </section>
+
+    <!-- 7. Featured Dishes -->
+    <section id="featured" class="featured section">
+        <div class="container grid featured-grid">
+            <div class="featured-content" data-aos="fade-right">
+                <h4 class="subtitle">Special Dish</h4>
+                <h2 class="title">Spicy Chicken Tikka Masala</h2>
+                <p>A classic favorite! Marinated chicken chunks cooked in a rich, creamy, and spicy tomato-based gravy. Perfect with naan or rice.</p>
+                <div class="price-large">$18.99</div>
+                <a href="menu.html" class="btn btn-primary mt-2">Order Now</a>
+            </div>
+            <div class="featured-img-wrap" data-aos="zoom-in">
+                <img src="image/6.webp" alt="Featured Dish" class="featured-img pulse-anim">
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Why Choose Us (Stats) -->
+    <section id="stats" class="stats section bg-gradient">
+        <div class="container grid stats-grid">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users fa-3x mb-1"></i>
+                <h3 class="counter" data-target="10000">0</h3>
+                <p>Happy Customers</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-utensils fa-3x mb-1"></i>
+                <h3 class="counter" data-target="500">0</h3>
+                <p>Food Items</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-store fa-3x mb-1"></i>
+                <h3 class="counter" data-target="100">0</h3>
+                <p>Restaurant Partners</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-clock fa-3x mb-1"></i>
+                <h3>24/7</h3>
+                <p>Delivery Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Special Offers -->
+    <section id="offers" class="offers section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Promotions</h4>
+            <h2 class="title">Today's Special Offers</h2>
+        </div>
+        <div class="container grid offers-grid mt-3">
+            <div class="offer-card" data-aos="fade-right">
+                <img src="image/7.webp" alt="Offer 1">
+                <div class="offer-content">
+                    <span class="discount">-50%</span>
+                    <h3>Tasty Pizza Duo</h3>
+                    <p>Buy 1 Get 1 Free on all Medium Pizzas today!</p>
+                    <a href="menu.html" class="btn btn-sm btn-primary">Claim Offer</a>
+                </div>
+            </div>
+            <div class="offer-card" data-aos="fade-left">
+                <img src="image/8.webp" alt="Offer 2">
+                <div class="offer-content">
+                    <span class="discount">-20%</span>
+                    <h3>Combo Meals</h3>
+                    <p>Get 20% off on all family combo meals.</p>
+                    <a href="menu.html" class="btn btn-sm btn-primary">Claim Offer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Customer Testimonials -->
+    <section id="testimonials" class="testimonials section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Testimonials</h4>
+            <h2 class="title">What Our Customers Say</h2>
+        </div>
+        <div class="container testimonial-container" data-aos="zoom-in">
+            <div class="testimonial-wrapper">
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+                    <p>"The food arrived hot and fresh! The delivery was incredibly fast. I'm definitely ordering from here again. Highly recommended!"</p>
+                    <div class="testi-user">
+                        <img src="image/1a.webp" alt="User">
+                        <div>
+                            <h4>Emily Smith</h4>
+                            <span>Food Blogger</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+                    <p>"Best burger I've had in a long time. The ingredients feel very high quality and the packaging kept everything perfect."</p>
+                    <div class="testi-user">
+                        <img src="image/1b.webp" alt="User">
+                        <div>
+                            <h4>Michael Johnson</h4>
+                            <span>Regular Customer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+                    <p>"Great app, very easy to use. The tracking feature is super helpful, and the delivery guys are always polite."</p>
+                    <div class="testi-user">
+                        <img src="image/1c.webp" alt="User">
+                        <div>
+                            <h4>Sarah Williams</h4>
+                            <span>Local Guide</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Food Gallery -->
+    <section id="gallery" class="gallery section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Gallery</h4>
+            <h2 class="title">Explore Our Food Gallery</h2>
+        </div>
+        <div class="container gallery-grid mt-3">
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/2.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/3.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/4.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/5.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/6.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/9.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+        </div>
+    </section>
+
+    <!-- 12. Latest Blogs -->
+    <section id="blogs" class="blogs section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Our Blog</h4>
+            <h2 class="title">Latest News & Articles</h2>
+        </div>
+        <div class="container grid blogs-grid mt-3">
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-img"><img src="image/7.webp" alt="Blog 1"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 15, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>Top 10 Benefits of Eating Healthy Food</h3>
+                    <p>Discover how eating the right foods can improve your health and boost your daily energy...</p>
+                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-img"><img src="image/8.webp" alt="Blog 2"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 18, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>How to Cook the Perfect Steak at Home</h3>
+                    <p>Master the art of cooking steaks with our easy-to-follow guide and expert chef tips...</p>
+                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-img"><img src="image/9.webp" alt="Blog 3"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 20, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>The Rise of Vegan Fast Food Trends</h3>
+                    <p>Explore how plant-based alternatives are taking over the fast-food industry globally...</p>
+                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- 13. FAQ Section -->
+    <section id="faq" class="faq section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">F.A.Q</h4>
+            <h2 class="title">Frequently Asked Questions</h2>
+        </div>
+        <div class="container faq-container mt-3" data-aos="fade-up">
+            <div class="faq-item">
+                <button class="faq-btn">How do I place an order? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>You can easily place an order through our website or mobile app. Just browse the menu, add items to your cart, and proceed to checkout.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">What payment methods do you accept? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>We accept all major credit/debit cards, PayPal, Apple Pay, and Cash on Delivery.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">How long does delivery take? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>Standard delivery takes around 30-45 minutes depending on your location and current traffic conditions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center mt-3">
+             <a href="contact.html" class="btn btn-outline">Ask More Questions</a>
+        </div>
+    </section>
+
+    <!-- 14. Contact Us -->
+    <section id="contact" class="contact section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Contact Us</h4>
+            <h2 class="title">Get In Touch</h2>
+        </div>
+        <div class="container grid contact-grid mt-3">
+            <div class="contact-info" data-aos="fade-right">
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h3>Location</h3>
+                        <p>123 Foodie Street, NY 10001, USA</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@foodies.com</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>+1 234 567 8900</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" data-aos="fade-left">
+                <div class="input-group">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Message" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 15. Newsletter Subscription -->
+    <section class="newsletter section" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="title">Subscribe To Our Newsletter</h2>
+            <p>Get the latest news and special offers directly in your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-dark">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 16. Footer -->
+    <footer class="footer">
+        <div class="container grid footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="logo.webp" alt="Stackly Logo">
+                </a>
+                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
+                <div class="social-links">
+                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 9:00 AM - 11:00 PM</li>
+                    <li>Sunday: 10:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2023 Foodies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-inner">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button id="closeCart"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartItems" class="cart-items-list">
+                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                <a href="#" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>

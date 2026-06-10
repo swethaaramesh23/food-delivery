@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Foodies</title>
+    <title>Login - Foodies</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -31,84 +31,97 @@
             <div class="nav-actions">
                 <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge">3</span></a>
                 <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary active">Sign Up</a>
+                    <a href="login.html" class="btn btn-outline active">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
                 </div>
                 <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
             </div>
         </nav>
     </header>
 
-    <!-- 2. Signup Form Section -->
+    <!-- 2. Login Form Section -->
     <section class="auth-section bg-light page-header">
         <div class="container grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
-            <div class="auth-info" data-aos="fade-right" style="text-align: left;">
-                <h4 class="subtitle">Join The Community</h4>
-                <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1rem;">Unlock Exclusive Foodie Perks!</h2>
-                <p style="margin-bottom: 2rem;">Sign up today and get 20% off your first 3 orders. Plus, earn reward points for every dollar you spend.</p>
-                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <img src="image/2.webp" alt="Burger" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                    <img src="image/3.webp" alt="Pizza" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                    <img src="image/4.webp" alt="Chicken" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                </div>
-                <ul style="list-style: none;">
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Fast and free delivery on selected items</li>
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Access to secret menus and new dishes</li>
-                </ul>
-            </div>
-            
             <div class="auth-form-container" data-aos="zoom-in" style="margin: 0; max-width: 100%;">
-                <h2>Create an Account</h2>
+                <h2>Welcome Back!</h2>
+                <p>Please login to your account to order food.</p>
                 <form class="auth-form">
-                    <input type="text" placeholder="Full Name" required>
                     <input type="email" placeholder="Email Address" required>
                     <input type="password" placeholder="Password" required>
-                    <input type="password" placeholder="Confirm Password" required>
-                    <div style="text-align: left; margin-bottom: 1rem; font-size: 0.9rem;">
-                        <label><input type="checkbox" required> I agree to the <a href="#" style="color: var(--primary-color);">Terms & Conditions</a></label>
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 1rem; font-size: 0.9rem;">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a href="#" style="color: var(--primary-color);">Forgot Password?</a>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                    <button type="submit" class="btn btn-primary w-100">Login Now</button>
                 </form>
                 <div class="auth-links-bottom mt-2">
-                    Already have an account? <a href="login.html">Login here</a>
+                    Don't have an account? <a href="signup.html">Sign Up here</a>
+                </div>
+            </div>
+            <div class="auth-benefits" data-aos="fade-left" style="text-align: left;">
+                <h3 class="title" style="font-size: 2rem;">Why Login?</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 1rem;">
+                        <i class="fas fa-history fa-2x" style="color: var(--primary-color);"></i>
+                        <div>
+                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Order History</h4>
+                            <p style="font-size: 0.9rem;">Quickly re-order your past favorite meals with just a single click.</p>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 1rem;">
+                        <i class="fas fa-map-marked-alt fa-2x" style="color: var(--primary-color);"></i>
+                        <div>
+                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Saved Addresses</h4>
+                            <p style="font-size: 0.9rem;">Manage multiple delivery addresses for home, work, and friends.</p>
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <i class="fas fa-ticket-alt fa-2x" style="color: var(--primary-color);"></i>
+                        <div>
+                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Exclusive Coupons</h4>
+                            <p style="font-size: 0.9rem;">Access members-only discounts and track your loyalty points.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Security Trust Badges -->
+    <section class="section pt-0 bg-light text-center">
+        <div class="container" data-aos="fade-up">
+            <h4 class="subtitle">Secure Ordering</h4>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem;">
+                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    <i class="fas fa-lock" style="color: #28a745; margin-right: 0.5rem;"></i> 256-Bit SSL Encryption
+                </div>
+                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    <i class="fas fa-shield-alt" style="color: #007bff; margin-right: 0.5rem;"></i> Verified Partners
+                </div>
+                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    <i class="fas fa-credit-card" style="color: #ffc107; margin-right: 0.5rem;"></i> Safe Payments
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. Why Join Us (Features) -->
-    <section class="services section">
+    <!-- 4. Testimonial / Social Proof -->
+    <section class="testimonials section">
         <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Benefits</h4>
-            <h2 class="title">Why Join Foodies?</h2>
+            <h4 class="subtitle">Join Thousands</h4>
+            <h2 class="title">Why Our Users Love Us</h2>
         </div>
-        <div class="container grid services-grid mt-3">
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fas fa-gift"></i></div>
-                <h3>Welcome Bonus</h3>
-                <p>Get 20% off on your first three orders when you sign up today.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fas fa-coins"></i></div>
-                <h3>Loyalty Points</h3>
-                <p>Earn reward points for every dollar spent and redeem them for free food.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fas fa-truck-loading"></i></div>
-                <h3>Faster Checkout</h3>
-                <p>Save your addresses and payment methods for a seamless 1-click checkout.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. CTA / Download App -->
-    <section class="section bg-gradient text-center" data-aos="fade-up">
-        <div class="container">
-            <h2 class="title text-white">Get The Foodies App</h2>
-            <p class="text-white" style="margin-bottom: 2rem;">Download our mobile app to track your orders in real-time and access exclusive deals.</p>
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <button class="btn btn-dark" style="display: flex; align-items: center; gap: 10px;"><i class="fab fa-apple fa-2x"></i> <div style="text-align: left; line-height: 1.2;"><small>Download on the</small><br><b>App Store</b></div></button>
-                <button class="btn btn-dark" style="display: flex; align-items: center; gap: 10px;"><i class="fab fa-google-play fa-2x"></i> <div style="text-align: left; line-height: 1.2;"><small>GET IT ON</small><br><b>Google Play</b></div></button>
+        <div class="container grid" style="grid-template-columns: 1fr; max-width: 600px;">
+            <div class="testi-card mx-auto" data-aos="zoom-in">
+                <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+                <p>"Logging in is super fast and my previous orders are always saved. It makes re-ordering my favorite meals a breeze!"</p>
+                <div class="testi-user">
+                    <img src="image/1a.webp" alt="User">
+                    <div>
+                        <h4>Emily Smith</h4>
+                        <span>Premium Member</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

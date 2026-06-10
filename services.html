@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Foodies Services - Fast delivery, Easy ordering, Best quality food">
+    <title>Services - Foodies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <i class="fas fa-hamburger fa-spin"></i>
+            <h2>Loading Tasty Food...</h2>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Foodies Logo">
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="services.html" class="nav-link active">Services</a></li>
+                    <li><a href="offers.html" class="nav-link">Offers</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+                <div class="auth-links">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Our Services</h1>
+            <p>Everything we do to bring the best food to your door</p>
+        </div>
+    </section>
+
+    <!-- Why We're Different -->
+    <section class="services section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">What We Offer</h4>
+            <h2 class="title">Services Built Around You</h2>
+            <p style="max-width:650px; margin: 0 auto 2rem;">From farm-fresh ingredients to blazing-fast delivery, every step of our process is designed to make your experience exceptional.</p>
+        </div>
+        <div class="container grid services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i class="fas fa-shipping-fast"></i></div>
+                <h3>Express Delivery</h3>
+                <p>Get your favourite meals delivered hot and fresh within 30 minutes. We operate 24/7, rain or shine.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Easy Online Ordering</h3>
+                <p>Browse, customise and order from hundreds of dishes in just a few taps on our app or website.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box"><i class="fas fa-medal"></i></div>
+                <h3>Premium Quality</h3>
+                <p>Every dish is prepared by trained chefs using only fresh, locally sourced, organic ingredients.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i class="fas fa-tags"></i></div>
+                <h3>Best Prices</h3>
+                <p>Enjoy restaurant-quality food at affordable prices, with weekly deals and loyalty rewards.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Support</h3>
+                <p>Our friendly support team is always available via chat, email or phone to assist you anytime.</p>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>Live Tracking</h3>
+                <p>Track your order in real-time from our kitchen to your doorstep with GPS precision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Simple Process</h4>
+            <h2 class="title">How It Works</h2>
+        </div>
+        <div class="container grid" style="grid-template-columns: repeat(4,1fr); gap: 2rem; margin-top: 3rem;" data-aos="fade-up">
+            <div class="text-center">
+                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">1</div>
+                <img src="image/2a.webp" alt="Choose Food" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
+                <h3 style="color:var(--dark-color);">Choose Food</h3>
+                <p>Browse our menu and select your favourite dishes.</p>
+            </div>
+            <div class="text-center">
+                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">2</div>
+                <img src="image/2b.webp" alt="Place Order" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
+                <h3 style="color:var(--dark-color);">Place Order</h3>
+                <p>Add items to cart and complete checkout securely.</p>
+            </div>
+            <div class="text-center">
+                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">3</div>
+                <img src="image/chef1.webp" alt="We Prepare" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
+                <h3 style="color:var(--dark-color);">We Prepare</h3>
+                <p>Our chefs cook your meal fresh to order.</p>
+            </div>
+            <div class="text-center">
+                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">4</div>
+                <img src="image/0.webp" alt="Fast Delivery" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
+                <h3 style="color:var(--dark-color);">Fast Delivery</h3>
+                <p>Your food arrives hot and fresh at your door.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Feature Banner -->
+    <section class="section">
+        <div class="container grid" style="grid-template-columns:1fr 1fr;align-items:center;gap:3rem;">
+            <div data-aos="fade-right">
+                <img src="image/fresh meat.webp" alt="Fresh Ingredients" style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow);">
+            </div>
+            <div data-aos="fade-left">
+                <h4 class="subtitle">Our Promise</h4>
+                <h2 class="title">We Guarantee Freshness Every Time</h2>
+                <p>All our ingredients are delivered fresh from partner farms every morning. We never use frozen or preserved produce — only 100% natural, seasonal goodness in every dish.</p>
+                <ul class="about-list mt-2">
+                    <li><i class="fas fa-check-circle"></i> Sourced from certified organic farms</li>
+                    <li><i class="fas fa-check-circle"></i> Prepared in hygiene-certified kitchens</li>
+                    <li><i class="fas fa-check-circle"></i> Packaged in eco-friendly containers</li>
+                    <li><i class="fas fa-check-circle"></i> Delivered in temperature-controlled bags</li>
+                </ul>
+                <a href="menu.html" class="btn btn-primary mt-2">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section id="stats" class="stats section bg-gradient">
+        <div class="container grid stats-grid">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users fa-3x mb-1"></i>
+                <h3 class="counter" data-target="10000">0</h3>
+                <p>Happy Customers</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-utensils fa-3x mb-1"></i>
+                <h3 class="counter" data-target="500">0</h3>
+                <p>Food Items</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-store fa-3x mb-1"></i>
+                <h3 class="counter" data-target="100">0</h3>
+                <p>Restaurant Partners</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-clock fa-3x mb-1"></i>
+                <h3>24/7</h3>
+                <p>Delivery Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo"><img src="logo.webp" alt="Stackly Logo"></a>
+                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 9:00 AM - 11:00 PM</li>
+                    <li>Sunday: 10:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2024 Foodies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal" style="display:none;">
+        <div class="cart-modal-inner">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button id="closeCart"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartItems" class="cart-items-list">
+                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                <a href="#" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay" style="display:none;"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

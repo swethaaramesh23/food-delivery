@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Foodies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 1. Header -->
+    <header id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Foodies Logo">
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="offers.html" class="nav-link">Offers</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></button>
+                <div class="auth-links">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. Page Header Hero -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Contact Us</h1>
+            <p>We would love to hear from you</p>
+        </div>
+    </section>
+
+    <!-- 3. Contact Info & Form -->
+    <section class="contact section">
+        <div class="container grid contact-grid">
+            <div class="contact-info" data-aos="fade-right">
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h3>Headquarters</h3>
+                        <p>123 Foodie Street, NY 10001, USA</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@foodies.com<br>info@foodies.com</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>+1 234 567 8900<br>+1 987 654 3210</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" data-aos="fade-left">
+                <div class="input-group">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Message" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary w-100">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 4. Interactive Map Area -->
+    <section class="section pt-0">
+        <div class="container" data-aos="zoom-in">
+            <div style="width: 100%; height: 400px; background-color: #e0e0e0; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-color);">
+                <div class="text-center">
+                    <i class="fas fa-map-marked-alt fa-3x mb-1" style="color: var(--primary-color);"></i>
+                    <h3>Google Maps Placeholder</h3>
+                    <p>Map iframe goes here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FAQ Section -->
+    <section id="faq" class="faq section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">F.A.Q</h4>
+            <h2 class="title">Frequently Asked Questions</h2>
+        </div>
+        <div class="container faq-container mt-3" data-aos="fade-up">
+            <div class="faq-item">
+                <button class="faq-btn">How do I place an order? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>You can easily place an order through our website or mobile app. Just browse the menu, add items to your cart, and proceed to checkout.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">What payment methods do you accept? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>We accept all major credit/debit cards, PayPal, Apple Pay, and Cash on Delivery.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">How long does delivery take? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>Standard delivery takes around 30-45 minutes depending on your location and current traffic conditions.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">Do you offer vegetarian/vegan options? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>Yes! We have a wide variety of vegetarian and vegan meals clearly marked on our menu.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">How can I track my order? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>Once your order is confirmed, you will receive a tracking link via SMS and email. You can also track it directly from your account dashboard.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">Can I cancel my order? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-content">
+                    <p>Orders can only be canceled within the first 5 minutes of placing them. After that, the restaurant begins preparation and cancellation is not guaranteed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="footer">
+        <div class="container grid footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="logo.webp" alt="Stackly Logo">
+                </a>
+                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 9:00 AM - 11:00 PM</li>
+                    <li>Sunday: 10:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2023 Foodies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-inner">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button id="closeCart"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartItems" class="cart-items-list">
+                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                <a href="#" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

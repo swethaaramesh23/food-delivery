@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu - Foodies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 1. Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <i class="fas fa-hamburger fa-spin"></i>
+            <h2>Loading Tasty Food...</h2>
+        </div>
+    </div>
+    <!-- 1. Header -->
+    <header id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Foodies Logo">
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="menu.html" class="nav-link active">Menu</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#offers" class="nav-link">Offers</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge">3</span></a>
+                <div class="auth-links">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. Page Header Hero -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Our Menu</h1>
+            <p>Explore our wide variety of delicious meals</p>
+        </div>
+    </section>
+
+    <!-- 3. Chef Recommendations -->
+    <section class="section bg-light">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Top Picks</h4>
+            <h2 class="title">Chef's Recommendations</h2>
+        </div>
+        <div class="container grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 2rem;">
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="menu-img"><img src="image/6.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
+                <div class="menu-info mt-2">
+                    <div class="rating"><i class="fas fa-star"></i> 5.0</div>
+                    <h3>Spicy Tikka Masala</h3>
+                    <p>Signature dish slow-cooked to perfection.</p>
+                    <div class="menu-bottom"><span class="price">$18.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="menu-img"><img src="image/2.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
+                <div class="menu-info mt-2">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                    <h3>Double Smash Burger</h3>
+                    <p>Award-winning burger with secret sauce.</p>
+                    <div class="menu-bottom"><span class="price">$15.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="menu-img"><img src="image/9.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
+                <div class="menu-info mt-2">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                    <h3>Atlantic Salmon</h3>
+                    <p>Fresh caught salmon with asparagus.</p>
+                    <div class="menu-bottom"><span class="price">$22.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Full Menu -->
+    <section class="menu section">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="title">All Categories</h2>
+            <div class="menu-filters mt-2">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn"><i class="fas fa-hamburger"></i> Burgers</button>
+                <button class="filter-btn"><i class="fas fa-pizza-slice"></i> Pizza</button>
+                <button class="filter-btn"><i class="fas fa-hotdog"></i> Fast Food</button>
+                <button class="filter-btn"><i class="fas fa-leaf"></i> Vegan</button>
+                <button class="filter-btn"><i class="fas fa-ice-cream"></i> Desserts</button>
+            </div>
+        </div>
+        
+        <div class="container grid menu-grid mt-3">
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="menu-img"><img src="image/2.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                    <h3>Cheesy Beef Burger</h3>
+                    <p>Delicious beef patty with extra cheese.</p>
+                    <div class="menu-bottom"><span class="price">$12.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="menu-img"><img src="image/3.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.5</div>
+                    <h3>Spicy Pepperoni Pizza</h3>
+                    <p>Hot and spicy pizza with lots of pepperoni.</p>
+                    <div class="menu-bottom"><span class="price">$15.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="menu-img"><img src="image/4.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                    <h3>Crispy Fried Chicken</h3>
+                    <p>Golden crispy chicken served with fries.</p>
+                    <div class="menu-bottom"><span class="price">$10.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="menu-img"><img src="image/5.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                    <h3>Veggie Salad Bowl</h3>
+                    <p>Fresh vegetables mixed with olive oil.</p>
+                    <div class="menu-bottom"><span class="price">$8.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="menu-img"><img src="image/7.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.6</div>
+                    <h3>Vegan Margherita</h3>
+                    <p>Classic pizza with vegan cheese.</p>
+                    <div class="menu-bottom"><span class="price">$14.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="menu-img"><img src="image/8.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                    <h3>Chicken Nuggets</h3>
+                    <p>Crispy outside, juicy inside.</p>
+                    <div class="menu-bottom"><span class="price">$7.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="menu-img"><img src="image/9.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                    <h3>Grilled Salmon</h3>
+                    <p>Fresh salmon with lemon butter.</p>
+                    <div class="menu-bottom"><span class="price">$19.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="menu-img"><img src="image/2.webp" alt="Menu"></div>
+                <div class="menu-info">
+                    <div class="rating"><i class="fas fa-star"></i> 4.4</div>
+                    <h3>Double Cheeseburger</h3>
+                    <p>Double patty, double cheese.</p>
+                    <div class="menu-bottom"><span class="price">$14.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Ingredient Sourcing -->
+    <section class="section bg-gradient text-white">
+        <div class="container grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
+            <div data-aos="fade-right">
+                <h4 class="subtitle text-white">Quality Promise</h4>
+                <h2 class="title text-white">Farm to Table Freshness</h2>
+                <p>We believe that great food starts with great ingredients. That's why we source our produce directly from local organic farms. Our meats are 100% grass-fed and our seafood is sustainably caught.</p>
+                <ul class="mt-2" style="list-style: none;">
+                    <li style="margin-bottom: 10px;"><i class="fas fa-leaf"></i> 100% Organic Vegetables</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-fish"></i> Sustainably Sourced Seafood</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-drumstick-bite"></i> Hormone-Free Meats</li>
+                </ul>
+            </div>
+            <div data-aos="zoom-in">
+                <img src="image/5.webp" alt="Fresh Ingredients" style="border-radius: 50%; border: 10px solid rgba(255,255,255,0.2);">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Featured Dish -->
+    <section id="featured" class="featured section">
+        <div class="container grid featured-grid">
+            <div class="featured-content" data-aos="fade-right">
+                <h4 class="subtitle">Special Dish</h4>
+                <h2 class="title">Spicy Chicken Tikka Masala</h2>
+                <p>A classic favorite! Marinated chicken chunks cooked in a rich, creamy, and spicy tomato-based gravy. Perfect with naan or rice.</p>
+                <div class="price-large">$18.99</div>
+                <a href="#" class="btn btn-primary mt-2">Order Now</a>
+            </div>
+            <div class="featured-img-wrap" data-aos="zoom-in">
+                <img src="image/6.webp" alt="Featured Dish" class="featured-img pulse-anim">
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="footer">
+        <div class="container grid footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="logo.webp" alt="Stackly Logo">
+                </a>
+                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 9:00 AM - 11:00 PM</li>
+                    <li>Sunday: 10:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2023 Foodies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Foodies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 1. Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <i class="fas fa-hamburger fa-spin"></i>
+            <h2>Loading Tasty Food...</h2>
+        </div>
+    </div>
+    <!-- 1. Header -->
+    <header id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Foodies Logo">
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="offers.html" class="nav-link">Offers</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></button>
+                <div class="auth-links">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. Page Header Hero -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Our Blog</h1>
+            <p>Read our latest news, recipes, and food trends</p>
+        </div>
+    </section>
+
+    <!-- 3. Blog Categories -->
+    <section class="section">
+        <div class="container text-center" data-aos="fade-up">
+            <div class="menu-filters">
+                <button class="filter-btn active">All Articles</button>
+                <button class="filter-btn">Recipes</button>
+                <button class="filter-btn">Health & Diet</button>
+                <button class="filter-btn">Food Trends</button>
+                <button class="filter-btn">Restaurant News</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Latest Blogs Grid -->
+    <section class="blogs section bg-light pt-0">
+        <div class="container grid blogs-grid">
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-img"><img src="image/7.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 15, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>Top 10 Benefits of Eating Healthy Food</h3>
+                    <p>Discover how eating the right foods can improve your health and boost your daily energy...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-img"><img src="image/8.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 18, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>How to Cook the Perfect Steak at Home</h3>
+                    <p>Master the art of cooking steaks with our easy-to-follow guide and expert chef tips...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-img"><img src="image/9.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Oct 20, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>The Rise of Vegan Fast Food Trends</h3>
+                    <p>Explore how plant-based alternatives are taking over the fast-food industry globally...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-img"><img src="image/3.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Nov 02, 2023</span>
+                        <span><i class="fas fa-user"></i> Editor</span>
+                    </div>
+                    <h3>Why Pizza is the Ultimate Comfort Food</h3>
+                    <p>We explore the history of pizza and why it remains the number one choice for weekends...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-img"><img src="image/4.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Nov 05, 2023</span>
+                        <span><i class="fas fa-user"></i> Admin</span>
+                    </div>
+                    <h3>5 Spices You Need in Your Kitchen</h3>
+                    <p>Elevate your home cooking with these 5 essential spices that every kitchen needs...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-img"><img src="image/5.webp" alt="Blog"></div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> Nov 10, 2023</span>
+                        <span><i class="fas fa-user"></i> Chef Gordon</span>
+                    </div>
+                    <h3>Healthy Salads That Don't Taste Boring</h3>
+                    <p>Say goodbye to bland greens with our amazing salad dressing recipes and combinations...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- 5. Subscribe to Blog -->
+    <section class="newsletter section" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="title">Never Miss A Recipe</h2>
+            <p>Subscribe to our blog newsletter to receive weekly recipes and cooking tips.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-dark">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 6. Instagram / Gallery preview -->
+    <section id="gallery" class="gallery section">
+        <div class="container text-center" data-aos="fade-up">
+            <h4 class="subtitle">Follow Us</h4>
+            <h2 class="title">Our Instagram Food Gallery</h2>
+        </div>
+        <div class="gallery-grid mt-3">
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/2.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/3.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="image/4.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="footer">
+        <div class="container grid footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="logo.webp" alt="Stackly Logo">
+                </a>
+                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
+                    <li>Saturday: 9:00 AM - 11:00 PM</li>
+                    <li>Sunday: 10:00 AM - 9:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2023 Foodies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-inner">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button id="closeCart"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartItems" class="cart-items-list">
+                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                <a href="#" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
