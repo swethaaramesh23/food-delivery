@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BiteCraft Customer Dashboard. View order history, manage your address book, and set favorite foods.">
+    <title>BiteCraft | Customer Account Center</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Collapsible Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+
+            <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle Sidebar Menu">
+                <i class="fa-solid fa-angles-left"></i>
+            </button>
+        </div>
+        
+
+
+        <nav class="sidebar-nav">
+            <a href="admin-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-chart-line"></i> <span>Admin Analytics</span>
+            </a>
+            <a href="orders-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-receipt"></i> <span>Order Management</span>
+            </a>
+            <a href="delivery-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-truck-ramp-box"></i> <span>Delivery Tracking</span>
+            </a>
+            <a href="customer-dashboard.html" class="sidebar-nav-link active">
+                <i class="fa-solid fa-user-gear"></i> <span>Customer Profile</span>
+            </a>
+            <a href="index.html" class="sidebar-nav-link" style="border-top: 1px dashed rgba(255,255,255,0.05); border-radius: 0; padding-top: 20px; margin-top: 10px;">
+                <i class="fa-solid fa-house"></i> <span>Back To Store</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="index.html" class="sidebar-nav-link" id="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Dashboard Section -->
+    <main class="dashboard-main" id="dashboard-main">
+        <div class="dashboard-topbar">
+            <!-- Mobile Menu trigger and Title -->
+            <div class="dashboard-mobile-nav">
+                <button class="dashboard-hamburger" id="dashboard-hamburger" aria-label="Toggle Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="topbar-title">
+                <div class="dashboard-logo-center">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:52px; width:auto; object-fit:contain;"></a>
+                </div>
+                <h2>My Account</h2>
+                <p>Manage your settings, addresses, and view order history.</p>
+            </div>
+            
+            <div class="topbar-actions">
+                <button class="topbar-btn" id="noti-trigger" aria-label="Notifications panel">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="noti-badge-count">1</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Customer Profile Grid Layout -->
+        <div class="profile-grid">
+            <!-- Left Side: Profile Summary Card & Address List -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="profile-avatar-wrap">
+                        <img src="image/chef1.webp" alt="Customer Avatar Big" class="profile-avatar-big" id="profile-avatar-big">
+                        <label class="profile-avatar-upload" for="avatar-file-input">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="avatar-file-input" style="display: none;" accept="image/*">
+                    </div>
+                    <h3 class="profile-name" id="profile-name-text">Jane Doe</h3>
+                    <p class="profile-member-date"><i class="fa-regular fa-calendar-days"></i> Member since June 2026</p>
+                    
+                    <div class="profile-stats">
+                        <div class="profile-stat-box">
+                            <div class="profile-stat-val" id="profile-total-orders">8</div>
+                            <div class="profile-stat-lbl">Orders</div>
+                        </div>
+                        <div class="profile-stat-box" style="border-left: 1px solid rgba(0,0,0,0.05); border-right: 1px solid rgba(0,0,0,0.05);">
+                            <div class="profile-stat-val" id="profile-fav-count">4</div>
+                            <div class="profile-stat-lbl">Favorites</div>
+                        </div>
+                        <div class="profile-stat-box">
+                            <div class="profile-stat-val" id="profile-reviews-count">3</div>
+                            <div class="profile-stat-lbl">Reviews</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Address Lists -->
+                <div class="table-card" style="margin-bottom: 0;">
+                    <div class="table-header">
+                        <h3 class="table-title">Delivery Address Book</h3>
+                    </div>
+                    <div class="address-list">
+                        <!-- Primary Home -->
+                        <div class="address-item primary">
+                            <div class="address-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                            <div class="address-info">
+                                <div class="address-label">Home Address (Default)</div>
+                                <div class="address-details" id="address-home-text">742 Evergreen Terrace, Springfield, NY 10021</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Work Address -->
+                        <div class="address-item">
+                            <div class="address-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="address-info">
+                                <div class="address-label">Work Office</div>
+                                <div class="address-details" id="address-work-text">350 Fifth Ave (Empire State), New York, NY 10118</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Order Timeline history & Favorites list -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- Timeline Orders History -->
+                <div class="table-card" style="margin-bottom: 0;">
+                    <div class="table-header">
+                        <h3 class="table-title">Order Purchase History</h3>
+                    </div>
+                    <div class="timeline" id="customer-timeline">
+                        <!-- Placed dynamically via JS -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">10 Jun 2026, 03:30 PM</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">
+                                    <span>Order #BC-9844</span>
+                                    <span class="timeline-price">$16.99</span>
+                                </div>
+                                <div class="timeline-desc">Spicy Pepperoni Pizza x1, Drink x1</div>
+                                <span class="status-pill delivered" style="margin-top: 8px;">Delivered</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">04 Jun 2026, 01:15 PM</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">
+                                    <span>Order #BC-9712</span>
+                                    <span class="timeline-price">$9.99</span>
+                                </div>
+                                <div class="timeline-desc">Cheesy Beef Burger x1, Potato Wedges x1</div>
+                                <span class="status-pill delivered" style="margin-top: 8px;">Delivered</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Foods Grid -->
+                <div class="table-card" style="margin-bottom: 0;">
+                    <div class="table-header">
+                        <h3 class="table-title">My Favorite Foods</h3>
+                    </div>
+                    <div class="favorite-foods-grid">
+                        <!-- Fav 1 -->
+                        <div class="fav-card">
+                            <img src="image/Cheesy Beef Burger.webp" alt="Beef burger">
+                            <div class="fav-info">
+                                <div class="fav-name">Cheesy Beef Burger</div>
+                                <div class="fav-price">$9.99</div>
+                                <button class="fav-order-btn" data-id="b1" data-name="Cheesy Beef Burger" data-price="9.99" data-img="image/Cheesy Beef Burger.webp">Order Again</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Fav 2 -->
+                        <div class="fav-card">
+                            <img src="image/Spicy Pepperoni Pizza.webp" alt="Pepperoni Pizza">
+                            <div class="fav-info">
+                                <div class="fav-name">Spicy Pepperoni Pizza</div>
+                                <div class="fav-price">$14.99</div>
+                                <button class="fav-order-btn" data-id="p1" data-name="Spicy Pepperoni Pizza" data-price="14.99" data-img="image/Spicy Pepperoni Pizza.webp">Order Again</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Combined dashboard operations script -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

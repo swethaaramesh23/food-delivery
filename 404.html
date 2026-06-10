@@ -3,30 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Oops! The food page you are looking for does not exist or has been removed from BiteCraft.">
+    <title>BiteCraft | 404 Page Not Found</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {display:flex;justify-content:center;align-items:center;height:100vh;background:#f0f4f8;font-family:'Poppins',sans-serif;}
-        .error-container{text-align:center;}
-        .error-code{font-size:8rem;color:#ff6b6b;}
-        .error-msg{font-size:1.5rem;margin-bottom:1rem;}
-        .social-links a{margin:0 0.5rem;color:#555;font-size:1.5rem;transition:color .3s;}
-        .social-links a:hover{color:#ff6b6b;}
-    </style>
 </head>
 <body>
-    <div class="error-container">
-        <div class="error-code">404</div>
-        <div class="error-msg">Oops! The page you’re looking for doesn’t exist.</div>
-        <a href="index.html" class="btn btn-primary">Go Home</a>
-        <div class="social-links" style="margin-top:1.5rem;">
-            <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-            <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+
+    <div class="error-wrapper">
+        <div class="error-container">
+            <!-- Animated 404 illustration -->
+            <div class="error-illustration">
+                <div class="error-code">404</div>
+                <div class="error-illustration-food">
+                    <i class="fa-solid fa-pizza-slice" style="color: var(--primary);"></i>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <h2 class="error-title">Oops! Page Not Found</h2>
+            <p class="error-message">It seems the recipe, cuisine, or dashboard panel you are trying to access has been devoured by our foodies or relocated to another address!</p>
+
+            <!-- Search Console -->
+            <div class="error-search">
+                <form id="error-search-form" action="index.html#menu" style="display: flex; width: 100%;">
+                    <input type="text" class="error-search-input" placeholder="Search menu (e.g. Pizza, Burger)..." required>
+                    <button type="submit" class="error-search-btn" aria-label="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> Back To Home</a>
+                <a href="index.html#menu" class="btn btn-outline"><i class="fa-solid fa-utensils"></i> Browse Menu</a>
+            </div>
+
+            <!-- Social follow icons -->
+            <div class="error-socials">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="error-social-icon" aria-label="Follow us on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="error-social-icon" aria-label="Follow us on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="error-social-icon" aria-label="Follow us on Twitter/X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="error-social-icon" aria-label="Follow us on LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="error-social-icon" aria-label="Follow us on YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
         </div>
     </div>
+
 </body>
 </html>

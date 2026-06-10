@@ -3,533 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Foodies - The best food delivery service in town.">
-    <title>Foodies - Modern Food Delivery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Stackly - Premium Food Delivery Platform. Order fresh, hot, and delicious food online with rapid 24/7 delivery.">
+    <title>Stackly | Premium Food Delivery & Online Ordering</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
-<body class="home-page">
-    <!-- 1. Preloader -->
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Preloader Animation (Strict 2.5s delay inside main.js) -->
     <div id="preloader">
-        <div class="loader">
-            <i class="fas fa-hamburger fa-spin"></i>
-            <h2>Loading Tasty Food...</h2>
+        <div class="loader-content">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
+            </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+    <style>
+        @keyframes preloaderBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+    </style>
+
+    <!-- Sticky Navigation Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <!-- logo image -->
+            <a href="index.html" class="logo">
+                <img src="logo.webp" alt="Stackly Logo" class="logo-img">
+            </a>
+
+            <!-- Dedicated Sub-page Navigation Links -->
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="nav-actions">
+                <button class="action-btn" id="search-trigger" aria-label="Search food">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                
+                <button class="action-btn" id="cart-trigger" aria-label="View cart" onclick="document.getElementById('cart-drawer').classList.add('open'); document.getElementById('cart-overlay').classList.add('open');">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+                
+                <a href="login.html" class="btn btn-secondary" id="auth-nav-btn">
+                    <i class="fa-solid fa-user-plus"></i> Login
+                </a>
+                
+                <div class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Overlay Box -->
+    <div class="search-overlay" id="search-overlay">
+        <button class="close-search" id="close-search" aria-label="Close search">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="search-box">
+            <form id="search-form" action="menu.html">
+                <input type="text" class="search-input" id="search-input" placeholder="Search for recipes, cuisines, burgers..." required>
+            </form>
         </div>
     </div>
 
-    <!-- 2. Sticky Header & Navigation -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
+    <!-- Cart Sidebar Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Basket</h3>
+            <button class="close-cart" id="close-cart" aria-label="Close cart drawer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="cart-items-container" id="cart-items-list">
+            <div class="cart-empty-msg">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Your basket is empty.<br>Start adding delicious food!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal-val">$0.00</span>
+            </div>
+            <div class="cart-actions">
+                <a href="login.html?redirect=checkout" class="btn btn-primary" style="width: 100%; text-align: center;">Proceed to Checkout</a>
+                <button class="btn btn-outline" id="clear-cart-btn" style="width: 100%;">Clear All Items</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <main>
+        
+        <!-- Hero Banner Section -->
+        <section class="hero" id="home">
+            <i class="fa-solid fa-pizza-slice floating-food floating-food-1"></i>
+            <i class="fa-solid fa-burger floating-food floating-food-2"></i>
+            <i class="fa-solid fa-pepper-hot floating-food floating-food-3"></i>
+            <i class="fa-solid fa-leaf floating-food floating-food-4"></i>
             
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link active">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="offers.html" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close">
-                    <i class="fas fa-times"></i>
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content reveal reveal-left">
+                        <div class="hero-tagline">
+                            <i class="fa-solid fa-fire"></i> Fast Delivery, Fresh Taste
+                        </div>
+                        <h1 class="hero-title">
+                            Savor the Finest<br>Cuisines Delivered to <span>Your Door</span>
+                        </h1>
+                        <p class="hero-description">
+                            Experience culinary masterclasses prepared by city-renowned chefs, delivered hot and fresh within 30 minutes. Your next gourmet experience is just one tap away.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="menu.html" class="btn btn-primary">Order Now <i class="fa-solid fa-chevron-right"></i></a>
+                            <a href="about.html" class="btn btn-outline">Explore Story</a>
+                        </div>
+                    </div>
+                    <div class="hero-img-wrapper reveal reveal-right">
+                        <div class="hero-bg-shape"></div>
+                        <img src="image/0.webp" alt="Vibrant Gourmet Burger Display" class="hero-main-img" id="hero-img">
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="nav-actions">
-                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cartCount">0</span>
-                </button>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle">
-                    <i class="fas fa-bars"></i>
+        <!-- Stats Counter Section -->
+        <section class="stats" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-num" data-target="10000">0</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" data-target="500">0</div>
+                        <div class="stat-label">Food Items Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" data-target="100">0</div>
+                        <div class="stat-label">Restaurant Partners</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num" data-target="24">0</div>
+                        <div class="stat-label">Delivery Service (Hrs)</div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
+        </section>
 
-    <!-- 3. Hero Section -->
-    <section id="home" class="hero section">
-        <div class="container hero-container grid">
-            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-                <h4 class="subtitle">🚀 Fastest Delivery</h4>
-                <h1 class="title">Enjoy Delicious Food in <span>Your Home</span></h1>
-                <p class="description">
-                    We deliver the best and freshest food directly to your doorstep. Choose from our wide variety of delicious meals.
-                </p>
-                <div class="hero-btns">
-                    <a href="menu.html" class="btn btn-primary">Explore Menu <i class="fas fa-arrow-right"></i></a>
-                    <a href="#" class="btn btn-outline play-btn"><i class="fas fa-play"></i> Watch Video</a>
-                </div>
-                <div class="floating-icons">
-                    <i class="fas fa-pizza-slice float-icon i1"></i>
-                    <i class="fas fa-hamburger float-icon i2"></i>
-                    <i class="fas fa-ice-cream float-icon i3"></i>
+        <!-- Expanded About Us Intro Section -->
+        <section class="section-padding" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-img-group reveal reveal-left">
+                        <div class="about-img-box" style="grid-row: span 2;">
+                            <img src="image/chef1.webp" alt="Culinary chef preparing salmon garnish" style="height: 380px;">
+                        </div>
+                        <div class="about-img-box">
+                            <img src="image/chef2.webp" alt="Head chef seasoning beef burger patties" style="height: 180px;">
+                        </div>
+                        <div class="about-img-box">
+                            <img src="image/fresh meat.webp" alt="Fresh ingredients kitchen assembly" style="height: 180px;">
+                        </div>
+                        <div class="about-experience">
+                            <span class="years">15+</span>
+                            <span class="text">Years of Excellence</span>
+                        </div>
+                    </div>
+
+                    <div class="about-content reveal reveal-right">
+                        <div class="section-header" style="text-align: left; margin-bottom: 30px;">
+                            <span class="sub-title">Our Story</span>
+                            <h2 class="title">Crafting Memorable Dining Experiences At Home</h2>
+                        </div>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">
+                            Founded in 2011, Stackly has grown from a local gourmet delivery service to the city's premier online culinary platform. We believe that convenience shouldn't compromise culinary excellence.
+                        </p>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">
+                            We partner with local organic farms and top-rated Michelin chefs to bring premium dining, quick packaging, and seamless tracking directly to your living room.
+                        </p>
+                        
+                        <div class="about-bullets">
+                            <div class="about-bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Michelin Star Quality</span>
+                            </div>
+                            <div class="about-bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Farm-to-Table Fresh</span>
+                            </div>
+                            <div class="about-bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Thermal Sealed Boxes</span>
+                            </div>
+                            <div class="about-bullet-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>100% Contactless Delivery</span>
+                            </div>
+                        </div>
+
+                        <a href="about.html" class="btn btn-primary">Read Full Story</a>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image" data-aos="zoom-in" data-aos-duration="1000">
-                <div class="hero-img-bg"></div>
-                <img src="image/0.webp" alt="Delicious Burger" class="main-img">
-                <div class="review-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="r-img"><img src="image/1a.webp" alt="User"></div>
-                    <div class="r-text">
-                        <h5>John Doe</h5>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </section>
+
+        <!-- Services Section Preview -->
+        <section class="section-padding" id="services" style="background-color: rgba(255, 107, 53, 0.01);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">What We Offer</span>
+                    <h2 class="title">Our Premium Services</h2>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card glass-card reveal">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h3 class="service-title">Rapid 30 Min Delivery</h3>
+                        <p class="service-desc">Superheated thermal bags and rapid route optimization ensure your meals arrive piping hot.</p>
+                    </div>
+
+                    <div class="service-card glass-card reveal" style="transition-delay: 0.1s;">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-carrot"></i>
+                        </div>
+                        <h3 class="service-title">Fresh Ingredients Only</h3>
+                        <p class="service-desc">We coordinate directly with local farms daily. No frozen storage, no artificial additives.</p>
+                    </div>
+
+                    <div class="service-card glass-card reveal" style="transition-delay: 0.2s;">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <h3 class="service-title">Secure Online Payments</h3>
+                        <p class="service-desc">Fully encrypted gateways supporting Visa, MasterCard, Apple Pay, and Google Pay wallets.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="services.html" class="btn btn-primary">View All Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Menu Preview -->
+        <section class="section-padding" id="menu">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Explore Flavors</span>
+                    <h2 class="title">Stackly Popular Dishes</h2>
+                </div>
+
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Pizza 1 -->
+                    <div class="menu-card glass-card reveal">
+                        <div class="menu-img-box">
+                            <span class="menu-badge">Best Seller</span>
+                            <img src="image/Spicy Pepperoni Pizza.webp" alt="Spicy Pepperoni Pizza">
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-rating">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+                                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span>
+                            </div>
+                            <h3 class="menu-title">Spicy Pepperoni Pizza</h3>
+                            <p class="menu-desc">Artisan sourdough crust loaded with premium Italian pepperoni slices and melted spicy mozzarella cheese.</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">$14.99</span>
+                                <button class="add-to-cart-btn" data-id="p1" data-name="Spicy Pepperoni Pizza" data-price="14.99" data-img="image/Spicy Pepperoni Pizza.webp" aria-label="Add to cart">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Burger 1 -->
+                    <div class="menu-card glass-card reveal" style="transition-delay: 0.1s;">
+                        <div class="menu-img-box">
+                            <span class="menu-badge" style="background-color: var(--accent);">Trending</span>
+                            <img src="image/Cheesy Beef Burger.webp" alt="Cheesy Beef Burger">
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-rating">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star-half-stroke"></i>
+                                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.7)</span>
+                            </div>
+                            <h3 class="menu-title">Cheesy Beef Burger</h3>
+                            <p class="menu-desc">Gourmet Angus beef patty layered with triple cheddar cheese, house pickles, and caramelized craft burger sauce.</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">$9.99</span>
+                                <button class="add-to-cart-btn" data-id="b1" data-name="Cheesy Beef Burger" data-price="9.99" data-img="image/Cheesy Beef Burger.webp" aria-label="Add to cart">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seafood 1 -->
+                    <div class="menu-card glass-card reveal" style="transition-delay: 0.2s;">
+                        <div class="menu-img-box">
+                            <img src="image/Grilled Salmon.webp" alt="Grilled Salmon">
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-rating">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+                                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(5.0)</span>
+                            </div>
+                            <h3 class="menu-title">Gourmet Grilled Salmon</h3>
+                            <p class="menu-desc">Perfectly grilled fresh salmon fillet accompanied by roasted asparagus shoots, and lemon butter sauce.</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">$18.99</span>
+                                <button class="add-to-cart-btn" data-id="s1" data-name="Gourmet Grilled Salmon" data-price="18.99" data-img="image/Grilled Salmon.webp" aria-label="Add to cart">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salad 1 -->
+                    <div class="menu-card glass-card reveal" style="transition-delay: 0.3s;">
+                        <div class="menu-img-box">
+                            <img src="image/Veggie Salad Bowl.webp" alt="Veggie Salad Bowl">
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-rating">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star-stroke" style="opacity: 0.3;"></i>
+                                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.3)</span>
+                            </div>
+                            <h3 class="menu-title">Veggie Salad Bowl</h3>
+                            <p class="menu-desc">Organic leafy salad greens tossed with fresh cherry tomatoes, sliced avocados, roasted seeds, and balsamic vinaigrette.</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">$8.99</span>
+                                <button class="add-to-cart-btn" data-id="v1" data-name="Veggie Salad Bowl" data-price="8.99" data-img="image/Veggie Salad Bowl.webp" aria-label="Add to cart">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. About Us Preview -->
-    <section class="about section bg-light">
-        <div class="container grid about-container">
-            <div class="about-img" data-aos="fade-right">
-                <img src="image/1.webp" alt="About Foodies">
-                <div class="experience-badge">
-                    <h3>10+</h3>
-                    <p>Years Experience</p>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="menu.html" class="btn btn-primary">Browse Full Menu</a>
                 </div>
             </div>
-            <div class="about-content" data-aos="fade-left">
-                <h4 class="subtitle">About Us</h4>
-                <h2 class="title">We Cook The Best Tasty Food</h2>
-                <p>We cook the best food in the entire city, with excellent customer service, the best meals and at the best price, visit us.</p>
-                <ul class="about-list">
-                    <li><i class="fas fa-check-circle"></i> Fresh and organic ingredients</li>
-                    <li><i class="fas fa-check-circle"></i> Experienced & professional chefs</li>
-                    <li><i class="fas fa-check-circle"></i> Highest standards of cleanliness</li>
-                </ul>
-                <a href="about.html" class="btn btn-primary">Read More</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 5. Featured Services -->
-    <section id="services" class="services section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">What We Serve</h4>
-            <h2 class="title">Your Favorite Food Delivery Partner</h2>
-        </div>
-        <div class="container grid services-grid">
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fas fa-shipping-fast"></i></div>
-                <h3>Easy To Order</h3>
-                <p>You only need a few steps in ordering food, and we'll take care of the rest.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fas fa-box-open"></i></div>
-                <h3>Fastest Delivery</h3>
-                <p>Delivery that is always on time even faster, handled by our professionals.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fas fa-medal"></i></div>
-                <h3>Best Quality</h3>
-                <p>Not only fast for us quality is also number one. We provide the best.</p>
-            </div>
-        </div>
-    </section>
+        <!-- Offers Preview Section -->
+        <section class="section-padding" id="offers" style="background-color: rgba(25, 25, 25, 0.01);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Save Big</span>
+                    <h2 class="title">Midnight Flash Sale</h2>
+                </div>
 
-    <!-- 6. Popular Food Menu -->
-    <section id="menu" class="menu section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Our Menu</h4>
-            <h2 class="title">Popular Food Categories</h2>
-        </div>
-        <div class="container grid menu-grid mt-3">
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="menu-img"><img src="image/2.webp" alt="Menu 1"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
-                    <h3>Cheesy Beef Burger</h3>
-                    <p>Delicious beef patty with extra cheese.</p>
-                    <div class="menu-bottom">
-                        <span class="price">$12.50</span>
-                        <button class="btn-add"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="menu-img"><img src="image/3.webp" alt="Menu 2"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.5</div>
-                    <h3>Spicy Pepperoni Pizza</h3>
-                    <p>Hot and spicy pizza with lots of pepperoni.</p>
-                    <div class="menu-bottom">
-                        <span class="price">$15.00</span>
-                        <button class="btn-add"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="menu-img"><img src="image/4.webp" alt="Menu 3"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
-                    <h3>Crispy Fried Chicken</h3>
-                    <p>Golden crispy chicken served with fries.</p>
-                    <div class="menu-bottom">
-                        <span class="price">$10.99</span>
-                        <button class="btn-add"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
-                <div class="menu-img"><img src="image/5.webp" alt="Menu 4"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.7</div>
-                    <h3>Veggie Salad Bowl</h3>
-                    <p>Fresh vegetables mixed with olive oil.</p>
-                    <div class="menu-bottom">
-                        <span class="price">$8.50</span>
-                        <button class="btn-add"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container text-center mt-3">
-            <a href="menu.html" class="btn btn-outline">View Full Menu</a>
-        </div>
-    </section>
+                <div class="offers-grid">
+                    <div class="offer-banner-card reveal reveal-left">
+                        <span class="offer-tag">Flash Sale</span>
+                        <h3 class="offer-title">Save Up To 50% On Dinner Combos</h3>
+                        <p class="offer-desc">Order any deep dish specialty pizza or gourmet burger combo during our midnight hours and receive half off your second item.</p>
+                        
+                        <div class="countdown-clock" id="countdown-clock" data-end="2026-06-25T23:59:59">
+                            <div class="clock-segment">
+                                <span class="clock-val timer-days">00</span>
+                                <span class="clock-lbl">Days</span>
+                            </div>
+                            <div class="clock-segment">
+                                <span class="clock-val timer-hours">00</span>
+                                <span class="clock-lbl">Hrs</span>
+                            </div>
+                            <div class="clock-segment">
+                                <span class="clock-val timer-mins">00</span>
+                                <span class="clock-lbl">Mins</span>
+                            </div>
+                            <div class="clock-segment">
+                                <span class="clock-val timer-secs">00</span>
+                                <span class="clock-lbl">Secs</span>
+                            </div>
+                        </div>
 
-    <!-- 7. Featured Dishes -->
-    <section id="featured" class="featured section">
-        <div class="container grid featured-grid">
-            <div class="featured-content" data-aos="fade-right">
-                <h4 class="subtitle">Special Dish</h4>
-                <h2 class="title">Spicy Chicken Tikka Masala</h2>
-                <p>A classic favorite! Marinated chicken chunks cooked in a rich, creamy, and spicy tomato-based gravy. Perfect with naan or rice.</p>
-                <div class="price-large">$18.99</div>
-                <a href="menu.html" class="btn btn-primary mt-2">Order Now</a>
-            </div>
-            <div class="featured-img-wrap" data-aos="zoom-in">
-                <img src="image/6.webp" alt="Featured Dish" class="featured-img pulse-anim">
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. Why Choose Us (Stats) -->
-    <section id="stats" class="stats section bg-gradient">
-        <div class="container grid stats-grid">
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-users fa-3x mb-1"></i>
-                <h3 class="counter" data-target="10000">0</h3>
-                <p>Happy Customers</p>
-            </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-utensils fa-3x mb-1"></i>
-                <h3 class="counter" data-target="500">0</h3>
-                <p>Food Items</p>
-            </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-store fa-3x mb-1"></i>
-                <h3 class="counter" data-target="100">0</h3>
-                <p>Restaurant Partners</p>
-            </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
-                <i class="fas fa-clock fa-3x mb-1"></i>
-                <h3>24/7</h3>
-                <p>Delivery Service</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. Special Offers -->
-    <section id="offers" class="offers section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Promotions</h4>
-            <h2 class="title">Today's Special Offers</h2>
-        </div>
-        <div class="container grid offers-grid mt-3">
-            <div class="offer-card" data-aos="fade-right">
-                <img src="image/7.webp" alt="Offer 1">
-                <div class="offer-content">
-                    <span class="discount">-50%</span>
-                    <h3>Tasty Pizza Duo</h3>
-                    <p>Buy 1 Get 1 Free on all Medium Pizzas today!</p>
-                    <a href="menu.html" class="btn btn-sm btn-primary">Claim Offer</a>
-                </div>
-            </div>
-            <div class="offer-card" data-aos="fade-left">
-                <img src="image/8.webp" alt="Offer 2">
-                <div class="offer-content">
-                    <span class="discount">-20%</span>
-                    <h3>Combo Meals</h3>
-                    <p>Get 20% off on all family combo meals.</p>
-                    <a href="menu.html" class="btn btn-sm btn-primary">Claim Offer</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. Customer Testimonials -->
-    <section id="testimonials" class="testimonials section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Testimonials</h4>
-            <h2 class="title">What Our Customers Say</h2>
-        </div>
-        <div class="container testimonial-container" data-aos="zoom-in">
-            <div class="testimonial-wrapper">
-                <div class="testi-card">
-                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
-                    <p>"The food arrived hot and fresh! The delivery was incredibly fast. I'm definitely ordering from here again. Highly recommended!"</p>
-                    <div class="testi-user">
-                        <img src="image/1a.webp" alt="User">
                         <div>
-                            <h4>Emily Smith</h4>
-                            <span>Food Blogger</span>
+                            <a href="offers.html" class="btn btn-primary">Claim Coupon Code</a>
                         </div>
                     </div>
-                </div>
-                <div class="testi-card">
-                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
-                    <p>"Best burger I've had in a long time. The ingredients feel very high quality and the packaging kept everything perfect."</p>
-                    <div class="testi-user">
-                        <img src="image/1b.webp" alt="User">
-                        <div>
-                            <h4>Michael Johnson</h4>
-                            <span>Regular Customer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testi-card">
-                    <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
-                    <p>"Great app, very easy to use. The tracking feature is super helpful, and the delivery guys are always polite."</p>
-                    <div class="testi-user">
-                        <img src="image/1c.webp" alt="User">
-                        <div>
-                            <h4>Sarah Williams</h4>
-                            <span>Local Guide</span>
+
+                    <div class="reveal reveal-right" style="display: flex; flex-direction: column; gap: 24px; justify-content: center;">
+                        <div class="deal-card glass-card">
+                            <img src="image/Tasty Pizza Duo.webp" alt="Tasty Pizza Duo">
+                            <div class="deal-info">
+                                <span class="deal-badge">2-For-1 Deal</span>
+                                <h3 class="deal-title">Midweek Pizza Duo Combo</h3>
+                                <p style="color: var(--text-muted); font-size: 0.85rem;">Purchase any large artisan thin-crust pizza, get one rustic margherita absolutely free.</p>
+                                <div class="deal-pricing">
+                                    <span class="deal-new-price">$12.99</span>
+                                    <span class="deal-old-price">$19.99</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 11. Food Gallery -->
-    <section id="gallery" class="gallery section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Gallery</h4>
-            <h2 class="title">Explore Our Food Gallery</h2>
-        </div>
-        <div class="container gallery-grid mt-3">
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/2.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/3.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/4.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/5.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/6.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/9.webp" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
-        </div>
-    </section>
+        <!-- Testimonials -->
+        <section class="section-padding" id="testimonials" style="background-color: var(--secondary); color: var(--white);">
+            <div class="container">
+                <div class="section-header" style="max-width: 600px; margin-bottom: 40px;">
+                    <span class="sub-title" style="color: var(--primary);">Reviews</span>
+                    <h2 class="title" style="color: var(--white);">What Our Foodies Say</h2>
+                </div>
 
-    <!-- 12. Latest Blogs -->
-    <section id="blogs" class="blogs section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Our Blog</h4>
-            <h2 class="title">Latest News & Articles</h2>
-        </div>
-        <div class="container grid blogs-grid mt-3">
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="blog-img"><img src="image/7.webp" alt="Blog 1"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 15, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>Top 10 Benefits of Eating Healthy Food</h3>
-                    <p>Discover how eating the right foods can improve your health and boost your daily energy...</p>
-                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="blog-img"><img src="image/8.webp" alt="Blog 2"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 18, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>How to Cook the Perfect Steak at Home</h3>
-                    <p>Master the art of cooking steaks with our easy-to-follow guide and expert chef tips...</p>
-                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="blog-img"><img src="image/9.webp" alt="Blog 3"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 20, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>The Rise of Vegan Fast Food Trends</h3>
-                    <p>Explore how plant-based alternatives are taking over the fast-food industry globally...</p>
-                    <a href="blog.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-        </div>
-    </section>
+                <div class="testimonial-carousel-container reveal reveal-zoom">
+                    <div class="testimonial-track" id="testimonial-track">
+                        <div class="testimonial-slide">
+                            <img src="image/chef1.webp" alt="Sarah Connor" class="testi-avatar">
+                            <div class="testi-stars">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="testi-quote">The Salmon with garlic butter was absolutely stellar! Restaurant quality in my dining room within 25 minutes. Stackly packaging is exceptional.</p>
+                            <h4 class="testi-author">Sarah Connor</h4>
+                            <span class="testi-role">Food Blogger, Culinary Tales</span>
+                        </div>
 
-    <!-- 13. FAQ Section -->
-    <section id="faq" class="faq section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">F.A.Q</h4>
-            <h2 class="title">Frequently Asked Questions</h2>
-        </div>
-        <div class="container faq-container mt-3" data-aos="fade-up">
-            <div class="faq-item">
-                <button class="faq-btn">How do I place an order? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>You can easily place an order through our website or mobile app. Just browse the menu, add items to your cart, and proceed to checkout.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">What payment methods do you accept? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>We accept all major credit/debit cards, PayPal, Apple Pay, and Cash on Delivery.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">How long does delivery take? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>Standard delivery takes around 30-45 minutes depending on your location and current traffic conditions.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container text-center mt-3">
-             <a href="contact.html" class="btn btn-outline">Ask More Questions</a>
-        </div>
-    </section>
+                        <div class="testimonial-slide">
+                            <img src="image/chef2.webp" alt="Marcus Vance" class="testi-avatar">
+                            <div class="testi-stars">
+                                <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <p class="testi-quote">Ordering burgers online is usually a risk, but Stackly's potato wedges were crunchy, and the bun was perfectly toasted. Tracking is extremely accurate.</p>
+                            <h4 class="testi-author">Marcus Vance</h4>
+                            <span class="testi-role">Verified Customer</span>
+                        </div>
+                    </div>
 
-    <!-- 14. Contact Us -->
-    <section id="contact" class="contact section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Contact Us</h4>
-            <h2 class="title">Get In Touch</h2>
-        </div>
-        <div class="container grid contact-grid mt-3">
-            <div class="contact-info" data-aos="fade-right">
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <h3>Location</h3>
-                        <p>123 Foodie Street, NY 10001, USA</p>
-                    </div>
-                </div>
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-envelope"></i></div>
-                    <div>
-                        <h3>Email</h3>
-                        <p>support@foodies.com</p>
-                    </div>
-                </div>
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
-                    <div>
-                        <h3>Call Us</h3>
-                        <p>+1 234 567 8900</p>
+                    <div class="testi-dots" id="testi-dots">
+                        <span class="testi-dot active" data-index="0"></span>
+                        <span class="testi-dot" data-index="1"></span>
                     </div>
                 </div>
             </div>
-            <form class="contact-form" data-aos="fade-left">
-                <div class="input-group">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
+        </section>
+
+        <!-- Food Image Gallery -->
+        <section class="section-padding" id="gallery">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Food Gallery</span>
+                    <h2 class="title">Visual Feasts & Creations</h2>
                 </div>
-                <input type="text" placeholder="Subject" required>
-                <textarea placeholder="Message" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary w-100">Send Message</button>
-            </form>
-        </div>
-    </section>
 
-    <!-- 15. Newsletter Subscription -->
-    <section class="newsletter section" data-aos="fade-up">
-        <div class="container text-center">
-            <h2 class="title">Subscribe To Our Newsletter</h2>
-            <p>Get the latest news and special offers directly in your inbox.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit" class="btn btn-dark">Subscribe</button>
-            </form>
-        </div>
-    </section>
+                <div class="gallery-grid">
+                    <div class="gallery-item reveal" data-src="image/1.webp">
+                        <img src="image/1.webp" alt="Kitchen Assembly">
+                        <div class="gallery-overlay">
+                            <i class="fa-regular fa-image"></i>
+                            <h4>Kitchen Assembly</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item reveal" data-src="image/2.webp" style="transition-delay: 0.1s;">
+                        <img src="image/2.webp" alt="Gourmet plating">
+                        <div class="gallery-overlay">
+                            <i class="fa-regular fa-image"></i>
+                            <h4>Gourmet Plating</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item reveal" data-src="image/3.webp" style="transition-delay: 0.2s;">
+                        <img src="image/3.webp" alt="Brick Oven Pizza">
+                        <div class="gallery-overlay">
+                            <i class="fa-regular fa-image"></i>
+                            <h4>Brick Oven Pizza</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item reveal" data-src="image/4.webp" style="transition-delay: 0.3s;">
+                        <img src="image/4.webp" alt="Double Smash Stack">
+                        <div class="gallery-overlay">
+                            <i class="fa-regular fa-image"></i>
+                            <h4>Double Smash Stack</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- 16. Footer -->
+        <div class="lightbox" id="lightbox">
+            <button class="close-lightbox" id="close-lightbox" aria-label="Close image preview">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img class="lightbox-content" id="lightbox-img" src="" alt="Full screen preview">
+        </div>
+
+        <!-- Latest Blogs Preview -->
+        <section class="section-padding" id="blog" style="background-color: rgba(255, 107, 53, 0.01);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Food Chronicles</span>
+                    <h2 class="title">Latest Articles & Culinary Tips</h2>
+                </div>
+
+                <div class="blog-grid">
+                    <div class="blog-card glass-card reveal">
+                        <div class="blog-img-box">
+                            <span class="blog-date">10 June 2026</span>
+                            <img src="image/1a.webp" alt="Pizza dough rising secrets">
+                        </div>
+                        <div class="blog-body">
+                            <div class="blog-meta">
+                                <span><i class="fa-regular fa-user"></i> By Chef Ronnie</span>
+                                <span><i class="fa-regular fa-clock"></i> 5 Min Read</span>
+                            </div>
+                            <h3 class="blog-title"><a href="blog.html">The Secret Behind Perfect Sourdough Pizza Dough</a></h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">Learn the chemistry of yeast fermentation, water ratios, and temperature control for brick-oven style crusts.</p>
+                            <a href="blog.html" class="read-more-btn">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card glass-card reveal" style="transition-delay: 0.1s;">
+                        <div class="blog-img-box">
+                            <span class="blog-date">08 June 2026</span>
+                            <img src="image/1b.webp" alt="Avocados and green smoothies health">
+                        </div>
+                        <div class="blog-body">
+                            <div class="blog-meta">
+                                <span><i class="fa-regular fa-user"></i> By Helena Rose</span>
+                                <span><i class="fa-regular fa-clock"></i> 4 Min Read</span>
+                            </div>
+                            <h3 class="blog-title"><a href="blog.html">5 Superfoods to Supercharge Your Weekly Greens</a></h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">Dive into nutritional profiles of chia, avocado fats, kale leaf, and pumpkin seed additions for salad bowls.</p>
+                            <a href="blog.html" class="read-more-btn">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="blog.html" class="btn btn-primary">View All Articles</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription -->
+        <section class="newsletter-section" id="newsletter">
+            <div class="container">
+                <div class="newsletter-box reveal reveal-zoom">
+                    <h2 class="newsletter-title">Subscribe To Our Newsletter</h2>
+                    <p class="newsletter-desc">Get fresh updates, exclusive coupons, healthy eating tips, and special discounts delivered directly to your inbox weekly.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Your Email Address..." required autocomplete="email">
+                        <button type="submit" class="btn btn-secondary" id="newsletter-btn">
+                            <i class="fa-regular fa-paper-plane"></i> Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
-                </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                    <a href="404.html" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Food Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog Posts</a>
+                        <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact Us</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Fast Delivery</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Fresh Ingredients</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Secure Payments</a>
+                        <a href="login.html"><i class="fa-solid fa-chevron-right"></i> Client Dashboard</a>
+                        <a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Partner Portal</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p>100 Gourmet Plaza, Food District, NY 10001</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <p>+1 (800) 555-STACK<br>+1 (555) 987-6543</p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <p>support@stackly.com</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms & Conditions</a>
+                    <a href="404.html">Sitemap</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-inner">
-            <div class="cart-modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button id="closeCart"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartItems" class="cart-items-list">
-                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
-            </div>
-            <div class="cart-total">
-                <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                <a href="#" class="btn btn-primary">Checkout</a>
-            </div>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay"></div>
+    <!-- Scroll-to-Top Button -->
+    <button id="scroll-to-top" aria-label="Scroll to top of page">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

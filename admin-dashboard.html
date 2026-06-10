@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BiteCraft Admin Dashboard. Monitor revenues, manage customers, trace orders, and check statistics.">
+    <title>BiteCraft | Admin Analytics Dashboard</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Collapsible Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <!-- Logo Header -->
+        <div class="sidebar-header">
+
+            <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle Sidebar Menu">
+                <i class="fa-solid fa-angles-left"></i>
+            </button>
+        </div>
+        
+        <!-- Logged user status display -->
+
+
+        <!-- Sidebar Navigation Menu Links -->
+        <nav class="sidebar-nav">
+            <a href="admin-dashboard.html" class="sidebar-nav-link active">
+                <i class="fa-solid fa-chart-line"></i> <span>Admin Analytics</span>
+            </a>
+            <a href="orders-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-receipt"></i> <span>Order Management</span>
+            </a>
+            <a href="delivery-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-truck-ramp-box"></i> <span>Delivery Tracking</span>
+            </a>
+            <a href="customer-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-user-gear"></i> <span>Customer Profile</span>
+            </a>
+            <a href="index.html" class="sidebar-nav-link" style="border-top: 1px dashed rgba(255,255,255,0.05); border-radius: 0; padding-top: 20px; margin-top: 10px;">
+                <i class="fa-solid fa-house"></i> <span>Back To Store</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar logout panel -->
+        <div class="sidebar-footer">
+            <a href="index.html" class="sidebar-nav-link" id="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Dashboard Section -->
+    <main class="dashboard-main" id="dashboard-main">
+        <!-- Dashboard Top Navigation Bar -->
+        <div class="dashboard-topbar">
+            <!-- Mobile Menu trigger and Title -->
+            <div class="dashboard-mobile-nav">
+                <button class="dashboard-hamburger" id="dashboard-hamburger" aria-label="Toggle Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a href="index.html">
+                    <img src="logo.webp" alt="BiteCraft Logo" style="height:38px; width:auto; object-fit:contain;">
+                </a>
+            </div>
+            
+            <div class="topbar-title">
+                <div class="dashboard-logo-center">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:52px; width:auto; object-fit:contain;"></a>
+                </div>
+                <h2>Admin Panel</h2>
+                <p>Welcome back, <span id="topbar-user-name">Jonathan</span>! Here is your business overview.</p>
+            </div>
+            
+            <!-- Notifications panel actions -->
+            <div class="topbar-actions">
+                <button class="topbar-btn" id="noti-trigger" aria-label="Notifications panel">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="noti-badge-count">3</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Statistic Cards Grid -->
+        <div class="widget-grid">
+            <!-- Revenue -->
+            <div class="widget-card">
+                <div class="widget-info">
+                    <h4>Total Revenue</h4>
+                    <div class="widget-value">$24,580</div>
+                    <div class="widget-change positive">
+                        <i class="fa-solid fa-caret-up"></i> +12.4% <span>vs last month</span>
+                    </div>
+                </div>
+                <div class="widget-icon revenue">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                </div>
+            </div>
+
+            <!-- Orders -->
+            <div class="widget-card">
+                <div class="widget-info">
+                    <h4>Total Orders</h4>
+                    <div class="widget-value">1,240</div>
+                    <div class="widget-change positive">
+                        <i class="fa-solid fa-caret-up"></i> +8.2% <span>vs last month</span>
+                    </div>
+                </div>
+                <div class="widget-icon orders">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+            </div>
+
+            <!-- Customers -->
+            <div class="widget-card">
+                <div class="widget-info">
+                    <h4>Total Customers</h4>
+                    <div class="widget-value">850</div>
+                    <div class="widget-change positive">
+                        <i class="fa-solid fa-caret-up"></i> +15.1% <span>vs last month</span>
+                    </div>
+                </div>
+                <div class="widget-icon customers">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+
+            <!-- Food Items -->
+            <div class="widget-card">
+                <div class="widget-info">
+                    <h4>Food Items</h4>
+                    <div class="widget-value">32</div>
+                    <div class="widget-change negative">
+                        <i class="fa-solid fa-caret-down"></i> -2 items <span>discontinued</span>
+                    </div>
+                </div>
+                <div class="widget-icon items">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytical Charts Grid -->
+        <div class="charts-grid">
+            <!-- Line/Bar Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Revenue & Orders Trend (2026)</h3>
+                </div>
+                <div class="chart-content bar-line">
+                    <canvas id="salesTrendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Doughnut Category Distribution -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Category Distribution</h3>
+                </div>
+                <div class="chart-content doughnut">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3 class="table-title">Recent Orders log</h3>
+                <a href="orders-dashboard.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Manage All Orders</a>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Subtotal</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-recent-orders-rows">
+                        <!-- Placed dynamically via JS -->
+                        <tr>
+                            <td>#BC-9844</td>
+                            <td>Jane Doe</td>
+                            <td>Spicy Pepperoni Pizza x1, Drink x1</td>
+                            <td>$16.99</td>
+                            <td><span class="status-pill delivered">Delivered</span></td>
+                            <td>10 Jun 2026, 03:30 PM</td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="table-action-btn btn-view" title="View details"><i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#BC-9845</td>
+                            <td>Ramanathan S.</td>
+                            <td>Cheesy Beef Burger x2, Fries x1</td>
+                            <td>$24.50</td>
+                            <td><span class="status-pill preparing">Preparing</span></td>
+                            <td>10 Jun 2026, 04:10 PM</td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="table-action-btn btn-view" title="View details"><i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- ChartJS library for animations and visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Combined dashboard operations script -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

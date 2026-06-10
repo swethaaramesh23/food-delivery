@@ -3,213 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Contact Stackly - get in touch with our support team, restaurant partnership enquiries, corporate catering, or media requests. We're here to help 24/7.">
+    <title>Stackly | Contact Us - We're Here To Help</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, #FF6B35 0%, #e05621 100%); padding: calc(var(--header-height) + 60px) 0 80px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+        .page-hero-title { font-size: 3.2rem; color: #fff; margin-bottom: 16px; }
+        .page-hero-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 0.95rem; opacity: 0.85; }
+        .page-hero-breadcrumb a { color: #fff; }
+
+        /* Contact Info Cards */
+        .contact-info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: -50px; position: relative; z-index: 10; }
+        .contact-info-card { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 32px 24px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .contact-info-card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px rgba(255,107,53,0.12); }
+        .contact-info-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #FF6B35, #e05621); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; margin: 0 auto 16px; }
+        .contact-info-label { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .contact-info-value { font-weight: 600; color: var(--secondary); line-height: 1.6; }
+
+        /* Contact Form + Map Grid */
+        .contact-main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        
+        /* Contact Form */
+        .contact-form-card { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 24px; padding: 50px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 24px; }
+        .form-label { display: block; font-weight: 600; font-size: 0.9rem; color: var(--secondary); margin-bottom: 8px; }
+        .form-input, .form-textarea, .form-select { width: 100%; padding: 14px 18px; background: #F8F9FA; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 12px; font-size: 0.95rem; color: var(--text-main); transition: all 0.3s ease; font-family: inherit; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(255,107,53,0.08); outline: none; }
+        .form-textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+        .form-select { appearance: none; cursor: pointer; }
+        .form-submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #FF6B35, #e05621); color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(255,107,53,0.25); }
+        .form-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,107,53,0.35); }
+        .form-submit-btn:active { transform: translateY(0); }
+
+        /* Map & Info Column */
+        .map-container { border-radius: 20px; overflow: hidden; height: 400px; border: 1px solid rgba(255,107,53,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #F8F9FA; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+        .map-placeholder-icon { font-size: 4rem; }
+
+        /* Business Hours */
+        .hours-table { width: 100%; }
+        .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 0.9rem; }
+        .hours-row:last-child { border-bottom: none; }
+        .hours-day { font-weight: 500; color: var(--secondary); }
+        .hours-time { font-weight: 600; color: var(--primary); }
+        .hours-time.closed { color: var(--text-muted); }
+
+        /* FAQ Accordion */
+        .faq-item { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 14px; margin-bottom: 12px; overflow: hidden; }
+        .faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: all 0.2s; }
+        .faq-question:hover { background: rgba(255,107,53,0.03); }
+        .faq-question i { color: var(--primary); transition: transform 0.3s; }
+        .faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+        .faq-item.open .faq-question i { transform: rotate(45deg); }
+        .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
+
+        /* Department Contact */
+        .dept-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .dept-card { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 30px 24px; text-align: center; transition: all 0.3s; }
+        .dept-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(255,107,53,0.1); }
+        .dept-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .dept-title { font-size: 1.1rem; margin-bottom: 8px; }
+        .dept-email { color: var(--primary); font-size: 0.875rem; font-weight: 600; }
+        .dept-desc { color: var(--text-muted); font-size: 0.85rem; margin-top: 8px; }
+
+        @media (max-width: 992px) { .contact-info-grid { grid-template-columns: 1fr 1fr; margin-top: 30px; } .contact-main-grid { grid-template-columns: 1fr; } .dept-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .contact-info-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } .dept-grid { grid-template-columns: 1fr; } .page-hero-title { font-size: 2.2rem; } .contact-form-card { padding: 30px 24px; } }
+    </style>
 </head>
 <body>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="offers.html" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
             </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Stackly Logo" class="logo-img"></a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </nav>
             <div class="nav-actions">
-                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></button>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+                <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
+                <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- 2. Page Header Hero -->
-    <section class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>Contact Us</h1>
-            <p>We would love to hear from you</p>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="page-hero-title">Get In Touch</h1>
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 20px;">Have a question, partnership proposal, or feedback? Our friendly team is ready to assist you 24/7. We typically respond within 2 hours.</p>
+            <div class="page-hero-breadcrumb">
+                <a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Contact</span>
+            </div>
         </div>
     </section>
 
-    <!-- 3. Contact Info & Form -->
-    <section class="contact section">
-        <div class="container grid contact-grid">
-            <div class="contact-info" data-aos="fade-right">
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <h3>Headquarters</h3>
-                        <p>123 Foodie Street, NY 10001, USA</p>
+    <main>
+        <!-- Contact Info Cards -->
+        <section style="padding: 0 0 60px;">
+            <div class="container">
+                <div class="contact-info-grid">
+                    <div class="contact-info-card reveal">
+                        <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="contact-info-label">Visit Us</div>
+                        <div class="contact-info-value">100 Gourmet Plaza,<br>Food District, NY 10001</div>
+                    </div>
+                    <div class="contact-info-card reveal" style="transition-delay:0.1s;">
+                        <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-info-label">Call Us</div>
+                        <div class="contact-info-value">+1 (800) 555-STACK<br>+1 (555) 987-6543</div>
+                    </div>
+                    <div class="contact-info-card reveal" style="transition-delay:0.2s;">
+                        <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-info-label">Email Us</div>
+                        <div class="contact-info-value">support@stackly.com<br>hello@stackly.com</div>
+                    </div>
+                    <div class="contact-info-card reveal" style="transition-delay:0.3s;">
+                        <div class="contact-info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="contact-info-label">Working Hours</div>
+                        <div class="contact-info-value">Mon-Sun: 24/7<br>Support Always On</div>
                     </div>
                 </div>
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-envelope"></i></div>
-                    <div>
-                        <h3>Email</h3>
-                        <p>support@foodies.com<br>info@foodies.com</p>
+            </div>
+        </section>
+
+        <!-- Contact Form + Info -->
+        <section class="section-padding" style="padding-top: 0;">
+            <div class="container">
+                <div class="contact-main-grid">
+                    <!-- Contact Form -->
+                    <div class="contact-form-card reveal reveal-left">
+                        <div style="margin-bottom: 32px;">
+                            <span class="sub-title" style="color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 10px;">Send A Message</span>
+                            <h2 class="title" style="font-size: 2rem;">We'd Love to Hear From You</h2>
+                            <p style="color: var(--text-muted); margin-top: 10px;">Fill out the form below and we'll get back to you within 2 hours on business days.</p>
+                        </div>
+                        <form id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-name">Full Name *</label>
+                                    <input type="text" class="form-input" id="contact-name" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-email">Email Address *</label>
+                                    <input type="email" class="form-input" id="contact-email" placeholder="john@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-phone">Phone Number</label>
+                                    <input type="tel" class="form-input" id="contact-phone" placeholder="+1 (555) 000-0000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-subject">Subject *</label>
+                                    <select class="form-select form-input" id="contact-subject" required>
+                                        <option value="" disabled selected>Select Topic</option>
+                                        <option value="support">Customer Support</option>
+                                        <option value="order">Order Issue</option>
+                                        <option value="partnership">Restaurant Partnership</option>
+                                        <option value="catering">Corporate Catering</option>
+                                        <option value="media">Media Enquiry</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="careers">Careers</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contact-message">Your Message *</label>
+                                <textarea class="form-textarea" id="contact-message" placeholder="Tell us how we can help you. Please provide as much detail as possible..." required></textarea>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 24px;">
+                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; color: var(--text-muted); font-size: 0.875rem;">
+                                    <input type="checkbox" id="contact-newsletter" style="accent-color: var(--primary); margin-top: 3px; flex-shrink: 0;">
+                                    <span>I'd like to receive Stackly's newsletter with deals, recipes, and food tips weekly.</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="form-submit-btn" id="contact-submit-btn">
+                                <i class="fa-solid fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Map & Hours -->
+                    <div class="reveal reveal-right">
+                        <!-- Map -->
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 20px; font-size: 1.3rem;">Our Location</h3>
+                            <div class="map-container">
+                                <div class="map-placeholder-icon">📍</div>
+                                <p style="color: var(--text-muted); font-weight: 600;">100 Gourmet Plaza, Food District</p>
+                                <p style="color: var(--text-muted); font-size: 0.875rem;">New York, NY 10001</p>
+                                <a href="https://maps.google.com" target="_blank" class="btn btn-primary" style="margin-top: 8px; padding: 10px 24px; font-size: 0.875rem;"><i class="fa-solid fa-map-location-dot"></i> Open in Google Maps</a>
+                            </div>
+                        </div>
+
+                        <!-- Business Hours -->
+                        <div class="sidebar-widget" style="background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 28px; margin-bottom: 24px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-clock" style="color: var(--primary);"></i> Business Hours</h3>
+                            <div class="hours-table">
+                                <div class="hours-row"><span class="hours-day">🌟 Support Team</span><span class="hours-time">24/7 Always On</span></div>
+                                <div class="hours-row"><span class="hours-day">Monday - Friday</span><span class="hours-time">7:00 AM – 11:00 PM</span></div>
+                                <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:00 AM – 12:00 AM</span></div>
+                                <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">9:00 AM – 10:00 PM</span></div>
+                                <div class="hours-row"><span class="hours-day">Public Holidays</span><span class="hours-time">10:00 AM – 8:00 PM</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div style="background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 28px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 20px;">Follow Us On Social</h3>
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <a href="#" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); transition: all 0.2s; color: var(--text-main);" onmouseover="this.style.background='rgba(255,107,53,0.05)'" onmouseout="this.style.background='transparent'">
+                                    <i class="fa-brands fa-instagram" style="font-size: 1.3rem; color: #E4405F; width: 24px;"></i>
+                                    <div><div style="font-weight: 600; font-size: 0.9rem;">@stackly.food</div><div style="font-size: 0.78rem; color: var(--text-muted);">82.4K followers</div></div>
+                                </a>
+                                <a href="#" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); transition: all 0.2s; color: var(--text-main);" onmouseover="this.style.background='rgba(255,107,53,0.05)'" onmouseout="this.style.background='transparent'">
+                                    <i class="fa-brands fa-facebook-f" style="font-size: 1.3rem; color: #1877F2; width: 24px;"></i>
+                                    <div><div style="font-weight: 600; font-size: 0.9rem;">Stackly Food Delivery</div><div style="font-size: 0.78rem; color: var(--text-muted);">45.1K likes</div></div>
+                                </a>
+                                <a href="#" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); transition: all 0.2s; color: var(--text-main);" onmouseover="this.style.background='rgba(255,107,53,0.05)'" onmouseout="this.style.background='transparent'">
+                                    <i class="fa-brands fa-x-twitter" style="font-size: 1.3rem; color: #000; width: 24px;"></i>
+                                    <div><div style="font-weight: 600; font-size: 0.9rem;">@stacklyfood</div><div style="font-size: 0.78rem; color: var(--text-muted);">28.7K followers</div></div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="c-item">
-                    <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
-                    <div>
-                        <h3>Call Us</h3>
-                        <p>+1 234 567 8900<br>+1 987 654 3210</p>
+            </div>
+        </section>
+
+        <!-- Department Contacts -->
+        <section class="section-padding" style="background: #F8F9FA; padding-top: 80px;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Reach The Right Team</span>
+                    <h2 class="title">Contact by Department</h2>
+                    <p style="color: var(--text-muted);">Route your enquiry to the right team for the fastest response possible.</p>
+                </div>
+                <div class="dept-grid">
+                    <div class="dept-card reveal">
+                        <div class="dept-icon">🎧</div>
+                        <h3 class="dept-title">Customer Support</h3>
+                        <div class="dept-email">support@stackly.com</div>
+                        <p class="dept-desc">Order issues, delivery problems, account help, and general enquiries. Response: Within 1 hour.</p>
+                    </div>
+                    <div class="dept-card reveal" style="transition-delay:0.1s;">
+                        <div class="dept-icon">🤝</div>
+                        <h3 class="dept-title">Restaurant Partners</h3>
+                        <div class="dept-email">partners@stackly.com</div>
+                        <p class="dept-desc">Interested in listing your restaurant? Onboarding takes just 3 days. Response: Within 24 hours.</p>
+                    </div>
+                    <div class="dept-card reveal" style="transition-delay:0.2s;">
+                        <div class="dept-icon">🏢</div>
+                        <h3 class="dept-title">Corporate Catering</h3>
+                        <div class="dept-email">catering@stackly.com</div>
+                        <p class="dept-desc">Bulk meal orders, team lunches, and office catering plans. Custom quotes available. Response: Within 4 hours.</p>
+                    </div>
+                    <div class="dept-card reveal" style="transition-delay:0.3s;">
+                        <div class="dept-icon">📰</div>
+                        <h3 class="dept-title">Media & Press</h3>
+                        <div class="dept-email">press@stackly.com</div>
+                        <p class="dept-desc">Journalist enquiries, brand collaborations, influencer partnerships, and PR requests. Response: Within 48 hours.</p>
+                    </div>
+                    <div class="dept-card reveal" style="transition-delay:0.4s;">
+                        <div class="dept-icon">💼</div>
+                        <h3 class="dept-title">Careers</h3>
+                        <div class="dept-email">careers@stackly.com</div>
+                        <p class="dept-desc">Join our growing team! Open positions in tech, operations, marketing, and delivery. Response: Within 3 days.</p>
+                    </div>
+                    <div class="dept-card reveal" style="transition-delay:0.5s;">
+                        <div class="dept-icon">🐛</div>
+                        <h3 class="dept-title">Technical Issues</h3>
+                        <div class="dept-email">tech@stackly.com</div>
+                        <p class="dept-desc">App bugs, website issues, payment errors, and technical glitches. Our dev team is on call 24/7.</p>
                     </div>
                 </div>
             </div>
-            <form class="contact-form" data-aos="fade-left">
-                <div class="input-group">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                </div>
-                <input type="text" placeholder="Subject" required>
-                <textarea placeholder="Message" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary w-100">Send Message</button>
-            </form>
-        </div>
-    </section>
+        </section>
 
-    <!-- 4. Interactive Map Area -->
-    <section class="section pt-0">
-        <div class="container" data-aos="zoom-in">
-            <div style="width: 100%; height: 400px; background-color: #e0e0e0; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-color);">
-                <div class="text-center">
-                    <i class="fas fa-map-marked-alt fa-3x mb-1" style="color: var(--primary-color);"></i>
-                    <h3>Google Maps Placeholder</h3>
-                    <p>Map iframe goes here</p>
+        <!-- FAQ Section -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Quick Answers</span>
+                    <h2 class="title">Frequently Asked Questions</h2>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">How long does delivery usually take?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">Our average delivery time is 28 minutes. Express orders are prioritized and typically arrive in under 20 minutes. Delivery time may vary based on distance, traffic, and order complexity. You can track your order in real-time via the app or website.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">What areas do you deliver to?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">We currently deliver across New York City including Manhattan, Brooklyn, Queens, The Bronx, and Staten Island. We're rapidly expanding to new cities. Enter your zip code on the homepage to check if we deliver to your specific address.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">How do I apply coupon codes?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">After adding items to your cart, proceed to checkout. You'll see a "Promo Code" field before the payment step. Enter your coupon code and click "Apply." The discount will be reflected in your order total immediately. One coupon code per order.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">Can I modify or cancel my order?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">Orders can be modified or cancelled within 3 minutes of placement, before the restaurant confirms preparation. After confirmation, modifications may not be possible. Contact our support team immediately via live chat or call +1 (800) 555-STACK for urgent cancellations.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">How do I become a restaurant partner?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">Email us at partners@stackly.com with your restaurant name, location, and menu. Our partnership team will reach out within 24 hours. The onboarding process takes 3 business days and includes a free professional photoshoot of your dishes.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question" onclick="toggleFaq(this)">What happens if my order arrives incorrect or damaged?<i class="fa-solid fa-plus"></i></div>
+                        <div class="faq-answer">We have a 100% satisfaction guarantee. If your order is incorrect, missing items, or arrives damaged, contact support within 30 minutes of delivery. We'll either resend the correct order at no charge or provide a full refund — whichever you prefer.</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 5. FAQ Section -->
-    <section id="faq" class="faq section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">F.A.Q</h4>
-            <h2 class="title">Frequently Asked Questions</h2>
-        </div>
-        <div class="container faq-container mt-3" data-aos="fade-up">
-            <div class="faq-item">
-                <button class="faq-btn">How do I place an order? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>You can easily place an order through our website or mobile app. Just browse the menu, add items to your cart, and proceed to checkout.</p>
+        <!-- CTA -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-box reveal reveal-zoom">
+                    <h2 class="newsletter-title">Still Have Questions?</h2>
+                    <p class="newsletter-desc">Our support team is available 24/7 via live chat, phone, and email. We promise to respond within 2 hours!</p>
+                    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                        <a href="tel:+18005557825" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Us Now</a>
+                        <a href="menu.html" class="btn btn-outline" style="border-color: #fff; color: #fff !important;"><i class="fa-solid fa-bowl-food"></i> Browse Menu</a>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item">
-                <button class="faq-btn">What payment methods do you accept? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>We accept all major credit/debit cards, PayPal, Apple Pay, and Cash on Delivery.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">How long does delivery take? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>Standard delivery takes around 30-45 minutes depending on your location and current traffic conditions.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">Do you offer vegetarian/vegan options? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>Yes! We have a wide variety of vegetarian and vegan meals clearly marked on our menu.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">How can I track my order? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>Once your order is confirmed, you will receive a tracking link via SMS and email. You can also track it directly from your account dashboard.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-btn">Can I cancel my order? <i class="fas fa-chevron-down"></i></button>
-                <div class="faq-content">
-                    <p>Orders can only be canceled within the first 5 minutes of placing them. After that, the restaurant begins preparation and cancellation is not guaranteed.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- 6. Footer -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
-                </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Full Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Express Delivery</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Corporate Catering</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Gift Hampers</a>
+                        <a href="login.html"><i class="fa-solid fa-chevron-right"></i> Dashboard Login</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><p>100 Gourmet Plaza, NY 10001</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><p>+1 (800) 555-STACK</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><p>support@stackly.com</p></div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms &amp; Conditions</a>
+                    <a href="404.html">Sitemap</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-inner">
-            <div class="cart-modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button id="closeCart"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartItems" class="cart-items-list">
-                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
-            </div>
-            <div class="cart-total">
-                <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                <a href="#" class="btn btn-primary">Checkout</a>
-            </div>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay"></div>
+    <button id="scroll-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // FAQ Toggle
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+        // Contact Form Submit
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('contact-submit-btn');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message Sent!';
+                    submitBtn.style.background = 'linear-gradient(135deg, #4CD964, #34a850)';
+                    contactForm.reset();
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+                        submitBtn.style.background = '';
+                    }, 4000);
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>

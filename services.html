@@ -3,248 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Foodies Services - Fast delivery, Easy ordering, Best quality food">
-    <title>Services - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Explore Stackly's premium services - fast delivery, fresh ingredients, catering, corporate meals, and more. Everything you need for a perfect food experience.">
+    <title>Stackly | Our Services - Fast Delivery & More</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, #1A1A1A 0%, #2d2d2d 100%); padding: calc(var(--header-height) + 60px) 0 80px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: rgba(255,107,53,0.08); top: -150px; right: -100px; }
+        .page-hero-title { font-size: 3.2rem; color: #fff; margin-bottom: 16px; }
+        .page-hero-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 0.95rem; opacity: 0.75; }
+        .page-hero-breadcrumb a { color: #fff; }
+        .page-hero-breadcrumb i { font-size: 0.75rem; }
+
+        /* Service Cards Enhanced */
+        .service-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-detail-card { background: #fff; border: 1px solid rgba(255,107,53,0.12); border-radius: 24px; padding: 40px 30px; box-shadow: 0 6px 25px rgba(0,0,0,0.05); transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .service-detail-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #FF6B35, #e05621); transform: scaleX(0); transition: transform 0.4s ease; }
+        .service-detail-card:hover::before { transform: scaleX(1); }
+        .service-detail-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,107,53,0.12); }
+        .service-detail-icon { width: 70px; height: 70px; background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,107,53,0.2)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--primary); margin-bottom: 24px; transition: all 0.3s; }
+        .service-detail-card:hover .service-detail-icon { background: linear-gradient(135deg, #FF6B35, #e05621); color: #fff; }
+        .service-detail-title { font-size: 1.25rem; margin-bottom: 12px; }
+        .service-detail-desc { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
+        .service-feature-list { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .service-feature-list li { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.9rem; }
+        .service-feature-list li i { color: var(--primary); font-size: 0.85rem; }
+
+        /* Process Section */
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; position: relative; }
+        .process-grid::before { content: ''; position: absolute; top: 40px; left: 12%; right: 12%; height: 2px; background: linear-gradient(90deg, var(--primary), rgba(255,107,53,0.2)); z-index: 0; }
+        .process-step { text-align: center; position: relative; z-index: 1; }
+        .process-num { width: 80px; height: 80px; background: linear-gradient(135deg, #FF6B35, #e05621); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; margin: 0 auto 20px; font-family: 'Outfit', sans-serif; font-weight: 800; border: 4px solid #fff; box-shadow: 0 8px 25px rgba(255,107,53,0.3); }
+        .process-title { font-size: 1.1rem; margin-bottom: 10px; }
+
+        /* Pricing Table */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .pricing-card { background: #fff; border: 2px solid rgba(255,107,53,0.1); border-radius: 24px; padding: 40px 30px; text-align: center; position: relative; transition: all 0.4s ease; }
+        .pricing-card.featured { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 20px 50px rgba(255,107,53,0.15); }
+        .featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 4px 20px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .pricing-plan { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .pricing-price { font-size: 3rem; font-weight: 800; color: var(--secondary); font-family: 'Outfit', sans-serif; margin-bottom: 4px; }
+        .pricing-price span { font-size: 1.2rem; font-weight: 400; }
+        .pricing-period { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+        .pricing-features { text-align: left; margin-bottom: 30px; display: flex; flex-direction: column; gap: 12px; }
+        .pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; }
+        .pricing-features li i.fa-check { color: #4CD964; }
+        .pricing-features li i.fa-xmark { color: #ccc; }
+        .pricing-features li.disabled { color: var(--text-muted); opacity: 0.5; }
+
+        /* Testimonials mini */
+        .service-testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .service-testi-card { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 30px; }
+        .service-testi-stars { color: #FFB800; margin-bottom: 12px; font-size: 0.9rem; }
+        .service-testi-text { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; margin-bottom: 16px; font-style: italic; }
+        .service-testi-author { display: flex; align-items: center; gap: 12px; }
+        .service-testi-author img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        .service-testi-author strong { font-size: 0.95rem; display: block; }
+        .service-testi-author span { font-size: 0.8rem; color: var(--text-muted); }
+
+        @media (max-width: 992px) { .service-cards-grid, .process-grid, .pricing-grid { grid-template-columns: 1fr 1fr; } .process-grid::before { display: none; } }
+        @media (max-width: 768px) { .service-cards-grid, .pricing-grid, .service-testi-grid { grid-template-columns: 1fr; } .page-hero-title { font-size: 2.2rem; } .pricing-card.featured { transform: none; } }
+    </style>
 </head>
 <body>
+
     <!-- Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <i class="fas fa-hamburger fa-spin"></i>
-            <h2>Loading Tasty Food...</h2>
+        <div class="loader-content">
+            <img src="logo.webp" alt="Stackly Logo" class="loader-logo-img">
+            <div class="loader-spinner"></div>
         </div>
     </div>
 
     <!-- Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="services.html" class="nav-link active">Services</a></li>
-                    <li><a href="offers.html" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
-            </div>
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Stackly Logo" class="logo-img"></a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link active">Services</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
             <div class="nav-actions">
-                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cartCount">0</span>
-                </button>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+                <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
+                <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>Our Services</h1>
-            <p>Everything we do to bring the best food to your door</p>
-        </div>
-    </section>
-
-    <!-- Why We're Different -->
-    <section class="services section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">What We Offer</h4>
-            <h2 class="title">Services Built Around You</h2>
-            <p style="max-width:650px; margin: 0 auto 2rem;">From farm-fresh ingredients to blazing-fast delivery, every step of our process is designed to make your experience exceptional.</p>
-        </div>
-        <div class="container grid services-grid">
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fas fa-shipping-fast"></i></div>
-                <h3>Express Delivery</h3>
-                <p>Get your favourite meals delivered hot and fresh within 30 minutes. We operate 24/7, rain or shine.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Easy Online Ordering</h3>
-                <p>Browse, customise and order from hundreds of dishes in just a few taps on our app or website.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fas fa-medal"></i></div>
-                <h3>Premium Quality</h3>
-                <p>Every dish is prepared by trained chefs using only fresh, locally sourced, organic ingredients.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fas fa-tags"></i></div>
-                <h3>Best Prices</h3>
-                <p>Enjoy restaurant-quality food at affordable prices, with weekly deals and loyalty rewards.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fas fa-headset"></i></div>
-                <h3>24/7 Support</h3>
-                <p>Our friendly support team is always available via chat, email or phone to assist you anytime.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
-                <h3>Live Tracking</h3>
-                <p>Track your order in real-time from our kitchen to your doorstep with GPS precision.</p>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="page-hero-title">Our Premium Services</h1>
+            <p style="font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto 20px;">From express delivery to corporate catering — Stackly offers a full suite of culinary services tailored to your lifestyle.</p>
+            <div class="page-hero-breadcrumb">
+                <a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Services</span>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Simple Process</h4>
-            <h2 class="title">How It Works</h2>
-        </div>
-        <div class="container grid" style="grid-template-columns: repeat(4,1fr); gap: 2rem; margin-top: 3rem;" data-aos="fade-up">
-            <div class="text-center">
-                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">1</div>
-                <img src="image/2a.webp" alt="Choose Food" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
-                <h3 style="color:var(--dark-color);">Choose Food</h3>
-                <p>Browse our menu and select your favourite dishes.</p>
+    <main>
+        <!-- Core Services -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">What We Do Best</span>
+                    <h2 class="title">Complete Food Delivery Solutions</h2>
+                    <p style="color: var(--text-muted);">Every service is built around one goal — delivering exceptional culinary experiences to you, wherever you are.</p>
+                </div>
+                <div class="service-cards-grid">
+                    <div class="service-detail-card reveal">
+                        <div class="service-detail-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h3 class="service-detail-title">Express Delivery</h3>
+                        <p class="service-detail-desc">Industry-leading 28-minute average delivery time powered by AI route optimization and thermal-sealed insulated bags.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> Real-time GPS tracking</li>
+                            <li><i class="fa-solid fa-check"></i> Temperature-controlled packaging</li>
+                            <li><i class="fa-solid fa-check"></i> Contactless delivery option</li>
+                            <li><i class="fa-solid fa-check"></i> Live rider chat support</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.1s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-carrot"></i></div>
+                        <h3 class="service-detail-title">Farm-Fresh Ingredients</h3>
+                        <p class="service-detail-desc">We source ingredients daily from certified organic farms. Zero frozen storage, zero artificial preservatives — guaranteed.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> 100% organic certified sources</li>
+                            <li><i class="fa-solid fa-check"></i> Daily freshness audit reports</li>
+                            <li><i class="fa-solid fa-check"></i> Seasonal menu rotations</li>
+                            <li><i class="fa-solid fa-check"></i> Allergen-friendly options</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.2s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-credit-card"></i></div>
+                        <h3 class="service-detail-title">Secure Payments</h3>
+                        <p class="service-detail-desc">Multiple encrypted payment methods including cards, digital wallets, and buy-now-pay-later options for your convenience.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> Visa, Mastercard, AMEX</li>
+                            <li><i class="fa-solid fa-check"></i> Apple Pay &amp; Google Pay</li>
+                            <li><i class="fa-solid fa-check"></i> 256-bit SSL encryption</li>
+                            <li><i class="fa-solid fa-check"></i> Zero transaction fees</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.3s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-building"></i></div>
+                        <h3 class="service-detail-title">Corporate Catering</h3>
+                        <p class="service-detail-desc">Feed your team with style. Bulk meal orders, personalized menus, dedicated account managers, and monthly invoicing available.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> Minimum 10 persons orders</li>
+                            <li><i class="fa-solid fa-check"></i> Custom dietary accommodations</li>
+                            <li><i class="fa-solid fa-check"></i> Dedicated B2B account portal</li>
+                            <li><i class="fa-solid fa-check"></i> Scheduled recurring deliveries</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.4s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-gift"></i></div>
+                        <h3 class="service-detail-title">Gift & Hamper Service</h3>
+                        <p class="service-detail-desc">Send curated gourmet food hampers and surprise meal deliveries to loved ones with personalized notes and premium packaging.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> Gift wrapping &amp; cards included</li>
+                            <li><i class="fa-solid fa-check"></i> Same-day gift delivery</li>
+                            <li><i class="fa-solid fa-check"></i> Scheduled future deliveries</li>
+                            <li><i class="fa-solid fa-check"></i> Surprise unboxing experience</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.5s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <h3 class="service-detail-title">Smart App Experience</h3>
+                        <p class="service-detail-desc">Our AI-powered mobile app learns your taste preferences and suggests meals you'll love. Reorder in seconds with voice command support.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> AI flavor profile builder</li>
+                            <li><i class="fa-solid fa-check"></i> Voice order capability</li>
+                            <li><i class="fa-solid fa-check"></i> Nutritional calorie tracking</li>
+                            <li><i class="fa-solid fa-check"></i> Smart meal planning tools</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="text-center">
-                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">2</div>
-                <img src="image/2b.webp" alt="Place Order" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
-                <h3 style="color:var(--dark-color);">Place Order</h3>
-                <p>Add items to cart and complete checkout securely.</p>
-            </div>
-            <div class="text-center">
-                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">3</div>
-                <img src="image/chef1.webp" alt="We Prepare" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
-                <h3 style="color:var(--dark-color);">We Prepare</h3>
-                <p>Our chefs cook your meal fresh to order.</p>
-            </div>
-            <div class="text-center">
-                <div style="width:80px;height:80px;background:var(--primary-color);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#fff;font-size:2rem;font-weight:700;">4</div>
-                <img src="image/0.webp" alt="Fast Delivery" style="width:100%;border-radius:var(--radius);margin-bottom:1rem;height:160px;object-fit:cover;">
-                <h3 style="color:var(--dark-color);">Fast Delivery</h3>
-                <p>Your food arrives hot and fresh at your door.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Service Feature Banner -->
-    <section class="section">
-        <div class="container grid" style="grid-template-columns:1fr 1fr;align-items:center;gap:3rem;">
-            <div data-aos="fade-right">
-                <img src="image/fresh meat.webp" alt="Fresh Ingredients" style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow);">
+        <!-- How It Works -->
+        <section class="section-padding" style="background: #F8F9FA;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Simple & Seamless</span>
+                    <h2 class="title">How Stackly Works</h2>
+                    <p style="color: var(--text-muted);">Ordering your favorite meal takes less than 60 seconds. Here's how the magic happens.</p>
+                </div>
+                <div class="process-grid">
+                    <div class="process-step reveal">
+                        <div class="process-num">1</div>
+                        <h3 class="process-title">Browse & Choose</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Explore 500+ dishes across all cuisine types. Filter by cuisine, dietary needs, or delivery time.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.1s;">
+                        <div class="process-num">2</div>
+                        <h3 class="process-title">Customize & Order</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Personalize your meal with add-ons, dietary modifications, and special chef instructions.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.2s;">
+                        <div class="process-num">3</div>
+                        <h3 class="process-title">Secure Payment</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pay instantly via your preferred method — card, UPI, wallet, or pay on delivery options.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.3s;">
+                        <div class="process-num">4</div>
+                        <h3 class="process-title">Track & Receive</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Watch your order live on the map. Our rider delivers hot, fresh, and right to your door.</p>
+                    </div>
+                </div>
             </div>
-            <div data-aos="fade-left">
-                <h4 class="subtitle">Our Promise</h4>
-                <h2 class="title">We Guarantee Freshness Every Time</h2>
-                <p>All our ingredients are delivered fresh from partner farms every morning. We never use frozen or preserved produce — only 100% natural, seasonal goodness in every dish.</p>
-                <ul class="about-list mt-2">
-                    <li><i class="fas fa-check-circle"></i> Sourced from certified organic farms</li>
-                    <li><i class="fas fa-check-circle"></i> Prepared in hygiene-certified kitchens</li>
-                    <li><i class="fas fa-check-circle"></i> Packaged in eco-friendly containers</li>
-                    <li><i class="fas fa-check-circle"></i> Delivered in temperature-controlled bags</li>
-                </ul>
-                <a href="menu.html" class="btn btn-primary mt-2">Order Now</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Stats Banner -->
-    <section id="stats" class="stats section bg-gradient">
-        <div class="container grid stats-grid">
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-users fa-3x mb-1"></i>
-                <h3 class="counter" data-target="10000">0</h3>
-                <p>Happy Customers</p>
+        <!-- Pricing Plans -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Flexible Plans</span>
+                    <h2 class="title">Choose Your Subscription</h2>
+                    <p style="color: var(--text-muted);">Unlock exclusive benefits, priority delivery, and premium savings with our subscription plans.</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card reveal">
+                        <div class="pricing-plan">Starter</div>
+                        <div class="pricing-price">Free</div>
+                        <div class="pricing-period">No monthly fee</div>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> Standard delivery (45 min avg)</li>
+                            <li><i class="fa-solid fa-check"></i> Basic order tracking</li>
+                            <li><i class="fa-solid fa-check"></i> Up to 3 saved addresses</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Priority delivery</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Exclusive member deals</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Free delivery credits</li>
+                        </ul>
+                        <a href="signup.html" class="btn btn-outline" style="width: 100%; justify-content: center;">Get Started Free</a>
+                    </div>
+                    <div class="pricing-card featured reveal" style="transition-delay: 0.1s;">
+                        <div class="featured-badge">⭐ Most Popular</div>
+                        <div class="pricing-plan">Pro</div>
+                        <div class="pricing-price">$9<span>/mo</span></div>
+                        <div class="pricing-period">Billed monthly, cancel anytime</div>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> Express 28-min delivery</li>
+                            <li><i class="fa-solid fa-check"></i> Real-time GPS tracking</li>
+                            <li><i class="fa-solid fa-check"></i> Unlimited saved addresses</li>
+                            <li><i class="fa-solid fa-check"></i> 5% cashback on all orders</li>
+                            <li><i class="fa-solid fa-check"></i> Exclusive member deals</li>
+                            <li class="disabled"><i class="fa-solid fa-xmark"></i> Free delivery credits</li>
+                        </ul>
+                        <a href="signup.html" class="btn btn-primary" style="width: 100%; justify-content: center;">Start Pro Trial</a>
+                    </div>
+                    <div class="pricing-card reveal" style="transition-delay: 0.2s;">
+                        <div class="pricing-plan">Elite</div>
+                        <div class="pricing-price">$19<span>/mo</span></div>
+                        <div class="pricing-period">Billed monthly, cancel anytime</div>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> Guaranteed 20-min delivery</li>
+                            <li><i class="fa-solid fa-check"></i> Live rider video call option</li>
+                            <li><i class="fa-solid fa-check"></i> Unlimited saved addresses</li>
+                            <li><i class="fa-solid fa-check"></i> 12% cashback on all orders</li>
+                            <li><i class="fa-solid fa-check"></i> Exclusive VIP member deals</li>
+                            <li><i class="fa-solid fa-check"></i> $20/mo free delivery credits</li>
+                        </ul>
+                        <a href="signup.html" class="btn btn-secondary" style="width: 100%; justify-content: center;">Go Elite</a>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-utensils fa-3x mb-1"></i>
-                <h3 class="counter" data-target="500">0</h3>
-                <p>Food Items</p>
+        </section>
+
+        <!-- Why Choose Us stats -->
+        <section style="background: var(--secondary); padding: 80px 0;">
+            <div class="container">
+                <div class="section-header" style="margin-bottom: 50px;">
+                    <span class="sub-title" style="color: var(--primary);">The Numbers Speak</span>
+                    <h2 class="title" style="color: #fff;">Why Customers Trust Stackly</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-num" data-target="99">0</div><div class="stat-label">% Customer Satisfaction</div></div>
+                    <div class="stat-card"><div class="stat-num" data-target="28">0</div><div class="stat-label">Min Avg Delivery Time</div></div>
+                    <div class="stat-card"><div class="stat-num" data-target="500">0</div><div class="stat-label">Menu Items Available</div></div>
+                    <div class="stat-card"><div class="stat-num" data-target="100">0</div><div class="stat-label">Restaurant Partners</div></div>
+                </div>
             </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-store fa-3x mb-1"></i>
-                <h3 class="counter" data-target="100">0</h3>
-                <p>Restaurant Partners</p>
+        </section>
+
+        <!-- Service Testimonials -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Customer Reviews</span>
+                    <h2 class="title">What Our Users Say</h2>
+                </div>
+                <div class="service-testi-grid">
+                    <div class="service-testi-card reveal reveal-left">
+                        <div class="service-testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="service-testi-text">"Stackly's corporate catering has made our office lunch meetings something the entire team looks forward to. The food is always fresh, hot, and presented beautifully."</p>
+                        <div class="service-testi-author">
+                            <img src="image/chef1.webp" alt="Jennifer Walsh">
+                            <div><strong>Jennifer Walsh</strong><span>HR Director, TechCorp NYC</span></div>
+                        </div>
+                    </div>
+                    <div class="service-testi-card reveal reveal-right">
+                        <div class="service-testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="service-testi-text">"The gift hamper I sent my parents was absolutely stunning. Premium packaging, fresh ingredients, and the personalized note made it extra special. Will definitely order again!"</p>
+                        <div class="service-testi-author">
+                            <img src="image/chef2.webp" alt="David Park">
+                            <div><strong>David Park</strong><span>Verified Pro Member</span></div>
+                        </div>
+                    </div>
+                    <div class="service-testi-card reveal reveal-left" style="transition-delay: 0.1s;">
+                        <div class="service-testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                        <p class="service-testi-text">"The 28-minute delivery promise is real! I've been ordering with Stackly for 6 months and they've never been late. The AI food recommendations are scarily accurate too."</p>
+                        <div class="service-testi-author">
+                            <img src="image/chef 3.webp" alt="Aisha Mohammed">
+                            <div><strong>Aisha Mohammed</strong><span>Elite Member Since 2023</span></div>
+                        </div>
+                    </div>
+                    <div class="service-testi-card reveal reveal-right" style="transition-delay: 0.1s;">
+                        <div class="service-testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="service-testi-text">"I have severe nut allergies and Stackly is the only app I trust. Every order is flagged, the restaurant is notified, and the packaging is always clearly labeled. Lifesaver!"</p>
+                        <div class="service-testi-author">
+                            <img src="image/chef1.webp" alt="Robert Chen">
+                            <div><strong>Robert Chen</strong><span>Verified Customer</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
-                <i class="fas fa-clock fa-3x mb-1"></i>
-                <h3>24/7</h3>
-                <p>Delivery Service</p>
+        </section>
+
+        <!-- CTA -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-box reveal reveal-zoom">
+                    <h2 class="newsletter-title">Start Your Stackly Journey Today</h2>
+                    <p class="newsletter-desc">Sign up for free and experience express delivery, fresh meals, and premium service from day one.</p>
+                    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                        <a href="signup.html" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+                        <a href="contact.html" class="btn btn-outline" style="border-color: #fff; color: #fff !important;">Talk to Sales</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo"><img src="logo.webp" alt="Stackly Logo"></a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Food Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a>
+                        <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Express Delivery</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Fresh Ingredients</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Corporate Catering</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Gift Hampers</a>
+                        <a href="login.html"><i class="fa-solid fa-chevron-right"></i> Dashboard Login</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><p>100 Gourmet Plaza, NY 10001</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><p>+1 (800) 555-STACK</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><p>support@stackly.com</p></div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms &amp; Conditions</a>
+                    <a href="404.html">Sitemap</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2024 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal" style="display:none;">
-        <div class="cart-modal-inner">
-            <div class="cart-modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button id="closeCart"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartItems" class="cart-items-list">
-                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
-            </div>
-            <div class="cart-total">
-                <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                <a href="#" class="btn btn-primary">Checkout</a>
-            </div>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay" style="display:none;"></div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <button id="scroll-to-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

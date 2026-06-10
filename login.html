@@ -3,177 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Sign in to your BiteCraft account. Access your profile, track active deliveries, and manage orders.">
+    <title>BiteCraft | Login to Your Account</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="index.html#services" class="nav-link">Services</a></li>
-                    <li><a href="index.html#offers" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="nav-actions">
-                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge">3</span></a>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline active">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- 2. Login Form Section -->
-    <section class="auth-section bg-light page-header">
-        <div class="container grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
-            <div class="auth-form-container" data-aos="zoom-in" style="margin: 0; max-width: 100%;">
-                <h2>Welcome Back!</h2>
-                <p>Please login to your account to order food.</p>
-                <form class="auth-form">
-                    <input type="email" placeholder="Email Address" required>
-                    <input type="password" placeholder="Password" required>
-                    <div style="display:flex; justify-content:space-between; margin-bottom: 1rem; font-size: 0.9rem;">
-                        <label><input type="checkbox"> Remember me</label>
-                        <a href="#" style="color: var(--primary-color);">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login Now</button>
-                </form>
-                <div class="auth-links-bottom mt-2">
-                    Don't have an account? <a href="signup.html">Sign Up here</a>
-                </div>
-            </div>
-            <div class="auth-benefits" data-aos="fade-left" style="text-align: left;">
-                <h3 class="title" style="font-size: 2rem;">Why Login?</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 1rem;">
-                        <i class="fas fa-history fa-2x" style="color: var(--primary-color);"></i>
-                        <div>
-                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Order History</h4>
-                            <p style="font-size: 0.9rem;">Quickly re-order your past favorite meals with just a single click.</p>
-                        </div>
-                    </li>
-                    <li style="margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 1rem;">
-                        <i class="fas fa-map-marked-alt fa-2x" style="color: var(--primary-color);"></i>
-                        <div>
-                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Saved Addresses</h4>
-                            <p style="font-size: 0.9rem;">Manage multiple delivery addresses for home, work, and friends.</p>
-                        </div>
-                    </li>
-                    <li style="display: flex; align-items: flex-start; gap: 1rem;">
-                        <i class="fas fa-ticket-alt fa-2x" style="color: var(--primary-color);"></i>
-                        <div>
-                            <h4 style="color: var(--dark-color); margin-bottom: 0.3rem;">Exclusive Coupons</h4>
-                            <p style="font-size: 0.9rem;">Access members-only discounts and track your loyalty points.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="logo.webp" alt="BiteCraft Logo Loading" class="loader-logo-img">
+            <div class="loader-spinner"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- 3. Security Trust Badges -->
-    <section class="section pt-0 bg-light text-center">
-        <div class="container" data-aos="fade-up">
-            <h4 class="subtitle">Secure Ordering</h4>
-            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem;">
-                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fas fa-lock" style="color: #28a745; margin-right: 0.5rem;"></i> 256-Bit SSL Encryption
-                </div>
-                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fas fa-shield-alt" style="color: #007bff; margin-right: 0.5rem;"></i> Verified Partners
-                </div>
-                <div style="background: var(--white); padding: 1rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
-                    <i class="fas fa-credit-card" style="color: #ffc107; margin-right: 0.5rem;"></i> Safe Payments
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Back to home icon -->
+    <a href="index.html" style="position: fixed; top: 30px; left: 30px; font-weight: 700; color: #1A1A1A; z-index: 10; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.9); padding: 10px 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+        <i class="fa-solid fa-arrow-left"></i> Back To Home
+    </a>
 
-    <!-- 4. Testimonial / Social Proof -->
-    <section class="testimonials section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Join Thousands</h4>
-            <h2 class="title">Why Our Users Love Us</h2>
-        </div>
-        <div class="container grid" style="grid-template-columns: 1fr; max-width: 600px;">
-            <div class="testi-card mx-auto" data-aos="zoom-in">
-                <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
-                <p>"Logging in is super fast and my previous orders are always saved. It makes re-ordering my favorite meals a breeze!"</p>
-                <div class="testi-user">
-                    <img src="image/1a.webp" alt="User">
-                    <div>
-                        <h4>Emily Smith</h4>
-                        <span>Premium Member</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Auth Background Shapes -->
+    <div class="auth-wrapper">
+        <div class="auth-shape auth-shape-1"></div>
+        <div class="auth-shape auth-shape-2"></div>
 
-    <!-- 5. Footer -->
-    <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Logo Image -->
+                <a href="index.html" class="auth-logo">
+                    <img src="logo.webp" alt="BiteCraft Logo" class="auth-logo-img">
                 </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
-        </div>
-    </footer>
+                <p class="auth-tagline">Satisfying your cravings since 2011</p>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+                <h2 class="auth-title">Welcome Back!</h2>
+
+                <!-- Main Login Form -->
+                <form id="login-form">
+                    <div class="auth-input-group">
+                        <input type="email" class="auth-input" id="login-email" placeholder="Email Address" required autocomplete="email">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    
+                    <div class="auth-input-group" style="margin-bottom: 16px;">
+                        <input type="password" class="auth-input" id="login-password" placeholder="Password" required autocomplete="current-password">
+                        <i class="fa-solid fa-lock"></i>
+                        <button type="button" id="toggle-password" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #999999;" aria-label="Toggle Password Visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Role Dropdown -->
+                    <div class="auth-input-group" style="margin-bottom: 16px;">
+                        <select class="auth-input auth-select" id="login-role" required>
+                            <option value="" disabled selected>Select Your Role</option>
+                            <option value="Customer">🛒 Customer</option>
+                            <option value="Admin">🛡️ Admin</option>
+                            <option value="Staff">📋 Staff / Kitchen</option>
+                            <option value="Delivery Partner">🏍️ Delivery Partner</option>
+                        </select>
+                        <i class="fa-solid fa-user-tag"></i>
+                    </div>
+
+                    <div class="auth-helper-row">
+                        <label class="auth-checkbox-label">
+                            <input type="checkbox" id="login-remember"> Remember Me
+                        </label>
+                        <a href="404.html" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-btn" id="login-btn">
+                        Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <div class="auth-divider">Or Sign In With</div>
+
+                <!-- Social Logins -->
+                <div class="social-login-grid">
+                    <button class="social-login-btn google" id="btn-google-login" aria-label="Sign in with Google">
+                        <i class="fa-brands fa-google"></i>
+                    </button>
+                    <button class="social-login-btn facebook" id="btn-facebook-login" aria-label="Sign in with Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </button>
+                    <button class="social-login-btn apple" id="btn-apple-login" aria-label="Sign in with Apple">
+                        <i class="fa-brands fa-apple"></i>
+                    </button>
+                </div>
+
+                <p class="auth-switch-prompt">
+                    New to BiteCraft? <a href="signup.html">Create an account</a>
+                </p>
+            </div>
+
+            <!-- Dashboard Testing Cheat Sheet -->
+            <div class="glass-card" style="margin-top: 24px; padding: 20px; font-size: 0.85rem; border-radius: 16px; border: 1px dashed var(--primary); background: rgba(255, 255, 255, 0.9);">
+                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; text-align: left;"><i class="fa-solid fa-flask"></i> Testing Dashboards</h4>
+                <p style="color: var(--text-muted); margin-bottom: 8px; text-align: left;">Select a role above and use <strong>any password</strong> to test different dashboards:</p>
+                <ul style="text-align: left; display: grid; gap: 4px; color: var(--text-main); font-weight: 500;">
+                    <li><i class="fa-solid fa-user-shield" style="color: #007AFF; width: 18px;"></i> <strong>Admin:</strong> Full analytics &amp; management</li>
+                    <li><i class="fa-solid fa-receipt" style="color: #FFB800; width: 18px;"></i> <strong>Staff:</strong> Orders &amp; kitchen management</li>
+                    <li><i class="fa-solid fa-motorcycle" style="color: #AF52DE; width: 18px;"></i> <strong>Delivery Partner:</strong> Active deliveries</li>
+                    <li><i class="fa-solid fa-circle-user" style="color: #4CD964; width: 18px;"></i> <strong>Customer:</strong> Profile &amp; order history</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="js/auth.js"></script>
 </body>
 </html>

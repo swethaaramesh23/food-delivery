@@ -3,267 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Menu - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Browse Stackly's full menu - pizzas, burgers, grilled seafood, salads, desserts and more. Order online for fast delivery in 28 minutes.">
+    <title>Stackly | Full Menu - 500+ Dishes</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, #FF6B35 0%, #e05621 100%); padding: calc(var(--header-height) + 60px) 0 80px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+        .page-hero-title { font-size: 3.2rem; color: #fff; margin-bottom: 16px; }
+        .page-hero-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 0.95rem; opacity: 0.85; }
+        .page-hero-breadcrumb a { color: #fff; }
+
+        /* Category Filter Tabs */
+        .menu-filter-bar { background: #fff; border-bottom: 1px solid rgba(0,0,0,0.06); padding: 20px 0; position: sticky; top: var(--header-height); z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+        .filter-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .filter-tab { padding: 10px 24px; border-radius: 50px; border: 2px solid rgba(0,0,0,0.08); font-weight: 600; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: all 0.3s ease; background: #fff; color: var(--text-muted); }
+        .filter-tab:hover, .filter-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* Search Bar in menu */
+        .menu-search { display: flex; align-items: center; gap: 12px; background: #F8F9FA; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 50px; padding: 10px 20px; max-width: 400px; }
+        .menu-search input { flex: 1; background: none; font-size: 0.95rem; }
+        .menu-search input::placeholder { color: var(--text-muted); }
+        .menu-search i { color: var(--text-muted); }
+
+        /* Full Menu Grid */
+        .full-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+        /* Menu Section Title */
+        .menu-category-title { font-size: 1.8rem; margin-bottom: 8px; padding-bottom: 16px; border-bottom: 2px solid rgba(255,107,53,0.12); display: flex; align-items: center; gap: 12px; }
+        .menu-category-title::before { content: ''; display: block; width: 5px; height: 30px; background: var(--primary); border-radius: 5px; }
+
+        /* Special Dietary Tags */
+        .dietary-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+        .tag-veg { background: rgba(76,217,100,0.1); color: #4CD964; border: 1px solid rgba(76,217,100,0.3); }
+        .tag-spicy { background: rgba(255,59,48,0.1); color: #FF3B30; border: 1px solid rgba(255,59,48,0.3); }
+        .tag-new { background: rgba(0,122,255,0.1); color: #007AFF; border: 1px solid rgba(0,122,255,0.3); }
+        .tag-gluten { background: rgba(255,184,0,0.1); color: #FFB800; border: 1px solid rgba(255,184,0,0.3); }
+
+        @media (max-width: 1200px) { .full-menu-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) { .full-menu-grid { grid-template-columns: repeat(2, 1fr); } .page-hero-title { font-size: 2.2rem; } }
+        @media (max-width: 480px) { .full-menu-grid { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
-    <!-- 1. Preloader -->
+
+    <!-- Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <i class="fas fa-hamburger fa-spin"></i>
-            <h2>Loading Tasty Food...</h2>
+        <div class="loader-content">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
+            </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
+            <div class="loader-spinner"></div>
         </div>
     </div>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link active">Menu</a></li>
-                    <li><a href="index.html#services" class="nav-link">Services</a></li>
-                    <li><a href="index.html#offers" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Basket</h3>
+            <button class="close-cart" id="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items-list">
+            <div class="cart-empty-msg">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Your basket is empty.<br>Start adding delicious food!</p>
             </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal"><span>Subtotal:</span><span id="cart-subtotal-val">$0.00</span></div>
+            <div class="cart-actions">
+                <a href="login.html?redirect=checkout" class="btn btn-primary" style="width:100%; text-align:center;">Proceed to Checkout</a>
+                <button class="btn btn-outline" id="clear-cart-btn" style="width:100%;">Clear All Items</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Stackly Logo" class="logo-img"></a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="menu.html" class="nav-link active">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
             <div class="nav-actions">
-                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge">3</span></a>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+                <button class="action-btn" id="cart-trigger" aria-label="View cart" onclick="document.getElementById('cart-drawer').classList.add('open'); document.getElementById('cart-overlay').classList.add('open');">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+                <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
+                <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- 2. Page Header Hero -->
-    <section class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>Our Menu</h1>
-            <p>Explore our wide variety of delicious meals</p>
-        </div>
-    </section>
-
-    <!-- 3. Chef Recommendations -->
-    <section class="section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Top Picks</h4>
-            <h2 class="title">Chef's Recommendations</h2>
-        </div>
-        <div class="container grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 2rem;">
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="menu-img"><img src="image/6.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
-                <div class="menu-info mt-2">
-                    <div class="rating"><i class="fas fa-star"></i> 5.0</div>
-                    <h3>Spicy Tikka Masala</h3>
-                    <p>Signature dish slow-cooked to perfection.</p>
-                    <div class="menu-bottom"><span class="price">$18.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="menu-img"><img src="image/2.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
-                <div class="menu-info mt-2">
-                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
-                    <h3>Double Smash Burger</h3>
-                    <p>Award-winning burger with secret sauce.</p>
-                    <div class="menu-bottom"><span class="price">$15.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="menu-img"><img src="image/9.webp" alt="Menu" style="width:100%; border-radius:var(--radius); height: 200px;"></div>
-                <div class="menu-info mt-2">
-                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
-                    <h3>Atlantic Salmon</h3>
-                    <p>Fresh caught salmon with asparagus.</p>
-                    <div class="menu-bottom"><span class="price">$22.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="page-hero-title">Explore Our Full Menu</h1>
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 20px;">500+ handcrafted dishes from 100+ restaurant partners. From artisan pizzas to gourmet salads — something for every craving.</p>
+            <div class="page-hero-breadcrumb">
+                <a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Menu</span>
             </div>
         </div>
     </section>
 
-    <!-- 4. Full Menu -->
-    <section class="menu section">
-        <div class="container text-center" data-aos="fade-up">
-            <h2 class="title">All Categories</h2>
-            <div class="menu-filters mt-2">
-                <button class="filter-btn active">All</button>
-                <button class="filter-btn"><i class="fas fa-hamburger"></i> Burgers</button>
-                <button class="filter-btn"><i class="fas fa-pizza-slice"></i> Pizza</button>
-                <button class="filter-btn"><i class="fas fa-hotdog"></i> Fast Food</button>
-                <button class="filter-btn"><i class="fas fa-leaf"></i> Vegan</button>
-                <button class="filter-btn"><i class="fas fa-ice-cream"></i> Desserts</button>
-            </div>
-        </div>
-        
-        <div class="container grid menu-grid mt-3">
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="menu-img"><img src="image/2.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
-                    <h3>Cheesy Beef Burger</h3>
-                    <p>Delicious beef patty with extra cheese.</p>
-                    <div class="menu-bottom"><span class="price">$12.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+    <!-- Filter Bar -->
+    <div class="menu-filter-bar">
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div class="filter-tabs" id="filter-tabs">
+                    <button class="filter-tab active" data-cat="all">🍽️ All Items</button>
+                    <button class="filter-tab" data-cat="pizza">🍕 Pizzas</button>
+                    <button class="filter-tab" data-cat="burger">🍔 Burgers</button>
+                    <button class="filter-tab" data-cat="seafood">🐟 Seafood</button>
+                    <button class="filter-tab" data-cat="salad">🥗 Salads</button>
+                    <button class="filter-tab" data-cat="chicken">🍗 Chicken</button>
+                    <button class="filter-tab" data-cat="sides">🍟 Sides</button>
+                    <button class="filter-tab" data-cat="dessert">🍰 Desserts</button>
                 </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="menu-img"><img src="image/3.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.5</div>
-                    <h3>Spicy Pepperoni Pizza</h3>
-                    <p>Hot and spicy pizza with lots of pepperoni.</p>
-                    <div class="menu-bottom"><span class="price">$15.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="menu-img"><img src="image/4.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
-                    <h3>Crispy Fried Chicken</h3>
-                    <p>Golden crispy chicken served with fries.</p>
-                    <div class="menu-bottom"><span class="price">$10.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
-                <div class="menu-img"><img src="image/5.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.7</div>
-                    <h3>Veggie Salad Bowl</h3>
-                    <p>Fresh vegetables mixed with olive oil.</p>
-                    <div class="menu-bottom"><span class="price">$8.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="menu-img"><img src="image/7.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.6</div>
-                    <h3>Vegan Margherita</h3>
-                    <p>Classic pizza with vegan cheese.</p>
-                    <div class="menu-bottom"><span class="price">$14.00</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="menu-img"><img src="image/8.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.8</div>
-                    <h3>Chicken Nuggets</h3>
-                    <p>Crispy outside, juicy inside.</p>
-                    <div class="menu-bottom"><span class="price">$7.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="menu-img"><img src="image/9.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.9</div>
-                    <h3>Grilled Salmon</h3>
-                    <p>Fresh salmon with lemon butter.</p>
-                    <div class="menu-bottom"><span class="price">$19.99</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
-                </div>
-            </div>
-            <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
-                <div class="menu-img"><img src="image/2.webp" alt="Menu"></div>
-                <div class="menu-info">
-                    <div class="rating"><i class="fas fa-star"></i> 4.4</div>
-                    <h3>Double Cheeseburger</h3>
-                    <p>Double patty, double cheese.</p>
-                    <div class="menu-bottom"><span class="price">$14.50</span><button class="btn-add"><i class="fas fa-plus"></i></button></div>
+                <div class="menu-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search dishes..." id="menu-search-input">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 5. Ingredient Sourcing -->
-    <section class="section bg-gradient text-white">
-        <div class="container grid" style="grid-template-columns: 1fr 1fr; align-items: center;">
-            <div data-aos="fade-right">
-                <h4 class="subtitle text-white">Quality Promise</h4>
-                <h2 class="title text-white">Farm to Table Freshness</h2>
-                <p>We believe that great food starts with great ingredients. That's why we source our produce directly from local organic farms. Our meats are 100% grass-fed and our seafood is sustainably caught.</p>
-                <ul class="mt-2" style="list-style: none;">
-                    <li style="margin-bottom: 10px;"><i class="fas fa-leaf"></i> 100% Organic Vegetables</li>
-                    <li style="margin-bottom: 10px;"><i class="fas fa-fish"></i> Sustainably Sourced Seafood</li>
-                    <li style="margin-bottom: 10px;"><i class="fas fa-drumstick-bite"></i> Hormone-Free Meats</li>
-                </ul>
-            </div>
-            <div data-aos="zoom-in">
-                <img src="image/5.webp" alt="Fresh Ingredients" style="border-radius: 50%; border: 10px solid rgba(255,255,255,0.2);">
-            </div>
-        </div>
-    </section>
+    <main style="padding: 60px 0;">
+        <div class="container">
 
-    <!-- 6. Featured Dish -->
-    <section id="featured" class="featured section">
-        <div class="container grid featured-grid">
-            <div class="featured-content" data-aos="fade-right">
-                <h4 class="subtitle">Special Dish</h4>
-                <h2 class="title">Spicy Chicken Tikka Masala</h2>
-                <p>A classic favorite! Marinated chicken chunks cooked in a rich, creamy, and spicy tomato-based gravy. Perfect with naan or rice.</p>
-                <div class="price-large">$18.99</div>
-                <a href="#" class="btn btn-primary mt-2">Order Now</a>
+            <!-- Pizzas -->
+            <div class="menu-section" id="section-pizza" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🍕 Artisan Pizzas</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="pizza">
+                        <div class="menu-img-box"><span class="menu-badge">Best Seller</span><img src="image/Spicy Pepperoni Pizza.webp" alt="Spicy Pepperoni Pizza"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">Spicy Pepperoni Pizza</h3>
+                            <p class="menu-desc">Artisan sourdough crust with premium Italian pepperoni and melted spicy mozzarella.</p>
+                            <div class="menu-footer"><span class="menu-price">$14.99</span><button class="add-to-cart-btn" data-id="p1" data-name="Spicy Pepperoni Pizza" data-price="14.99" data-img="image/Spicy Pepperoni Pizza.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="pizza" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/Vegan Margherita.webp" alt="Vegan Margherita"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Vegan</span><span class="dietary-tag tag-new">✨ New</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.6)</span></div>
+                            <h3 class="menu-title">Vegan Margherita</h3>
+                            <p class="menu-desc">Stone-baked thin crust with organic tomato sauce, cashew mozzarella, and fresh basil.</p>
+                            <div class="menu-footer"><span class="menu-price">$13.99</span><button class="add-to-cart-btn" data-id="p2" data-name="Vegan Margherita" data-price="13.99" data-img="image/Vegan Margherita.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="pizza" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><span class="menu-badge" style="background: var(--accent);">Trending</span><img src="image/Tasty Pizza Duo.webp" alt="Tasty Pizza Duo"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.8)</span></div>
+                            <h3 class="menu-title">Duo Feast Pizza</h3>
+                            <p class="menu-desc">Half pepperoni, half roasted veggie on a classic hand-tossed dough with garlic butter crust.</p>
+                            <div class="menu-footer"><span class="menu-price">$17.99</span><button class="add-to-cart-btn" data-id="p3" data-name="Duo Feast Pizza" data-price="17.99" data-img="image/Tasty Pizza Duo.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="pizza" style="transition-delay:0.3s;">
+                        <div class="menu-img-box"><img src="image/1a.webp" alt="BBQ Chicken Pizza"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Chef's Pick</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.5)</span></div>
+                            <h3 class="menu-title">BBQ Chicken Pizza</h3>
+                            <p class="menu-desc">Smoky BBQ sauce base, grilled chicken strips, caramelized onions, and smoked cheddar.</p>
+                            <div class="menu-footer"><span class="menu-price">$15.99</span><button class="add-to-cart-btn" data-id="p4" data-name="BBQ Chicken Pizza" data-price="15.99" data-img="image/1a.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="featured-img-wrap" data-aos="zoom-in">
-                <img src="image/6.webp" alt="Featured Dish" class="featured-img pulse-anim">
-            </div>
-        </div>
-    </section>
 
-    <!-- 7. Footer -->
+            <!-- Burgers -->
+            <div class="menu-section" id="section-burger" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🍔 Gourmet Burgers</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="burger">
+                        <div class="menu-img-box"><span class="menu-badge" style="background: var(--accent);">Trending</span><img src="image/Cheesy Beef Burger.webp" alt="Cheesy Beef Burger"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.7)</span></div>
+                            <h3 class="menu-title">Cheesy Beef Burger</h3>
+                            <p class="menu-desc">Gourmet Angus beef patty, triple cheddar, house pickles, and caramelized craft burger sauce.</p>
+                            <div class="menu-footer"><span class="menu-price">$9.99</span><button class="add-to-cart-btn" data-id="b1" data-name="Cheesy Beef Burger" data-price="9.99" data-img="image/Cheesy Beef Burger.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="burger" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><span class="menu-badge">Best Seller</span><img src="image/Double Cheeseburger.webp" alt="Double Smash Cheeseburger"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">Double Smash Cheeseburger</h3>
+                            <p class="menu-desc">Two smashed Wagyu patties, American cheese, house special sauce on a toasted brioche bun.</p>
+                            <div class="menu-footer"><span class="menu-price">$13.99</span><button class="add-to-cart-btn" data-id="b2" data-name="Double Smash Cheeseburger" data-price="13.99" data-img="image/Double Cheeseburger.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="burger" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><img src="image/smash burgur.webp" alt="Classic Smash Burger"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Classic</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.6)</span></div>
+                            <h3 class="menu-title">Classic Smash Burger</h3>
+                            <p class="menu-desc">Single smash patty with classic toppings — lettuce, tomato, onion, pickle, and mustard.</p>
+                            <div class="menu-footer"><span class="menu-price">$8.49</span><button class="add-to-cart-btn" data-id="b3" data-name="Classic Smash Burger" data-price="8.49" data-img="image/smash burgur.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="burger" style="transition-delay:0.3s;">
+                        <div class="menu-img-box"><img src="image/chicken nuggets.webp" alt="Crispy Chicken Burger"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Hot</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.8)</span></div>
+                            <h3 class="menu-title">Crispy Chicken Burger</h3>
+                            <p class="menu-desc">Hand-breaded buttermilk fried chicken with coleslaw, jalapeño aioli, and pickles.</p>
+                            <div class="menu-footer"><span class="menu-price">$10.99</span><button class="add-to-cart-btn" data-id="b4" data-name="Crispy Chicken Burger" data-price="10.99" data-img="image/chicken nuggets.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seafood -->
+            <div class="menu-section" id="section-seafood" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🐟 Premium Seafood</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="seafood">
+                        <div class="menu-img-box"><span class="menu-badge">Chef's Choice</span><img src="image/Grilled Salmon.webp" alt="Grilled Salmon"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-gluten">🌾 Gluten Free</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(5.0)</span></div>
+                            <h3 class="menu-title">Gourmet Grilled Salmon</h3>
+                            <p class="menu-desc">Perfectly grilled salmon with roasted asparagus and lemon butter sauce.</p>
+                            <div class="menu-footer"><span class="menu-price">$18.99</span><button class="add-to-cart-btn" data-id="s1" data-name="Gourmet Grilled Salmon" data-price="18.99" data-img="image/Grilled Salmon.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="seafood" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/Atlantic Salmon.webp" alt="Atlantic Salmon Fillet"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Premium</span><span class="dietary-tag tag-gluten">🌾 GF</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.8)</span></div>
+                            <h3 class="menu-title">Atlantic Salmon Fillet</h3>
+                            <p class="menu-desc">Pan-seared Atlantic salmon with herb crust, capers, and creamy dill sauce.</p>
+                            <div class="menu-footer"><span class="menu-price">$22.99</span><button class="add-to-cart-btn" data-id="s2" data-name="Atlantic Salmon Fillet" data-price="22.99" data-img="image/Atlantic Salmon.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="seafood" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><img src="image/tikka masala.webp" alt="Prawn Tikka Masala"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.7)</span></div>
+                            <h3 class="menu-title">Prawn Tikka Masala</h3>
+                            <p class="menu-desc">Juicy tiger prawns in rich, aromatic tikka masala curry with fragrant basmati rice.</p>
+                            <div class="menu-footer"><span class="menu-price">$20.99</span><button class="add-to-cart-btn" data-id="s3" data-name="Prawn Tikka Masala" data-price="20.99" data-img="image/tikka masala.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salads & Healthy -->
+            <div class="menu-section" id="section-salad" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🥗 Salads & Healthy Bowls</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="salad">
+                        <div class="menu-img-box"><img src="image/Veggie Salad Bowl.webp" alt="Veggie Salad Bowl"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Vegan</span><span class="dietary-tag tag-gluten">🌾 GF</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.3)</span></div>
+                            <h3 class="menu-title">Veggie Salad Bowl</h3>
+                            <p class="menu-desc">Organic greens, cherry tomatoes, avocados, roasted seeds, and balsamic vinaigrette.</p>
+                            <div class="menu-footer"><span class="menu-price">$8.99</span><button class="add-to-cart-btn" data-id="v1" data-name="Veggie Salad Bowl" data-price="8.99" data-img="image/Veggie Salad Bowl.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="salad" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/1b.webp" alt="Superfood Power Bowl"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Vegan</span><span class="dietary-tag tag-new">✨ New</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">Superfood Power Bowl</h3>
+                            <p class="menu-desc">Quinoa, kale, chia seeds, roasted chickpeas, avocado, and tahini lemon dressing.</p>
+                            <div class="menu-footer"><span class="menu-price">$11.99</span><button class="add-to-cart-btn" data-id="v2" data-name="Superfood Power Bowl" data-price="11.99" data-img="image/1b.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chicken -->
+            <div class="menu-section" id="section-chicken" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🍗 Crispy Chicken Specials</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="chicken">
+                        <div class="menu-img-box"><span class="menu-badge">Best Seller</span><img src="image/Crispy Fried Chicken.webp" alt="Crispy Fried Chicken"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Hot</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">Crispy Fried Chicken</h3>
+                            <p class="menu-desc">Southern-style buttermilk-marinated fried chicken with a golden, crunchy double-dipped crust.</p>
+                            <div class="menu-footer"><span class="menu-price">$12.99</span><button class="add-to-cart-btn" data-id="c1" data-name="Crispy Fried Chicken" data-price="12.99" data-img="image/Crispy Fried Chicken.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="chicken" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/chicken nuggets.webp" alt="Chicken Nuggets"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Kids Fav</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.6)</span></div>
+                            <h3 class="menu-title">Crispy Chicken Nuggets (12pc)</h3>
+                            <p class="menu-desc">12 golden nuggets made from whole breast meat, served with your choice of 3 dipping sauces.</p>
+                            <div class="menu-footer"><span class="menu-price">$7.99</span><button class="add-to-cart-btn" data-id="c2" data-name="Crispy Chicken Nuggets" data-price="7.99" data-img="image/chicken nuggets.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="chicken" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><img src="image/tikka masala.webp" alt="Chicken Tikka Masala"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-spicy">🌶 Spicy</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">Chicken Tikka Masala</h3>
+                            <p class="menu-desc">Tender marinated chicken in aromatic tikka masala curry, served with naan and basmati.</p>
+                            <div class="menu-footer"><span class="menu-price">$14.49</span><button class="add-to-cart-btn" data-id="c3" data-name="Chicken Tikka Masala" data-price="14.49" data-img="image/tikka masala.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sides -->
+            <div class="menu-section" id="section-sides" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🍟 Sides & Sharing Plates</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="sides">
+                        <div class="menu-img-box"><img src="image/5.webp" alt="Loaded Fries"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Veggie</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.5)</span></div>
+                            <h3 class="menu-title">Loaded Truffle Fries</h3>
+                            <p class="menu-desc">Crispy skin-on fries tossed in truffle oil, topped with parmesan, chives, and aioli.</p>
+                            <div class="menu-footer"><span class="menu-price">$5.99</span><button class="add-to-cart-btn" data-id="sd1" data-name="Loaded Truffle Fries" data-price="5.99" data-img="image/5.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="sides" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/6.webp" alt="Onion Rings"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Veggie</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.2)</span></div>
+                            <h3 class="menu-title">Beer-Battered Onion Rings</h3>
+                            <p class="menu-desc">Thick-cut onion rings in crispy beer batter, served with smoky chipotle mayo dip.</p>
+                            <div class="menu-footer"><span class="menu-price">$4.99</span><button class="add-to-cart-btn" data-id="sd2" data-name="Beer-Battered Onion Rings" data-price="4.99" data-img="image/6.webp"><i class="fa-solid fa-plus"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
-                </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Full Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Menu Categories</h4>
+                    <div class="footer-links">
+                        <a href="#section-pizza"><i class="fa-solid fa-chevron-right"></i> Artisan Pizzas</a>
+                        <a href="#section-burger"><i class="fa-solid fa-chevron-right"></i> Gourmet Burgers</a>
+                        <a href="#section-seafood"><i class="fa-solid fa-chevron-right"></i> Premium Seafood</a>
+                        <a href="#section-salad"><i class="fa-solid fa-chevron-right"></i> Healthy Bowls</a>
+                        <a href="#section-chicken"><i class="fa-solid fa-chevron-right"></i> Chicken Specials</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><p>100 Gourmet Plaza, NY 10001</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><p>+1 (800) 555-STACK</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><p>support@stackly.com</p></div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms &amp; Conditions</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <button id="scroll-to-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Menu filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const menuSections = document.querySelectorAll('.menu-section');
+        const menuCards = document.querySelectorAll('.menu-card[data-category]');
+        const searchInput = document.getElementById('menu-search-input');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const cat = tab.getAttribute('data-cat');
+                if (cat === 'all') {
+                    menuSections.forEach(s => s.style.display = 'block');
+                    menuCards.forEach(c => c.style.display = 'block');
+                } else {
+                    menuSections.forEach(s => {
+                        const hasMatch = s.querySelectorAll(`.menu-card[data-category="${cat}"]`).length > 0;
+                        s.style.display = hasMatch ? 'block' : 'none';
+                    });
+                    menuCards.forEach(c => {
+                        c.style.display = c.getAttribute('data-category') === cat ? 'block' : 'none';
+                    });
+                }
+            });
+        });
+
+        searchInput.addEventListener('input', () => {
+            const q = searchInput.value.toLowerCase();
+            menuCards.forEach(card => {
+                const title = card.querySelector('.menu-title').textContent.toLowerCase();
+                const desc = card.querySelector('.menu-desc').textContent.toLowerCase();
+                card.style.display = (title.includes(q) || desc.includes(q)) ? 'block' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>

@@ -3,164 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Create a new BiteCraft account today. Enjoy rapid 24/7 delivery, coupons, and order history.">
+    <title>BiteCraft | Create Your Account</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="index.html#services" class="nav-link">Services</a></li>
-                    <li><a href="index.html#offers" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="nav-actions">
-                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge">3</span></a>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary active">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- 2. Signup Form Section -->
-    <section class="auth-section bg-light page-header">
-        <div class="container grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
-            <div class="auth-info" data-aos="fade-right" style="text-align: left;">
-                <h4 class="subtitle">Join The Community</h4>
-                <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1rem;">Unlock Exclusive Foodie Perks!</h2>
-                <p style="margin-bottom: 2rem;">Sign up today and get 20% off your first 3 orders. Plus, earn reward points for every dollar you spend.</p>
-                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <img src="image/2.webp" alt="Burger" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                    <img src="image/3.webp" alt="Pizza" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                    <img src="image/4.webp" alt="Chicken" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color);">
-                </div>
-                <ul style="list-style: none;">
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Fast and free delivery on selected items</li>
-                    <li><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Access to secret menus and new dishes</li>
-                </ul>
-            </div>
-            
-            <div class="auth-form-container" data-aos="zoom-in" style="margin: 0; max-width: 100%;">
-                <h2>Create an Account</h2>
-                <form class="auth-form">
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="email" placeholder="Email Address" required>
-                    <input type="password" placeholder="Password" required>
-                    <input type="password" placeholder="Confirm Password" required>
-                    <div style="text-align: left; margin-bottom: 1rem; font-size: 0.9rem;">
-                        <label><input type="checkbox" required> I agree to the <a href="#" style="color: var(--primary-color);">Terms & Conditions</a></label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Create Account</button>
-                </form>
-                <div class="auth-links-bottom mt-2">
-                    Already have an account? <a href="login.html">Login here</a>
-                </div>
-            </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="logo.webp" alt="BiteCraft Logo Loading" class="loader-logo-img">
+            <div class="loader-spinner"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- 3. Why Join Us (Features) -->
-    <section class="services section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Benefits</h4>
-            <h2 class="title">Why Join Foodies?</h2>
-        </div>
-        <div class="container grid services-grid mt-3">
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fas fa-gift"></i></div>
-                <h3>Welcome Bonus</h3>
-                <p>Get 20% off on your first three orders when you sign up today.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fas fa-coins"></i></div>
-                <h3>Loyalty Points</h3>
-                <p>Earn reward points for every dollar spent and redeem them for free food.</p>
-            </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fas fa-truck-loading"></i></div>
-                <h3>Faster Checkout</h3>
-                <p>Save your addresses and payment methods for a seamless 1-click checkout.</p>
-            </div>
-        </div>
-    </section>
+    <!-- Back to home icon -->
+    <a href="index.html" style="position: fixed; top: 30px; left: 30px; font-weight: 700; color: #1A1A1A; z-index: 10; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.9); padding: 10px 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+        <i class="fa-solid fa-arrow-left"></i> Back To Home
+    </a>
 
-    <!-- 4. CTA / Download App -->
-    <section class="section bg-gradient text-center" data-aos="fade-up">
-        <div class="container">
-            <h2 class="title text-white">Get The Foodies App</h2>
-            <p class="text-white" style="margin-bottom: 2rem;">Download our mobile app to track your orders in real-time and access exclusive deals.</p>
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <button class="btn btn-dark" style="display: flex; align-items: center; gap: 10px;"><i class="fab fa-apple fa-2x"></i> <div style="text-align: left; line-height: 1.2;"><small>Download on the</small><br><b>App Store</b></div></button>
-                <button class="btn btn-dark" style="display: flex; align-items: center; gap: 10px;"><i class="fab fa-google-play fa-2x"></i> <div style="text-align: left; line-height: 1.2;"><small>GET IT ON</small><br><b>Google Play</b></div></button>
-            </div>
-        </div>
-    </section>
+    <!-- Auth Background Shapes -->
+    <div class="auth-wrapper">
+        <div class="auth-shape auth-shape-1"></div>
+        <div class="auth-shape auth-shape-2"></div>
 
-    <!-- 5. Footer -->
-    <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
+        <div class="auth-container">
+            <div class="auth-card" style="padding: 30px 40px;">
+                <!-- Logo Image -->
+                <a href="index.html" class="auth-logo">
+                    <img src="logo.webp" alt="BiteCraft Logo" class="auth-logo-img">
                 </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
-        </div>
-    </footer>
+                <p class="auth-tagline">Satisfying your cravings since 2011</p>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+                <h2 class="auth-title" style="margin-bottom: 20px;">Create Account</h2>
+
+                <!-- Main Signup Form -->
+                <form id="signup-form">
+                    <!-- Name -->
+                    <div class="auth-input-group">
+                        <input type="text" class="auth-input" id="signup-name" placeholder="Full Name" required autocomplete="name">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="auth-input-group">
+                        <input type="email" class="auth-input" id="signup-email" placeholder="Email Address" required autocomplete="email">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="auth-input-group">
+                        <input type="tel" class="auth-input" id="signup-phone" placeholder="Phone Number" required autocomplete="tel">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <!-- Role Dropdown -->
+                    <div class="auth-input-group">
+                        <select class="auth-input auth-select" id="signup-role" required>
+                            <option value="" disabled selected>Select Your Role</option>
+                            <option value="Customer">🛒 Customer</option>
+                            <option value="Admin">🛡️ Admin</option>
+                            <option value="Staff">📋 Staff / Kitchen</option>
+                            <option value="Delivery Partner">🏍️ Delivery Partner</option>
+                        </select>
+                        <i class="fa-solid fa-user-tag"></i>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="auth-input-group" style="margin-bottom: 12px;">
+                        <input type="password" class="auth-input" id="signup-password" placeholder="Password" required autocomplete="new-password">
+                        <i class="fa-solid fa-lock"></i>
+                        <button type="button" class="toggle-password-signup" data-target="signup-password" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #999999;" aria-label="Toggle Password Visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Password strength bar -->
+                    <div class="password-strength-container" id="strength-container">
+                        <div class="password-strength-bar" id="strength-bar"></div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="auth-input-group">
+                        <input type="password" class="auth-input" id="signup-confirm" placeholder="Confirm Password" required autocomplete="new-password">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <button type="button" class="toggle-password-signup" data-target="signup-confirm" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #999999;" aria-label="Toggle Password Visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <div class="auth-helper-row" style="margin-bottom: 20px;">
+                        <label class="auth-checkbox-label" style="text-align: left; align-items: flex-start;">
+                            <input type="checkbox" id="signup-terms" required style="margin-top: 4px;"> 
+                            <span>I agree to BiteCraft's <a href="404.html" class="forgot-link">Terms of Service</a> &amp; <a href="404.html" class="forgot-link">Privacy Policy</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Signup Submit Button -->
+                    <button type="submit" class="auth-btn" id="signup-btn" style="margin-bottom: 16px;">
+                        Create Account <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </form>
+
+                <div class="auth-divider" style="margin: 16px 0;">Or Sign Up With</div>
+
+                <!-- Social Signups -->
+                <div class="social-login-grid" style="margin-bottom: 16px;">
+                    <button class="social-login-btn google" aria-label="Sign up with Google">
+                        <i class="fa-brands fa-google"></i>
+                    </button>
+                    <button class="social-login-btn facebook" aria-label="Sign up with Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </button>
+                    <button class="social-login-btn apple" aria-label="Sign up with Apple">
+                        <i class="fa-brands fa-apple"></i>
+                    </button>
+                </div>
+
+                <p class="auth-switch-prompt">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="js/auth.js"></script>
 </body>
 </html>

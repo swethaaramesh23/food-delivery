@@ -3,239 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Stackly Food Blog - recipes, cooking tips, nutrition guides, chef stories, and food culture articles from our expert culinary team.">
+    <title>Stackly | Blog - Food Stories, Recipes & Tips</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, #1A1A1A 0%, #2d2d2d 100%); padding: calc(var(--header-height) + 60px) 0 80px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+        .page-hero::before { content: '✍️'; position: absolute; font-size: 300px; opacity: 0.03; top: -80px; left: -60px; pointer-events: none; }
+        .page-hero-title { font-size: 3.2rem; color: #fff; margin-bottom: 16px; }
+        .page-hero-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 0.95rem; opacity: 0.75; }
+        .page-hero-breadcrumb a { color: #fff; }
+
+        /* Featured Article */
+        .featured-blog { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .featured-blog-img { position: relative; height: 450px; }
+        .featured-blog-img img { width: 100%; height: 100%; object-fit: cover; }
+        .featured-blog-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.2), transparent); }
+        .featured-blog-content { background: #fff; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
+        .featured-label { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .featured-label::before { content: ''; display: block; width: 30px; height: 3px; background: var(--primary); border-radius: 2px; }
+        .featured-title { font-size: 1.9rem; margin-bottom: 16px; line-height: 1.35; }
+        .featured-excerpt { color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
+        .featured-meta { display: flex; align-items: center; gap: 20px; color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px; }
+        .author-mini { display: flex; align-items: center; gap: 8px; }
+        .author-mini img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+
+        /* Blog Grid */
+        .blog-main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        .blog-articles-grid { display: grid; gap: 30px; }
+        .blog-full-card { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: all 0.4s ease; display: grid; grid-template-columns: 240px 1fr; }
+        .blog-full-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(255,107,53,0.1); }
+        .blog-card-img { position: relative; height: 200px; }
+        .blog-card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .blog-cat-tag { position: absolute; top: 16px; left: 16px; background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+        .blog-card-content { padding: 24px; }
+        .blog-card-meta { display: flex; gap: 16px; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px; }
+        .blog-card-title { font-size: 1.2rem; margin-bottom: 10px; line-height: 1.4; }
+        .blog-card-title a { color: var(--secondary); }
+        .blog-card-title a:hover { color: var(--primary); }
+        .blog-card-excerpt { color: var(--text-muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 16px; }
+        .blog-card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .read-more-link { color: var(--primary); font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 6px; }
+        .read-more-link:hover { gap: 10px; }
+
+        /* Sidebar */
+        .blog-sidebar { position: sticky; top: calc(var(--header-height) + 20px); }
+        .sidebar-widget { background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; padding: 28px; margin-bottom: 24px; }
+        .widget-title { font-size: 1.15rem; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid rgba(255,107,53,0.12); display: flex; align-items: center; gap: 10px; }
+        .widget-title i { color: var(--primary); }
+        .category-list { display: flex; flex-direction: column; gap: 10px; }
+        .cat-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 10px; color: var(--text-main); font-weight: 500; font-size: 0.9rem; transition: all 0.2s; }
+        .cat-link:hover { background: rgba(255,107,53,0.08); color: var(--primary); }
+        .cat-count { background: rgba(255,107,53,0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+        .recent-post { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 16px; }
+        .recent-post:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .recent-post img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
+        .recent-post-title { font-size: 0.875rem; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+        .recent-post-date { font-size: 0.78rem; color: var(--text-muted); }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-pill { background: #F8F9FA; border: 1px solid rgba(0,0,0,0.07); color: var(--text-main); font-size: 0.82rem; padding: 6px 14px; border-radius: 20px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .tag-pill:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* Category section filter */
+        .blog-cats-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+        .blog-cat-pill { padding: 8px 20px; border-radius: 50px; border: 2px solid rgba(0,0,0,0.08); font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.3s; background: #fff; }
+        .blog-cat-pill:hover, .blog-cat-pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        @media (max-width: 992px) { .blog-main-grid { grid-template-columns: 1fr; } .blog-sidebar { position: static; } .featured-blog { grid-template-columns: 1fr; } .featured-blog-img { height: 300px; } }
+        @media (max-width: 768px) { .blog-full-card { grid-template-columns: 1fr; } .blog-card-img { height: 200px; } .page-hero-title { font-size: 2.2rem; } }
+    </style>
 </head>
 <body>
-    <!-- 1. Preloader -->
+
+    <!-- Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <i class="fas fa-hamburger fa-spin"></i>
-            <h2>Loading Tasty Food...</h2>
+        <div class="loader-content">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
+            </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
+            <div class="loader-spinner"></div>
         </div>
     </div>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
-            <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="offers.html" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
-            </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Stackly Logo" class="logo-img"></a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
             <div class="nav-actions">
-                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></button>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
+                <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
+                <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- 2. Page Header Hero -->
-    <section class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>Our Blog</h1>
-            <p>Read our latest news, recipes, and food trends</p>
-        </div>
-    </section>
-
-    <!-- 3. Blog Categories -->
-    <section class="section">
-        <div class="container text-center" data-aos="fade-up">
-            <div class="menu-filters">
-                <button class="filter-btn active">All Articles</button>
-                <button class="filter-btn">Recipes</button>
-                <button class="filter-btn">Health & Diet</button>
-                <button class="filter-btn">Food Trends</button>
-                <button class="filter-btn">Restaurant News</button>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="page-hero-title">Food Chronicles</h1>
+            <p style="font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto 20px;">Stories, recipes, nutrition tips, and culinary adventures from our team of passionate food experts and Michelin-trained chefs.</p>
+            <div class="page-hero-breadcrumb">
+                <a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Blog</span>
             </div>
         </div>
     </section>
 
-    <!-- 4. Latest Blogs Grid -->
-    <section class="blogs section bg-light pt-0">
-        <div class="container grid blogs-grid">
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="blog-img"><img src="image/7.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 15, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>Top 10 Benefits of Eating Healthy Food</h3>
-                    <p>Discover how eating the right foods can improve your health and boost your daily energy...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="blog-img"><img src="image/8.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 18, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>How to Cook the Perfect Steak at Home</h3>
-                    <p>Master the art of cooking steaks with our easy-to-follow guide and expert chef tips...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="blog-img"><img src="image/9.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 20, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>The Rise of Vegan Fast Food Trends</h3>
-                    <p>Explore how plant-based alternatives are taking over the fast-food industry globally...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="blog-img"><img src="image/3.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Nov 02, 2023</span>
-                        <span><i class="fas fa-user"></i> Editor</span>
-                    </div>
-                    <h3>Why Pizza is the Ultimate Comfort Food</h3>
-                    <p>We explore the history of pizza and why it remains the number one choice for weekends...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="blog-img"><img src="image/4.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Nov 05, 2023</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>5 Spices You Need in Your Kitchen</h3>
-                    <p>Elevate your home cooking with these 5 essential spices that every kitchen needs...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="blog-img"><img src="image/5.webp" alt="Blog"></div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span><i class="fas fa-calendar"></i> Nov 10, 2023</span>
-                        <span><i class="fas fa-user"></i> Chef Gordon</span>
-                    </div>
-                    <h3>Healthy Salads That Don't Taste Boring</h3>
-                    <p>Say goodbye to bland greens with our amazing salad dressing recipes and combinations...</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-        </div>
-    </section>
+    <main class="section-padding">
+        <div class="container">
 
-    <!-- 5. Subscribe to Blog -->
-    <section class="newsletter section" data-aos="fade-up">
-        <div class="container text-center">
-            <h2 class="title">Never Miss A Recipe</h2>
-            <p>Subscribe to our blog newsletter to receive weekly recipes and cooking tips.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit" class="btn btn-dark">Subscribe</button>
-            </form>
-        </div>
-    </section>
+            <!-- Featured Post -->
+            <div style="margin-bottom: 60px;">
+                <div class="featured-blog reveal">
+                    <div class="featured-blog-img">
+                        <img src="image/1a.webp" alt="The Art of Perfect Sourdough Pizza">
+                    </div>
+                    <div class="featured-blog-content">
+                        <div class="featured-label">✨ Featured Article</div>
+                        <h2 class="featured-title">The Chemistry Behind Perfect Sourdough Pizza Dough — A Chef's Deep Dive</h2>
+                        <div class="featured-meta">
+                            <div class="author-mini">
+                                <img src="image/chef1.webp" alt="Chef Ronnie">
+                                <span>By <strong>Chef Ronnie</strong></span>
+                            </div>
+                            <span><i class="fa-regular fa-clock"></i> 8 Min Read</span>
+                            <span><i class="fa-regular fa-calendar"></i> June 10, 2026</span>
+                        </div>
+                        <p class="featured-excerpt">Understanding the science of yeast fermentation, water hydration ratios, and temperature control transforms pizza making from guesswork into an art form. In this deep-dive, Chef Ronnie breaks down the exact processes that create that perfect, chewy-yet-crispy crust.</p>
+                        <a href="#" class="btn btn-primary">Read Full Article <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 6. Instagram / Gallery preview -->
-    <section id="gallery" class="gallery section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Follow Us</h4>
-            <h2 class="title">Our Instagram Food Gallery</h2>
-        </div>
-        <div class="gallery-grid mt-3">
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/2.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/3.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="image/4.webp" alt="Gallery"><div class="gallery-overlay"><i class="fab fa-instagram"></i></div></div>
-        </div>
-    </section>
+            <!-- Main Blog Grid -->
+            <div class="blog-main-grid">
+                <!-- Articles Column -->
+                <div>
+                    <div class="blog-cats-strip">
+                        <button class="blog-cat-pill active">All Posts</button>
+                        <button class="blog-cat-pill">Recipes</button>
+                        <button class="blog-cat-pill">Nutrition</button>
+                        <button class="blog-cat-pill">Chef Stories</button>
+                        <button class="blog-cat-pill">Food Culture</button>
+                        <button class="blog-cat-pill">Healthy Living</button>
+                    </div>
 
-    <!-- 7. Footer -->
+                    <div class="blog-articles-grid">
+                        <!-- Article 1 -->
+                        <div class="blog-full-card reveal">
+                            <div class="blog-card-img">
+                                <span class="blog-cat-tag">Nutrition</span>
+                                <img src="image/1b.webp" alt="5 Superfoods to Supercharge Your Greens">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span><i class="fa-regular fa-user"></i> By Helena Rose</span>
+                                    <span><i class="fa-regular fa-clock"></i> 5 Min Read</span>
+                                    <span><i class="fa-regular fa-calendar"></i> June 08, 2026</span>
+                                </div>
+                                <h3 class="blog-card-title"><a href="#">5 Superfoods to Supercharge Your Weekly Greens Routine</a></h3>
+                                <p class="blog-card-excerpt">Dive into the nutritional profiles of chia seeds, avocado fats, kale leaf compounds, and pumpkin seed additions for salad bowls. Helena reveals the exact combinations that maximize micronutrient absorption.</p>
+                                <div class="blog-card-footer">
+                                    <a href="#" class="read-more-link">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                    <div style="display: flex; gap: 12px; color: var(--text-muted); font-size: 0.8rem;">
+                                        <span><i class="fa-regular fa-heart"></i> 142</span>
+                                        <span><i class="fa-regular fa-comment"></i> 28</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 2 -->
+                        <div class="blog-full-card reveal">
+                            <div class="blog-card-img">
+                                <span class="blog-cat-tag" style="background: #007AFF;">Chef Stories</span>
+                                <img src="image/chef2.webp" alt="Behind the Kitchen Door">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span><i class="fa-regular fa-user"></i> By Marcus Vance</span>
+                                    <span><i class="fa-regular fa-clock"></i> 6 Min Read</span>
+                                    <span><i class="fa-regular fa-calendar"></i> June 05, 2026</span>
+                                </div>
+                                <h3 class="blog-card-title"><a href="#">Behind the Kitchen Door: A Michelin Chef's Weekly Routine</a></h3>
+                                <p class="blog-card-excerpt">Chef Marcus Vance opens the doors of his restaurant kitchen and walks us through a typical prep day — from the 4AM market run to the midnight mise en place. A rare, candid look at culinary dedication.</p>
+                                <div class="blog-card-footer">
+                                    <a href="#" class="read-more-link">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                    <div style="display: flex; gap: 12px; color: var(--text-muted); font-size: 0.8rem;">
+                                        <span><i class="fa-regular fa-heart"></i> 230</span>
+                                        <span><i class="fa-regular fa-comment"></i> 45</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 3 -->
+                        <div class="blog-full-card reveal">
+                            <div class="blog-card-img">
+                                <span class="blog-cat-tag" style="background: #4CD964; color: #1A1A1A;">Healthy Living</span>
+                                <img src="image/Veggie Salad Bowl.webp" alt="Build Your Perfect Salad">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span><i class="fa-regular fa-user"></i> By Dr. Priya Naik</span>
+                                    <span><i class="fa-regular fa-clock"></i> 4 Min Read</span>
+                                    <span><i class="fa-regular fa-calendar"></i> June 02, 2026</span>
+                                </div>
+                                <h3 class="blog-card-title"><a href="#">How to Build the Perfect Anti-Inflammatory Salad Bowl</a></h3>
+                                <p class="blog-card-excerpt">Inflammation is the root cause of many chronic diseases. Nutritionist Dr. Priya reveals the exact combination of vegetables, fats, and proteins that reduce systemic inflammation while tasting absolutely delicious.</p>
+                                <div class="blog-card-footer">
+                                    <a href="#" class="read-more-link">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                    <div style="display: flex; gap: 12px; color: var(--text-muted); font-size: 0.8rem;">
+                                        <span><i class="fa-regular fa-heart"></i> 188</span>
+                                        <span><i class="fa-regular fa-comment"></i> 33</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 4 -->
+                        <div class="blog-full-card reveal">
+                            <div class="blog-card-img">
+                                <span class="blog-cat-tag" style="background: #AF52DE;">Recipes</span>
+                                <img src="image/Grilled Salmon.webp" alt="Perfectly Grilled Salmon">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span><i class="fa-regular fa-user"></i> By Chef Ronnie</span>
+                                    <span><i class="fa-regular fa-clock"></i> 7 Min Read</span>
+                                    <span><i class="fa-regular fa-calendar"></i> May 28, 2026</span>
+                                </div>
+                                <h3 class="blog-card-title"><a href="#">Restaurant-Style Grilled Salmon at Home: The Complete 5-Step Guide</a></h3>
+                                <p class="blog-card-excerpt">Chef Ronnie reveals the professional techniques that guarantee a perfectly seared, moist salmon fillet every single time — including the correct pan heat, seasoning order, and the basting butter secret.</p>
+                                <div class="blog-card-footer">
+                                    <a href="#" class="read-more-link">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                    <div style="display: flex; gap: 12px; color: var(--text-muted); font-size: 0.8rem;">
+                                        <span><i class="fa-regular fa-heart"></i> 312</span>
+                                        <span><i class="fa-regular fa-comment"></i> 67</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 5 -->
+                        <div class="blog-full-card reveal">
+                            <div class="blog-card-img">
+                                <span class="blog-cat-tag" style="background: #FF3B30;">Food Culture</span>
+                                <img src="image/tikka masala.webp" alt="Indian Cuisine Journey">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span><i class="fa-regular fa-user"></i> By Arjun Mehta</span>
+                                    <span><i class="fa-regular fa-clock"></i> 9 Min Read</span>
+                                    <span><i class="fa-regular fa-calendar"></i> May 24, 2026</span>
+                                </div>
+                                <h3 class="blog-card-title"><a href="#">The Spice Route: How Indian Curry Conquered the World's Taste Buds</a></h3>
+                                <p class="blog-card-excerpt">From ancient trade routes to modern restaurant menus, the journey of Indian spices and curry is one of the world's most captivating food stories. Arjun traces the history, culture, and science of spice blending.</p>
+                                <div class="blog-card-footer">
+                                    <a href="#" class="read-more-link">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                    <div style="display: flex; gap: 12px; color: var(--text-muted); font-size: 0.8rem;">
+                                        <span><i class="fa-regular fa-heart"></i> 275</span>
+                                        <span><i class="fa-regular fa-comment"></i> 54</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 40px;">
+                        <button style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button style="width:40px;height:40px;border-radius:50%;border:2px solid var(--primary);background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">1</button>
+                        <button style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;font-weight:700;">2</button>
+                        <button style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;font-weight:700;">3</button>
+                        <button style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="blog-sidebar">
+                    <!-- About Widget -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title"><i class="fa-solid fa-circle-info"></i> About the Blog</div>
+                        <img src="logo.webp" alt="Stackly Blog" style="height: 36px; margin-bottom: 14px;">
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">Stackly's food blog is your go-to resource for gourmet recipes, nutritional insights, chef interviews, and culinary tips updated weekly by our expert team.</p>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title"><i class="fa-solid fa-layer-group"></i> Categories</div>
+                        <div class="category-list">
+                            <a href="#" class="cat-link">🍕 Recipes <span class="cat-count">24</span></a>
+                            <a href="#" class="cat-link">🥗 Nutrition <span class="cat-count">18</span></a>
+                            <a href="#" class="cat-link">👨‍🍳 Chef Stories <span class="cat-count">12</span></a>
+                            <a href="#" class="cat-link">🌍 Food Culture <span class="cat-count">15</span></a>
+                            <a href="#" class="cat-link">🏃 Healthy Living <span class="cat-count">9</span></a>
+                            <a href="#" class="cat-link">🎉 Food Events <span class="cat-count">6</span></a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Posts</div>
+                        <div class="recent-post">
+                            <img src="image/1a.webp" alt="Sourdough Pizza">
+                            <div>
+                                <div class="recent-post-title">The Chemistry Behind Perfect Sourdough Pizza</div>
+                                <div class="recent-post-date">June 10, 2026</div>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="image/1b.webp" alt="Superfoods">
+                            <div>
+                                <div class="recent-post-title">5 Superfoods to Supercharge Your Weekly Greens</div>
+                                <div class="recent-post-date">June 08, 2026</div>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="image/Grilled Salmon.webp" alt="Salmon Recipe">
+                            <div>
+                                <div class="recent-post-title">Restaurant-Style Grilled Salmon at Home</div>
+                                <div class="recent-post-date">May 28, 2026</div>
+                            </div>
+                        </div>
+                        <div class="recent-post">
+                            <img src="image/tikka masala.webp" alt="Indian Curry">
+                            <div>
+                                <div class="recent-post-title">How Indian Curry Conquered the World</div>
+                                <div class="recent-post-date">May 24, 2026</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="sidebar-widget">
+                        <div class="widget-title"><i class="fa-solid fa-tags"></i> Popular Tags</div>
+                        <div class="tag-cloud">
+                            <span class="tag-pill">Pizza</span>
+                            <span class="tag-pill">Burgers</span>
+                            <span class="tag-pill">Salmon</span>
+                            <span class="tag-pill">Vegan</span>
+                            <span class="tag-pill">Keto</span>
+                            <span class="tag-pill">Italian</span>
+                            <span class="tag-pill">Asian</span>
+                            <span class="tag-pill">BBQ</span>
+                            <span class="tag-pill">Desserts</span>
+                            <span class="tag-pill">Fast Food</span>
+                            <span class="tag-pill">Superfoods</span>
+                            <span class="tag-pill">Protein</span>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Sidebar -->
+                    <div class="sidebar-widget" style="background: linear-gradient(135deg, var(--primary), #e05621); color: #fff;">
+                        <div style="font-size: 2rem; margin-bottom: 12px;">📬</div>
+                        <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.2rem;">Get Weekly Recipes</h3>
+                        <p style="color: rgba(255,255,255,0.85); font-size: 0.875rem; margin-bottom: 16px;">Subscribe for free weekly recipe drops and exclusive food stories.</p>
+                        <input type="email" placeholder="Your email..." style="width: 100%; padding: 12px 16px; border-radius: 10px; border: none; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-main);">
+                        <button style="width: 100%; padding: 12px; border-radius: 10px; background: var(--secondary); color: #fff; font-weight: 700; cursor: pointer;">Subscribe Free</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
-                </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Full Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Blog Categories</h4>
+                    <div class="footer-links">
+                        <a href="#"><i class="fa-solid fa-chevron-right"></i> Recipes</a>
+                        <a href="#"><i class="fa-solid fa-chevron-right"></i> Nutrition Tips</a>
+                        <a href="#"><i class="fa-solid fa-chevron-right"></i> Chef Stories</a>
+                        <a href="#"><i class="fa-solid fa-chevron-right"></i> Food Culture</a>
+                        <a href="#"><i class="fa-solid fa-chevron-right"></i> Healthy Living</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><p>100 Gourmet Plaza, NY 10001</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><p>+1 (800) 555-STACK</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><p>blog@stackly.com</p></div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a><a href="404.html">Terms</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-inner">
-            <div class="cart-modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button id="closeCart"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartItems" class="cart-items-list">
-                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
-            </div>
-            <div class="cart-total">
-                <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                <a href="#" class="btn btn-primary">Checkout</a>
-            </div>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay"></div>
+    <button id="scroll-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        @keyframes preloaderBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+    </style>
+    <script>
+        // Blog Category Filter Buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const catPills = document.querySelectorAll('.blog-cat-pill');
+            const blogCards = document.querySelectorAll('.blog-full-card');
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+            // Map each article card to its category
+            const cardCategories = [
+                'nutrition',
+                'chef stories',
+                'healthy living',
+                'recipes',
+                'food culture'
+            ];
+
+            // Assign data-category attributes to each blog card
+            blogCards.forEach((card, i) => {
+                if (cardCategories[i]) {
+                    card.setAttribute('data-category', cardCategories[i]);
+                }
+            });
+
+            catPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    // Remove active from all
+                    catPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.textContent.trim().toLowerCase();
+
+                    blogCards.forEach(card => {
+                        if (filter === 'all posts') {
+                            card.style.display = '';
+                        } else {
+                            const cat = (card.getAttribute('data-category') || '').toLowerCase();
+                            card.style.display = (cat === filter) ? '' : 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

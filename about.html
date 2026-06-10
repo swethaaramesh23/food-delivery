@@ -3,249 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Foodies</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Learn about Stackly - our story, mission, vision, team, and commitment to delivering premium food experiences to your door.">
+    <title>Stackly | About Us - Our Story & Mission</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page Hero Banner */
+        .page-hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #e05621 100%);
+            padding: calc(var(--header-height) + 60px) 0 80px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            top: -200px; right: -100px;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+            bottom: -150px; left: -80px;
+        }
+        .page-hero-title { font-size: 3.2rem; color: #fff; margin-bottom: 16px; }
+        .page-hero-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 0.95rem; opacity: 0.85; }
+        .page-hero-breadcrumb a { color: #fff; }
+        .page-hero-breadcrumb i { font-size: 0.75rem; }
+
+        /* Mission Vision */
+        .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 60px; }
+        .mv-card {
+            background: linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(255,255,255,1) 100%);
+            border: 1px solid rgba(255,107,53,0.15);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+        }
+        .mv-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #FF6B35, #e05621); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 2rem; color: #fff; }
+        .mv-title { font-size: 1.6rem; margin-bottom: 16px; }
+
+        /* Team Section */
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .team-card { text-align: center; }
+        .team-img-wrap { position: relative; width: 150px; height: 150px; margin: 0 auto 20px; }
+        .team-img-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary); }
+        .team-badge { position: absolute; bottom: 5px; right: 5px; background: var(--primary); color: #fff; font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+        .team-name { font-size: 1.2rem; margin-bottom: 6px; }
+        .team-role { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; }
+        .team-bio { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Values Grid */
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .value-card { padding: 32px 24px; background: #fff; border: 1px solid rgba(255,107,53,0.1); border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: all 0.3s ease; }
+        .value-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(255,107,53,0.12); }
+        .value-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .value-title { font-size: 1.15rem; margin-bottom: 10px; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--primary), rgba(255,107,53,0.1)); border-radius: 3px; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -34px; top: 4px; width: 20px; height: 20px; background: var(--primary); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px rgba(255,107,53,0.25); }
+        .timeline-year { color: var(--primary); font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+        .timeline-title { font-size: 1.15rem; margin-bottom: 8px; }
+        .timeline-desc { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Partners Banner */
+        .partners-strip { background: #F8F9FA; border-radius: 20px; padding: 40px; text-align: center; }
+        .partners-logos { display: flex; justify-content: center; gap: 40px; align-items: center; flex-wrap: wrap; margin-top: 30px; }
+        .partner-logo { font-size: 1.4rem; font-weight: 800; color: var(--text-muted); opacity: 0.5; transition: all 0.3s; }
+        .partner-logo:hover { opacity: 1; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .mv-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .page-hero-title { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .team-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <!-- 1. Preloader -->
+
+    <!-- Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <i class="fas fa-hamburger fa-spin"></i>
-            <h2>Loading Tasty Food...</h2>
+        <div class="loader-content">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
+            </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
+            <div class="loader-spinner"></div>
         </div>
     </div>
-    <!-- 1. Header -->
-    <header id="header">
-        <nav class="navbar container">
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
             <a href="index.html" class="logo">
-                <img src="logo.webp" alt="Foodies Logo">
+                <img src="logo.webp" alt="Stackly Logo" class="logo-img">
             </a>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link active">About</a></li>
-                    <li><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="offers.html" class="nav-link">Offers</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-close" id="nav-close"><i class="fas fa-times"></i></div>
-            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
             <div class="nav-actions">
-                <button class="cart-btn" id="cartBtn" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></button>
-                <div class="auth-links">
-                    <a href="login.html" class="btn btn-outline">Login</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span><span></span><span></span>
                 </div>
-                <div class="nav-toggle" id="nav-toggle"><i class="fas fa-bars"></i></div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- 2. Page Header Hero -->
-    <section class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>About Us</h1>
-            <p>Discover our story and passion for food</p>
-        </div>
-    </section>
-
-    <!-- 3. About Story -->
-    <section class="about section">
-        <div class="container grid about-container">
-            <div class="about-img" data-aos="fade-right">
-                <img src="image/1.webp" alt="About Foodies">
-                <div class="experience-badge">
-                    <h3>10+</h3>
-                    <p>Years Experience</p>
-                </div>
-            </div>
-            <div class="about-content" data-aos="fade-left">
-                <h4 class="subtitle">Our Story</h4>
-                <h2 class="title">We Cook The Best Tasty Food</h2>
-                <p>Since 2013, Foodies has been dedicated to delivering happiness in a box. We started as a small kitchen with a big dream: to make premium quality food accessible and affordable for everyone in the city.</p>
-                <p>We cook the best food with excellent customer service. Whether you crave a late-night snack or a full family dinner, we've got you covered.</p>
-                <ul class="about-list mt-2">
-                    <li><i class="fas fa-check-circle"></i> Fresh and organic ingredients</li>
-                    <li><i class="fas fa-check-circle"></i> Experienced & professional chefs</li>
-                    <li><i class="fas fa-check-circle"></i> Highest standards of cleanliness</li>
-                </ul>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h1 class="page-hero-title">About Stackly</h1>
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 20px;">We're more than a food delivery company. We're your culinary companions, dedicated to bringing restaurant-quality meals to your doorstep.</p>
+            <div class="page-hero-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>About Us</span>
             </div>
         </div>
     </section>
 
-    <!-- 4. Mission & Vision -->
-    <section class="mission section bg-light">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Our Core Values</h4>
-            <h2 class="title">Mission & Vision</h2>
-        </div>
-        <div class="container grid mt-3" style="grid-template-columns: 1fr 1fr; gap: 3rem;">
-            <div class="mission-card" data-aos="fade-right" style="background: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
-                <i class="fas fa-bullseye fa-3x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
-                <h3>Our Mission</h3>
-                <p>To provide high-quality, delicious, and nutritious food to our community, ensuring every meal delivered brings joy and satisfaction. We prioritize locally sourced ingredients to support local farmers.</p>
-            </div>
-            <div class="vision-card" data-aos="fade-left" style="background: var(--white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
-                <i class="fas fa-eye fa-3x" style="color: var(--primary-color); margin-bottom: 1rem;"></i>
-                <h3>Our Vision</h3>
-                <p>To become the most loved and trusted food delivery service nationwide, known for our culinary excellence, rapid delivery speeds, and unwavering commitment to customer happiness.</p>
-            </div>
-        </div>
-    </section>
+    <main>
 
-    <!-- 5. Our Chefs -->
-    <section class="team section">
-        <div class="container text-center" data-aos="fade-up">
-            <h4 class="subtitle">Our Experts</h4>
-            <h2 class="title">Meet Our Chefs</h2>
-        </div>
-        <div class="container grid team-grid mt-3">
-            <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="team-img"><img src="image/1a.webp" alt="Chef"></div>
-                <div class="team-info">
-                    <h3>Gordon Ramsay</h3>
-                    <span>Head Chef</span>
-                </div>
-            </div>
-            <div class="team-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="team-img"><img src="image/1b.webp" alt="Chef"></div>
-                <div class="team-info">
-                    <h3>Jamie Oliver</h3>
-                    <span>Sous Chef</span>
-                </div>
-            </div>
-            <div class="team-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="team-img"><img src="image/1c.webp" alt="Chef"></div>
-                <div class="team-info">
-                    <h3>Nigella Lawson</h3>
-                    <span>Pastry Chef</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- Our Story -->
+        <section class="section-padding" id="story">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-img-group reveal reveal-left">
+                        <div class="about-img-box" style="grid-row: span 2;">
+                            <img src="image/Crispy Fried Chicken.webp" alt="Crispy Fried Chicken" style="height: 380px;">
+                        </div>
+                        <div class="about-img-box">
+                            <img src="image/Grilled Salmon.webp" alt="Grilled Salmon" style="height: 180px;">
+                        </div>
+                        <div class="about-img-box">
+                            <img src="image/Vegan Margherita.webp" alt="Vegan Margherita" style="height: 180px;">
+                        </div>
+                        <div class="about-experience">
+                            <span class="years">15+</span>
+                            <span class="text">Years of Excellence</span>
+                        </div>
+                    </div>
 
-    <!-- 6. Awards -->
-    <section class="awards section bg-gradient text-white text-center">
-        <div class="container" data-aos="zoom-in">
-            <h2 class="title text-white">Recognized For Excellence</h2>
-            <p style="max-width: 600px; margin: 0 auto 2rem;">We are proud to have been recognized by industry leaders for our commitment to culinary perfection and customer service.</p>
-            <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 2rem;">
-                <div>
-                    <i class="fas fa-award fa-4x mb-1"></i>
-                    <h4>Best Delivery 2022</h4>
-                </div>
-                <div>
-                    <i class="fas fa-trophy fa-4x mb-1"></i>
-                    <h4>Culinary Excellence 2021</h4>
-                </div>
-                <div>
-                    <i class="fas fa-star fa-4x mb-1"></i>
-                    <h4>Top Rated 2023</h4>
+                    <div class="about-content reveal reveal-right">
+                        <div class="section-header" style="text-align: left; margin-bottom: 30px;">
+                            <span class="sub-title">Our Story</span>
+                            <h2 class="title">From a Small Kitchen to the City's Favorite Food Platform</h2>
+                        </div>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">
+                            Founded in 2011 in the heart of New York City, Stackly began as a passion project between three culinary school friends who believed great food shouldn't be limited to expensive restaurants. Starting with just 5 restaurant partners and a team of 3 delivery riders, we served our first 100 orders in the first week.
+                        </p>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">
+                            Today, Stackly has grown into a full-scale culinary platform with over 100 restaurant partners, 500+ menu items, and 10,000+ happy customers across the city. We've maintained our founding promise: deliver gourmet-quality food, fast, fresh, and with a smile.
+                        </p>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">
+                            We partner exclusively with farms that practice sustainable agriculture and restaurants that share our values of quality, freshness, and culinary innovation. Every meal delivered is a testament to our commitment to culinary excellence.
+                        </p>
+                        <div class="about-bullets">
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>Michelin-Star Restaurant Partners</span></div>
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>100% Farm-to-Table Freshness</span></div>
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>Eco-Friendly Thermal Sealed Packaging</span></div>
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>Real-time GPS Order Tracking</span></div>
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>24/7 Contactless Delivery Service</span></div>
+                            <div class="about-bullet-item"><i class="fa-solid fa-circle-check"></i><span>AI-Powered Personalized Recommendations</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 7. Why Choose Us (Stats) -->
-    <section id="stats" class="stats section">
-        <div class="container text-center mb-3" data-aos="fade-up">
-            <h2 class="title">By The Numbers</h2>
-        </div>
-        <div class="container grid stats-grid">
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="100" style="color: var(--dark-color);">
-                <i class="fas fa-users fa-3x mb-1" style="color: var(--primary-color);"></i>
-                <h3 class="counter" data-target="10000" style="color: var(--dark-color);">0</h3>
-                <p>Happy Customers</p>
+        <!-- Mission & Vision -->
+        <section class="section-padding" style="background: #F8F9FA;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Our Foundation</span>
+                    <h2 class="title">Mission, Vision & Values</h2>
+                    <p style="color: var(--text-muted);">Every decision we make is guided by our core purpose and values that have shaped Stackly from day one.</p>
+                </div>
+                <div class="mv-grid">
+                    <div class="mv-card reveal reveal-left">
+                        <div class="mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3 class="mv-title">Our Mission</h3>
+                        <p style="color: var(--text-muted); line-height: 1.8;">To democratize gourmet dining by making restaurant-quality meals accessible, affordable, and delivered with speed, care, and culinary integrity to every household in the city.</p>
+                        <br>
+                        <p style="color: var(--text-muted); line-height: 1.8;">We are committed to supporting local restaurants, creating employment for delivery partners, and providing customers with seamless, joyful ordering experiences every single time.</p>
+                    </div>
+                    <div class="mv-card reveal reveal-right">
+                        <div class="mv-icon" style="background: linear-gradient(135deg, #1A1A1A, #444);"><i class="fa-solid fa-eye"></i></div>
+                        <h3 class="mv-title">Our Vision</h3>
+                        <p style="color: var(--text-muted); line-height: 1.8;">To become the nation's most trusted and beloved food delivery ecosystem — where chefs, farmers, riders, and customers thrive together in a sustainable, technology-driven culinary community.</p>
+                        <br>
+                        <p style="color: var(--text-muted); line-height: 1.8;">By 2030, we envision operating in 50+ cities, partnering with 1,000+ restaurants, and serving 1 million happy customers with zero-emission delivery infrastructure.</p>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="200" style="color: var(--dark-color);">
-                <i class="fas fa-utensils fa-3x mb-1" style="color: var(--primary-color);"></i>
-                <h3 class="counter" data-target="500" style="color: var(--dark-color);">0</h3>
-                <p>Food Items</p>
-            </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="300" style="color: var(--dark-color);">
-                <i class="fas fa-store fa-3x mb-1" style="color: var(--primary-color);"></i>
-                <h3 class="counter" data-target="100" style="color: var(--dark-color);">0</h3>
-                <p>Restaurant Partners</p>
-            </div>
-            <div class="stat-card" data-aos="fade-up" data-aos-delay="400" style="color: var(--dark-color);">
-                <i class="fas fa-clock fa-3x mb-1" style="color: var(--primary-color);"></i>
-                <h3 style="color: var(--dark-color);">24/7</h3>
-                <p>Delivery Service</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 8. Footer -->
+        <!-- Core Values -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">What We Stand For</span>
+                    <h2 class="title">Our Core Values</h2>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card reveal">
+                        <div class="value-icon">🌱</div>
+                        <h3 class="value-title">Sustainability First</h3>
+                        <p style="color: var(--text-muted);">We use 100% biodegradable packaging and work exclusively with eco-certified restaurant partners to minimize our environmental footprint.</p>
+                    </div>
+                    <div class="value-card reveal" style="transition-delay: 0.1s;">
+                        <div class="value-icon">⚡</div>
+                        <h3 class="value-title">Speed & Reliability</h3>
+                        <p style="color: var(--text-muted);">Our average delivery time is under 28 minutes. We use AI-powered route optimization to ensure your food arrives piping hot, every time.</p>
+                    </div>
+                    <div class="value-card reveal" style="transition-delay: 0.2s;">
+                        <div class="value-icon">❤️</div>
+                        <h3 class="value-title">Community Care</h3>
+                        <p style="color: var(--text-muted);">We donate 1% of every order to local food banks and community kitchens, ensuring no one in our city goes to bed hungry.</p>
+                    </div>
+                    <div class="value-card reveal" style="transition-delay: 0.3s;">
+                        <div class="value-icon">🔬</div>
+                        <h3 class="value-title">Quality Assurance</h3>
+                        <p style="color: var(--text-muted);">Every restaurant partner undergoes a rigorous 50-point quality audit before joining the platform. We conduct monthly mystery orders to maintain standards.</p>
+                    </div>
+                    <div class="value-card reveal" style="transition-delay: 0.4s;">
+                        <div class="value-icon">🤝</div>
+                        <h3 class="value-title">Fair Partnership</h3>
+                        <p style="color: var(--text-muted);">We offer the industry's lowest commission rates to our restaurant partners, ensuring they thrive financially while maintaining top menu standards.</p>
+                    </div>
+                    <div class="value-card reveal" style="transition-delay: 0.5s;">
+                        <div class="value-icon">🛡️</div>
+                        <h3 class="value-title">Safety & Trust</h3>
+                        <p style="color: var(--text-muted);">All delivery partners undergo background checks and safety training. Every order is insured and backed by our 100% satisfaction guarantee.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Journey Timeline -->
+        <section class="section-padding" style="background: #F8F9FA;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">Our Journey</span>
+                    <h2 class="title">Milestones That Define Us</h2>
+                </div>
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="timeline">
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2011 — The Beginning</div>
+                            <h3 class="timeline-title">Founded in a Tiny Brooklyn Kitchen</h3>
+                            <p class="timeline-desc">Three friends — Michael, Priya, and Carlos — founded Stackly with a vision to make gourmet delivery possible. First week: 100 orders, 5 partners.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2014 — First Million</div>
+                            <h3 class="timeline-title">Reached 1 Million Orders Milestone</h3>
+                            <p class="timeline-desc">Expanded to 30 restaurant partners and launched the first mobile app with real-time GPS tracking. Hired our 50th employee.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2017 — Going Green</div>
+                            <h3 class="timeline-title">Launched Eco-Friendly Packaging Initiative</h3>
+                            <p class="timeline-desc">Switched to 100% biodegradable containers and partnered with local organic farms. Introduced the Stackly Community Food Fund.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2020 — Tech Evolution</div>
+                            <h3 class="timeline-title">AI-Powered Personalization Launch</h3>
+                            <p class="timeline-desc">Launched our machine learning recommendation engine. Introduced contactless delivery protocols during the pandemic, prioritizing safety.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2024 — Expansion</div>
+                            <h3 class="timeline-title">Multi-City Expansion & 10K+ Customers</h3>
+                            <p class="timeline-desc">Expanded to 3 additional cities. Reached 10,000 active customers, 100 restaurant partners, and launched our loyalty rewards program.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-year">2026 — The Future</div>
+                            <h3 class="timeline-title">Drone & Robot Delivery Pilots</h3>
+                            <p class="timeline-desc">Currently piloting autonomous delivery drones and sidewalk robots in select zones. On track to achieve zero-emission deliveries by 2028.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Team -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="sub-title">The People Behind Stackly</span>
+                    <h2 class="title">Meet Our Leadership Team</h2>
+                    <p style="color: var(--text-muted);">Passionate food lovers, technology innovators, and community builders who drive Stackly's mission every day.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card glass-card reveal" style="padding: 30px;">
+                        <div class="team-img-wrap">
+                            <img src="image/chef1.webp" alt="Michael Torres - CEO">
+                            <span class="team-badge">CEO</span>
+                        </div>
+                        <h3 class="team-name">Michael Torres</h3>
+                        <p class="team-role">Co-Founder & Chief Executive Officer</p>
+                        <p class="team-bio">Culinary Arts graduate from Le Cordon Bleu with 18+ years in the food industry. Michael's vision transformed Stackly from a weekend side project into the city's premier food platform.</p>
+                        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px;">
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card glass-card reveal" style="padding: 30px; transition-delay: 0.1s;">
+                        <div class="team-img-wrap">
+                            <img src="image/chef2.webp" alt="Priya Sharma - CTO">
+                            <span class="team-badge">CTO</span>
+                        </div>
+                        <h3 class="team-name">Priya Sharma</h3>
+                        <p class="team-role">Co-Founder & Chief Technology Officer</p>
+                        <p class="team-bio">MIT Computer Science PhD with expertise in AI and distributed systems. Priya built Stackly's entire technology stack including the real-time tracking and AI recommendation engine.</p>
+                        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px;">
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card glass-card reveal" style="padding: 30px; transition-delay: 0.2s;">
+                        <div class="team-img-wrap">
+                            <img src="image/chef 3.webp" alt="Carlos Rivera - COO">
+                            <span class="team-badge">COO</span>
+                        </div>
+                        <h3 class="team-name">Carlos Rivera</h3>
+                        <p class="team-role">Co-Founder & Chief Operations Officer</p>
+                        <p class="team-bio">Former logistics director at FedEx with deep expertise in last-mile delivery optimization. Carlos manages our network of 500+ delivery partners and restaurant relationships.</p>
+                        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px;">
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" style="color: var(--primary);"><i class="fa-brands fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Logos -->
+        <section style="padding: 60px 0; background: #F8F9FA;">
+            <div class="container">
+                <div class="partners-strip">
+                    <p style="color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 10px;">Trusted By Leading Brands</p>
+                    <div class="partners-logos">
+                        <span class="partner-logo">🍕 PizzaNova</span>
+                        <span class="partner-logo">🍔 BurgerHub</span>
+                        <span class="partner-logo">🍣 SushiOni</span>
+                        <span class="partner-logo">🥗 GreenLeaf</span>
+                        <span class="partner-logo">🍜 RamenHouse</span>
+                        <span class="partner-logo">🧁 SweetBox</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-box reveal reveal-zoom">
+                    <h2 class="newsletter-title">Ready to Experience Stackly?</h2>
+                    <p class="newsletter-desc">Join 10,000+ food lovers who trust Stackly for their daily meals. Order now and get your first delivery free!</p>
+                    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                        <a href="menu.html" class="btn btn-primary"><i class="fa-solid fa-bowl-food"></i> Browse Our Menu</a>
+                        <a href="contact.html" class="btn btn-outline" style="border-color: #fff; color: #fff !important;">Contact Our Team</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container grid footer-grid">
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="logo.webp" alt="Stackly Logo">
-                </a>
-                <p>We provide the best food delivery service with the most delicious and freshest meals.</p>
-                <div class="social-links">
-                    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html"><img src="logo.webp" alt="BiteCraft Logo" style="height:48px; width:auto; object-fit:contain; margin-bottom:8px;"></a>
+                    <p class="footer-desc">BiteCraft is the city's leading online gourmet dining delivery system. We provide high-quality food, rapid dispatch times, and seamless status tracking.</p>
+                    <div class="footer-socials">
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a>
+                        <a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a>
+                        <a href="menu.html"><i class="fa-solid fa-chevron-right"></i> Food Menu</a>
+                        <a href="offers.html"><i class="fa-solid fa-chevron-right"></i> Promotions</a>
+                        <a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog Posts</a>
+                        <a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact Us</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Fast Delivery</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Fresh Ingredients</a>
+                        <a href="services.html"><i class="fa-solid fa-chevron-right"></i> Secure Payments</a>
+                        <a href="login.html"><i class="fa-solid fa-chevron-right"></i> Client Dashboard</a>
+                        <a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Partner Portal</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><p>100 Gourmet Plaza, Food District, NY 10001</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><p>+1 (800) 555-STACK<br>+1 (555) 987-6543</p></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><p>support@stackly.com</p></div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BiteCraft Food Delivery. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms &amp; Conditions</a>
+                    <a href="404.html">Sitemap</a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Opening Hours</h3>
-                <ul>
-                    <li>Mon - Fri: 8:00 AM - 10:00 PM</li>
-                    <li>Saturday: 9:00 AM - 11:00 PM</li>
-                    <li>Sunday: 10:00 AM - 9:00 PM</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2023 Foodies. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-inner">
-            <div class="cart-modal-header">
-                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button id="closeCart"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartItems" class="cart-items-list">
-                <p class="empty-cart-msg">Your cart is empty. Add some delicious items!</p>
-            </div>
-            <div class="cart-total">
-                <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                <a href="#" class="btn btn-primary">Checkout</a>
-            </div>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay"></div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <button id="scroll-to-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
