@@ -68,9 +68,14 @@
 <body>
 
     <!-- Preloader -->
-    <div id="preloader">
+     <div id="preloader">
         <div class="loader-content">
-            <img src="logo.webp" alt="Stackly Logo" class="loader-logo-img">
+            <div style="display:flex; gap:18px; justify-content:center; align-items:center; margin-bottom:18px; font-size:2.4rem;">
+                <i class="fa-solid fa-utensils" style="color:#FF6B35; animation: preloaderBounce 1.2s ease-in-out infinite;"></i>
+                <i class="fa-solid fa-truck-fast" style="color:#1A1A1A; animation: preloaderBounce 1.2s ease-in-out 0.2s infinite;"></i>
+                <i class="fa-solid fa-heart" style="color:#FF3B30; animation: preloaderBounce 1.2s ease-in-out 0.4s infinite;"></i>
+            </div>
+            <p style="font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#1A1A1A; letter-spacing:0.5px; margin-bottom:20px;">Delivering Happiness to Your Doorstep</p>
             <div class="loader-spinner"></div>
         </div>
     </div>
@@ -97,6 +102,7 @@
 
     <!-- Page Hero -->
     <section class="page-hero">
+        <img src="image/4.webp" class="page-hero-floating-img" alt="Floating Food">
         <div class="container" style="position: relative; z-index: 2;">
             <h1 class="page-hero-title">Our Premium Services</h1>
             <p style="font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto 20px;">From express delivery to corporate catering — Stackly offers a full suite of culinary services tailored to your lifestyle.</p>
@@ -118,8 +124,8 @@
                 <div class="service-cards-grid">
                     <div class="service-detail-card reveal">
                         <div class="service-detail-icon"><i class="fa-solid fa-truck-fast"></i></div>
-                        <h3 class="service-detail-title">Express Delivery</h3>
-                        <p class="service-detail-desc">Industry-leading 28-minute average delivery time powered by AI route optimization and thermal-sealed insulated bags.</p>
+                        <h3 class="service-detail-title">Fast Delivery</h3>
+                        <p class="service-detail-desc">Industry-leading rapid delivery time powered by AI route optimization and thermal-sealed insulated bags.</p>
                         <ul class="service-feature-list">
                             <li><i class="fa-solid fa-check"></i> Real-time GPS tracking</li>
                             <li><i class="fa-solid fa-check"></i> Temperature-controlled packaging</li>
@@ -129,7 +135,7 @@
                     </div>
                     <div class="service-detail-card reveal" style="transition-delay: 0.1s;">
                         <div class="service-detail-icon"><i class="fa-solid fa-carrot"></i></div>
-                        <h3 class="service-detail-title">Farm-Fresh Ingredients</h3>
+                        <h3 class="service-detail-title">Fresh Food</h3>
                         <p class="service-detail-desc">We source ingredients daily from certified organic farms. Zero frozen storage, zero artificial preservatives — guaranteed.</p>
                         <ul class="service-feature-list">
                             <li><i class="fa-solid fa-check"></i> 100% organic certified sources</li>
@@ -139,8 +145,19 @@
                         </ul>
                     </div>
                     <div class="service-detail-card reveal" style="transition-delay: 0.2s;">
+                        <div class="service-detail-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <h3 class="service-detail-title">Online Ordering</h3>
+                        <p class="service-detail-desc">Our AI-powered mobile and web apps learn your taste preferences. Reorder your favorite meals in seconds seamlessly.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-check"></i> AI flavor profile builder</li>
+                            <li><i class="fa-solid fa-check"></i> Cross-platform synchronization</li>
+                            <li><i class="fa-solid fa-check"></i> Smart meal planning tools</li>
+                            <li><i class="fa-solid fa-check"></i> 1-click easy reorder</li>
+                        </ul>
+                    </div>
+                    <div class="service-detail-card reveal" style="transition-delay: 0.3s;">
                         <div class="service-detail-icon"><i class="fa-solid fa-credit-card"></i></div>
-                        <h3 class="service-detail-title">Secure Payments</h3>
+                        <h3 class="service-detail-title">Secure Payment</h3>
                         <p class="service-detail-desc">Multiple encrypted payment methods including cards, digital wallets, and buy-now-pay-later options for your convenience.</p>
                         <ul class="service-feature-list">
                             <li><i class="fa-solid fa-check"></i> Visa, Mastercard, AMEX</li>
@@ -149,37 +166,26 @@
                             <li><i class="fa-solid fa-check"></i> Zero transaction fees</li>
                         </ul>
                     </div>
-                    <div class="service-detail-card reveal" style="transition-delay: 0.3s;">
-                        <div class="service-detail-icon"><i class="fa-solid fa-building"></i></div>
-                        <h3 class="service-detail-title">Corporate Catering</h3>
-                        <p class="service-detail-desc">Feed your team with style. Bulk meal orders, personalized menus, dedicated account managers, and monthly invoicing available.</p>
-                        <ul class="service-feature-list">
-                            <li><i class="fa-solid fa-check"></i> Minimum 10 persons orders</li>
-                            <li><i class="fa-solid fa-check"></i> Custom dietary accommodations</li>
-                            <li><i class="fa-solid fa-check"></i> Dedicated B2B account portal</li>
-                            <li><i class="fa-solid fa-check"></i> Scheduled recurring deliveries</li>
-                        </ul>
-                    </div>
                     <div class="service-detail-card reveal" style="transition-delay: 0.4s;">
-                        <div class="service-detail-icon"><i class="fa-solid fa-gift"></i></div>
-                        <h3 class="service-detail-title">Gift & Hamper Service</h3>
-                        <p class="service-detail-desc">Send curated gourmet food hampers and surprise meal deliveries to loved ones with personalized notes and premium packaging.</p>
+                        <div class="service-detail-icon"><i class="fa-solid fa-headset"></i></div>
+                        <h3 class="service-detail-title">24/7 Support</h3>
+                        <p class="service-detail-desc">Our dedicated customer happiness team is online round-the-clock to resolve any queries or delivery concerns instantly.</p>
                         <ul class="service-feature-list">
-                            <li><i class="fa-solid fa-check"></i> Gift wrapping &amp; cards included</li>
-                            <li><i class="fa-solid fa-check"></i> Same-day gift delivery</li>
-                            <li><i class="fa-solid fa-check"></i> Scheduled future deliveries</li>
-                            <li><i class="fa-solid fa-check"></i> Surprise unboxing experience</li>
+                            <li><i class="fa-solid fa-check"></i> 24/7 Live chat availability</li>
+                            <li><i class="fa-solid fa-check"></i> Dedicated priority phone line</li>
+                            <li><i class="fa-solid fa-check"></i> Multi-lingual support agents</li>
+                            <li><i class="fa-solid fa-check"></i> Instant issue resolution</li>
                         </ul>
                     </div>
                     <div class="service-detail-card reveal" style="transition-delay: 0.5s;">
-                        <div class="service-detail-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                        <h3 class="service-detail-title">Smart App Experience</h3>
-                        <p class="service-detail-desc">Our AI-powered mobile app learns your taste preferences and suggests meals you'll love. Reorder in seconds with voice command support.</p>
+                        <div class="service-detail-icon"><i class="fa-solid fa-award"></i></div>
+                        <h3 class="service-detail-title">Best Quality</h3>
+                        <p class="service-detail-desc">Partnering exclusively with top-rated and Michelin-recognized restaurants to ensure every bite is an absolute masterpiece.</p>
                         <ul class="service-feature-list">
-                            <li><i class="fa-solid fa-check"></i> AI flavor profile builder</li>
-                            <li><i class="fa-solid fa-check"></i> Voice order capability</li>
-                            <li><i class="fa-solid fa-check"></i> Nutritional calorie tracking</li>
-                            <li><i class="fa-solid fa-check"></i> Smart meal planning tools</li>
+                            <li><i class="fa-solid fa-check"></i> Strict restaurant vetting process</li>
+                            <li><i class="fa-solid fa-check"></i> Executive chef partnerships</li>
+                            <li><i class="fa-solid fa-check"></i> Quality assurance taste tests</li>
+                            <li><i class="fa-solid fa-check"></i> Premium packaging materials</li>
                         </ul>
                     </div>
                 </div>
