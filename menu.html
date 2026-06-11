@@ -99,10 +99,6 @@
                 <a href="contact.html" class="nav-link">Contact</a>
             </nav>
             <div class="nav-actions">
-                <button class="action-btn" id="cart-trigger" aria-label="View cart">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <span class="cart-badge" id="cart-badge-count">0</span>
-                </button>
                 <a href="login.html" class="btn btn-secondary"><i class="fa-solid fa-user-plus"></i> Login</a>
                 <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             </div>
@@ -363,6 +359,73 @@
                             <h3 class="menu-title">Beer-Battered Onion Rings</h3>
                             <p class="menu-desc">Thick-cut onion rings in crispy beer batter, served with smoky chipotle mayo dip.</p>
                             <div class="menu-footer"><span class="menu-price">$4.99</span><button class="add-to-cart-btn" data-id="sd2" data-name="Beer-Battered Onion Rings" data-price="4.99" data-img="image/6.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="sides" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><img src="image/7.webp" alt="Mozzarella Sticks"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Veggie</span><span class="dietary-tag tag-new">✨ New</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.6)</span></div>
+                            <h3 class="menu-title">Crispy Mozzarella Sticks (8pc)</h3>
+                            <p class="menu-desc">Golden-fried mozzarella sticks with a crispy panko crust, served with warm marinara sauce.</p>
+                            <div class="menu-footer"><span class="menu-price">$6.49</span><button class="add-to-cart-btn" data-id="sd3" data-name="Crispy Mozzarella Sticks" data-price="6.49" data-img="image/7.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="sides" style="transition-delay:0.3s;">
+                        <div class="menu-img-box"><img src="image/2a.webp" alt="Garlic Bread"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Veggie</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.8)</span></div>
+                            <h3 class="menu-title">Cheesy Garlic Bread</h3>
+                            <p class="menu-desc">Freshly baked artisan baguette loaded with roasted garlic butter and melted parmesan cheese.</p>
+                            <div class="menu-footer"><span class="menu-price">$4.49</span><button class="add-to-cart-btn" data-id="sd4" data-name="Cheesy Garlic Bread" data-price="4.49" data-img="image/2a.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="menu-section" id="section-dessert" style="margin-bottom: 60px;">
+                <h2 class="menu-category-title">🍰 Signature Desserts</h2>
+                <div class="full-menu-grid" style="margin-top: 30px;">
+                    <div class="menu-card glass-card reveal" data-category="dessert">
+                        <div class="menu-img-box"><span class="menu-badge">Best Seller</span><img src="image/8.webp" alt="Chocolate Lava Cake"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Chef's Pick</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(5.0)</span></div>
+                            <h3 class="menu-title">Molten Chocolate Lava Cake</h3>
+                            <p class="menu-desc">Warm Belgian chocolate cake with a gooey molten center, served with vanilla bean gelato.</p>
+                            <div class="menu-footer"><span class="menu-price">$8.99</span><button class="add-to-cart-btn" data-id="d1" data-name="Molten Chocolate Lava Cake" data-price="8.99" data-img="image/8.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="dessert" style="transition-delay:0.1s;">
+                        <div class="menu-img-box"><img src="image/9.webp" alt="Tiramisu"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-new">✨ Italian</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.8)</span></div>
+                            <h3 class="menu-title">Classic Italian Tiramisu</h3>
+                            <p class="menu-desc">Layers of espresso-soaked ladyfingers with mascarpone cream, dusted with cocoa powder.</p>
+                            <div class="menu-footer"><span class="menu-price">$7.99</span><button class="add-to-cart-btn" data-id="d2" data-name="Classic Italian Tiramisu" data-price="7.99" data-img="image/9.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="dessert" style="transition-delay:0.2s;">
+                        <div class="menu-img-box"><span class="menu-badge" style="background: var(--accent);">Trending</span><img src="image/1d.webp" alt="New York Cheesecake"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-gluten">🌾 GF Option</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.9)</span></div>
+                            <h3 class="menu-title">New York Cheesecake</h3>
+                            <p class="menu-desc">Rich and creamy classic cheesecake on a buttery graham cracker base, topped with fresh berry compote.</p>
+                            <div class="menu-footer"><span class="menu-price">$9.49</span><button class="add-to-cart-btn" data-id="d3" data-name="New York Cheesecake" data-price="9.49" data-img="image/1d.webp">Add Items</button></div>
+                        </div>
+                    </div>
+                    <div class="menu-card glass-card reveal" data-category="dessert" style="transition-delay:0.3s;">
+                        <div class="menu-img-box"><img src="image/1e.webp" alt="Crème Brûlée"></div>
+                        <div class="menu-card-body">
+                            <div style="display: flex; gap: 6px; margin-bottom: 8px;"><span class="dietary-tag tag-veg">🌿 Veggie</span><span class="dietary-tag tag-new">✨ Premium</span></div>
+                            <div class="menu-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 6px;">(4.7)</span></div>
+                            <h3 class="menu-title">Vanilla Crème Brûlée</h3>
+                            <p class="menu-desc">Silky smooth vanilla custard with a perfectly caramelized sugar crust, infused with Madagascar vanilla.</p>
+                            <div class="menu-footer"><span class="menu-price">$7.49</span><button class="add-to-cart-btn" data-id="d4" data-name="Vanilla Crème Brûlée" data-price="7.49" data-img="image/1e.webp">Add Items</button></div>
                         </div>
                     </div>
                 </div>

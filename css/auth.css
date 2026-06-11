@@ -448,10 +448,32 @@
 .toast-success i { color: #4CD964; }
 .toast-error i { color: #FF3B30; }
 
+@media (max-width: 768px) {
+    .auth-logo-img {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: 45px;
+        width: auto;
+        max-width: 180px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+    }
+    .auth-logo {
+        display: flex !important;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
 @media (max-width: 480px) {
     .auth-card { padding: 30px 20px; }
     .social-login-grid { grid-template-columns: 1fr; }
     .error-code { font-size: 6rem; }
     .error-actions { flex-direction: column; }
     .error-actions .btn { width: 100%; }
+    .auth-logo-img {
+        height: 40px;
+        max-width: 160px;
+    }
 }
