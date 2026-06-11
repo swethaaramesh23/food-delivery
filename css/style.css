@@ -968,6 +968,10 @@ button {
 .menu-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
 }
 .menu-card:hover {
     transform: translateY(-5px);
@@ -986,11 +990,6 @@ button {
 }
 .badge-veg { background: #16a34a; color: white; }
 .badge-bestseller { background: #FF9500; color: white; }
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-}
 
 .menu-img-box {
     height: 220px;
@@ -1872,8 +1871,8 @@ textarea.form-input {
 }
 
 .reveal {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
