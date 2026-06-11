@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty Cart - Stackly</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .empty-cart-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #fcfcfc;
+        }
+        .empty-icon-wrapper {
+            width: 150px;
+            height: 150px;
+            background: #fff5f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--primary);
+            font-size: 60px;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .empty-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+        .empty-desc {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="empty-cart-page">
+        <div class="empty-content glass-card" style="padding: 60px; border-radius: var(--border-radius-lg);">
+            <div class="empty-icon-wrapper">
+                <i class="fa-solid fa-cart-arrow-down"></i>
+            </div>
+            <h1 class="empty-title">Your Cart is Empty</h1>
+            <p class="empty-desc">Looks like you haven't added any delicious meals to your cart yet. Discover our menu and find your favorite food!</p>
+            <a href="menu.html" class="btn btn-primary btn-lg">Browse Menu</a>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

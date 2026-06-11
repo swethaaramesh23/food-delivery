@@ -44,6 +44,41 @@
     margin: 0;
     padding: 0;
 }
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Skeleton Loader */
+@keyframes skeleton-loading {
+    0% { background-color: #f0f0f0; }
+    100% { background-color: #e0e0e0; }
+}
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.skeleton-img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.skeleton-img.loaded {
+    opacity: 1;
+}
 
 html {
     scroll-behavior: smooth;
@@ -80,6 +115,7 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+    object-fit: cover;
 }
 
 button, input, textarea, select {
@@ -188,14 +224,17 @@ button {
 }
 
 .btn-primary {
-    background-color: var(--primary);
-    color: var(--white) !important;
+    background: linear-gradient(135deg, var(--primary) 0%, #ff8c5a 100%);
+    color: var(--white);
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 107, 53, 0.25);
+    background: linear-gradient(135deg, #ff8c5a 0%, var(--primary) 100%);
+    color: var(--white);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
 }
 
 .btn-secondary {
@@ -276,19 +315,18 @@ button {
     left: 0;
     width: 100%;
     height: var(--header-height);
-    background-color: transparent;
-    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 1005;
     transition: var(--transition-smooth);
-    display: flex;
-    align-items: center;
 }
 
 .header.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    height: 70px;
     box-shadow: var(--shadow-sm);
-    height: 75px;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .header .container {
@@ -704,13 +742,15 @@ button {
     position: relative;
     z-index: 5;
     animation: floatImg 6s ease-in-out infinite;
-    max-width: 110%;
+    max-width: 100%;
 }
 
 .hero-bg-shape {
     position: absolute;
-    width: 480px;
-    height: 480px;
+    width: 80vw;
+    max-width: 480px;
+    height: 80vw;
+    max-height: 480px;
     background-color: rgba(255, 107, 53, 0.12);
     border-radius: 50%;
     z-index: 1;
@@ -966,16 +1006,19 @@ button {
 }
 
 .menu-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--border-radius-md);
 }
 .menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 .food-badge {
     position: absolute;
@@ -1063,10 +1106,18 @@ button {
 }
 
 .menu-price {
-    font-size: 1.3rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--primary);
     font-family: 'Outfit', sans-serif;
+}
+.delivery-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
 }
 
 .add-to-cart-btn { width: auto; padding: 0 16px; height: 40px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
@@ -1710,9 +1761,10 @@ textarea.form-input {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
+    grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
     gap: 40px;
     margin-bottom: 60px;
+    align-items: start;
 }
 
 .footer-col h3 {
@@ -1733,6 +1785,8 @@ textarea.form-input {
 .footer-socials {
     display: flex;
     gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .social-icon {
@@ -1758,6 +1812,8 @@ textarea.form-input {
     margin-bottom: 24px;
     position: relative;
     padding-bottom: 10px;
+    line-height: 1.4;
+    display: inline-block;
 }
 
 .footer-col h4::after {
@@ -1898,14 +1954,14 @@ textarea.form-input {
     .menu-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 
 @media (max-width: 991px) {
     .container {
         max-width: 720px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
     }
     .hero-grid {
         grid-template-columns: 1fr;
@@ -2004,8 +2060,46 @@ textarea.form-input {
     .contact-cards {
         grid-template-columns: 1fr;
     }
+    .footer {
+        padding: 60px 0 100px;
+    }
     .footer-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        text-align: center;
+    }
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-socials {
+        justify-content: center;
+    }
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .footer-contact-item {
+        justify-content: center;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    .footer-bottom-links {
+        justify-content: center;
+    }
+    #scroll-to-top {
+        bottom: 80px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    #scroll-to-top.visible {
+        right: 20px;
     }
     /* Fixed mobile hidden elements */
     .hero-buttons .btn {
@@ -2019,6 +2113,9 @@ textarea.form-input {
 @media (max-width: 480px) {
     .container {
         padding: 0 16px;
+    }
+    .footer {
+        padding: 60px 0 100px;
     }
     .hero-title {
         font-size: 2rem;

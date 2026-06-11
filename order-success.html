@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success - Stackly</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .success-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+        .success-card {
+            background: white;
+            padding: 60px 40px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            max-width: 600px;
+            width: 100%;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #16a34a;
+            margin-bottom: 24px;
+            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .success-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+        .success-desc {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .order-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+            padding-bottom: 12px;
+        }
+        .order-row:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+        .success-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="success-page">
+        <div class="success-card glass-card">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h1 class="success-title">Order Placed Successfully!</h1>
+            <p class="success-desc">Thank you for your order. Your delicious food is being prepared and will be delivered to you shortly.</p>
+            
+            <div class="order-details">
+                <div class="order-row">
+                    <span>Order Number:</span>
+                    <strong>#STK-89241</strong>
+                </div>
+                <div class="order-row">
+                    <span>Estimated Delivery:</span>
+                    <strong>25-30 mins</strong>
+                </div>
+                <div class="order-row">
+                    <span>Total Amount:</span>
+                    <strong style="color: var(--primary); font-size: 1.2rem;">$45.80</strong>
+                </div>
+            </div>
+            
+            <div class="success-btns">
+                <a href="customer-dashboard.html" class="btn btn-secondary">Track Order</a>
+                <a href="menu.html" class="btn btn-primary">Back to Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

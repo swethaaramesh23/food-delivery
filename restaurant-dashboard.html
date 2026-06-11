@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stackly Orders Management Portal. Manage pending, preparing, out for delivery, and completed invoices.">
+    <title>Stackly | Order Management Portal</title>
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Collapsible Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+
+            <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle Sidebar Menu">
+                <i class="fa-solid fa-angles-left"></i>
+            </button>
+        </div>
+        
+
+
+        <nav class="sidebar-nav">
+            <a href="admin-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-chart-line"></i> <span>Admin Analytics</span>
+            </a>
+            <a href="orders-dashboard.html" class="sidebar-nav-link active">
+                <i class="fa-solid fa-receipt"></i> <span>Order Management</span>
+            </a>
+            <a href="delivery-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-truck-ramp-box"></i> <span>Delivery Tracking</span>
+            </a>
+            <a href="customer-dashboard.html" class="sidebar-nav-link">
+                <i class="fa-solid fa-user-gear"></i> <span>Customer Profile</span>
+            </a>
+            <a href="index.html" class="sidebar-nav-link" style="border-top: 1px dashed rgba(255,255,255,0.05); border-radius: 0; padding-top: 20px; margin-top: 10px;">
+                <i class="fa-solid fa-house"></i> <span>Back To Store</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="index.html" class="sidebar-nav-link" id="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Dashboard Section -->
+    <main class="dashboard-main" id="dashboard-main">
+        <div class="dashboard-topbar">
+            <!-- Mobile Menu trigger and Title -->
+            <div class="dashboard-mobile-nav">
+                <button class="dashboard-hamburger" id="dashboard-hamburger" aria-label="Toggle Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="topbar-title">
+                <div class="dashboard-logo-center">
+                    <a href="index.html"><img src="logo.webp" alt="Stackly Logo" style="height:52px; width:auto; object-fit:contain;"></a>
+                </div>
+                <h2>Order Dispatch</h2>
+                <p>Track culinary production and assign delivery couriers.</p>
+            </div>
+            
+            <div class="topbar-actions">
+                <button class="topbar-btn" id="noti-trigger" aria-label="Notifications panel">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge" id="noti-badge-count">2</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Order Management Tabs -->
+        <div class="order-tabs-container">
+            <button class="order-tab active" data-filter="all">
+                All Orders <span class="count" id="count-all">0</span>
+            </button>
+            <button class="order-tab" data-filter="pending">
+                Pending <span class="count" id="count-pending" style="background-color: rgba(255, 184, 0, 0.2); color: #FFB800;">0</span>
+            </button>
+            <button class="order-tab" data-filter="preparing">
+                Preparing <span class="count" id="count-preparing" style="background-color: rgba(0, 122, 255, 0.2); color: #007AFF;">0</span>
+            </button>
+            <button class="order-tab" data-filter="delivery">
+                Out For Delivery <span class="count" id="count-delivery" style="background-color: rgba(175, 82, 222, 0.2); color: #AF52DE;">0</span>
+            </button>
+            <button class="order-tab" data-filter="delivered">
+                Delivered <span class="count" id="count-delivered" style="background-color: rgba(76, 217, 100, 0.2); color: #4CD964;">0</span>
+            </button>
+        </div>
+
+        <!-- Orders Table Card -->
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Info</th>
+                            <th>Ordered Dishes</th>
+                            <th>Address Location</th>
+                            <th>Total Price</th>
+                            <th>State</th>
+                            <th>Time Placed</th>
+                            <th style="width: 150px;">Production Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-dashboard-rows">
+                        <!-- Placed dynamically via JS -->
+                        <tr>
+                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 40px;">
+                                <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 8px;"></i>
+                                <p>Loading live dispatch grid...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Combined dashboard operations script -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
+
+
+
+
+

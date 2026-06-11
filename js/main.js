@@ -5,9 +5,53 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // 1. Preloader (Strict 2.5s) & GSAP Entrance Animations
+    // 1. Preloader (Strict 2.5s) & GSAP Entrance Animations & Global Image Optimization
     // ==========================================================================
     const preloader = document.getElementById("preloader");
+    
+    // Global Image Optimization: Add lazy loading, skeletons, and fallbacks dynamically
+    document.querySelectorAll("img").forEach(img => {
+        // Skip hero and logo images from optimization
+        if (img.classList.contains("hero-main-img") || img.classList.contains("logo-img")) return;
+        
+        img.setAttribute("loading", "lazy");
+        img.classList.add("skeleton-img");
+        
+        // Add skeleton wrapper if not already wrapped
+        if (!img.parentElement.classList.contains("skeleton-wrapper")) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "skeleton-wrapper";
+            wrapper.style.position = "relative";
+            wrapper.style.width = "100%";
+            wrapper.style.height = "100%";
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+            
+            const skeleton = document.createElement("div");
+            skeleton.className = "skeleton";
+            wrapper.appendChild(skeleton);
+            
+            // Remove skeleton when loaded
+            img.onload = () => {
+                skeleton.remove();
+                img.classList.add("loaded");
+            };
+        }
+        
+        img.onerror = function() {
+            this.onerror = null;
+            this.src = "image/fallback.webp";
+            // Also remove skeleton on error so fallback is visible
+            const skel = this.parentElement.querySelector(".skeleton");
+            if (skel) skel.remove();
+            this.classList.add("loaded");
+        };
+        
+        // Trigger load event if image is already cached
+        if (img.complete) {
+            img.onload();
+        }
+    });
     
     setTimeout(() => {
         // Fade out preloader
@@ -315,11 +359,19 @@ document.addEventListener("DOMContentLoaded", () => {
             saveCart();
             showToast(`${name} added to basket!`, "success");
             
-            if (cartTrigger) {
-                cartTrigger.style.transform = "scale(1.2)";
+            // Add to Cart Animation
+            const imgEl = btn.closest('.menu-card') ? btn.closest('.menu-card').querySelector('img') : null;
+            if (cartTrigger && imgEl) {
+                cartTrigger.style.transform = "scale(1.3)";
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Added';
+                btn.style.backgroundColor = '#16a34a';
+                btn.style.color = 'white';
                 setTimeout(() => {
                     cartTrigger.style.transform = "scale(1)";
-                }, 200);
+                    btn.innerHTML = '<i class="fa-solid fa-plus"></i> Add';
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                }, 1500);
             }
         });
     });
@@ -578,10 +630,71 @@ document.addEventListener("DOMContentLoaded", () => {
     
     revealElements.forEach(el => revealObserver.observe(el));
     
-    // Dynamic dashboard button removed to always show Login as requested
+    // ==========================================================================
+    // 13. Dynamic Auth Validation (Login & Signup)
+    // ==========================================================================
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            if (!email.includes("@")) { showToast("Please enter a valid email", "error"); return; }
+            if (password.length < 6) { showToast("Password must be at least 6 characters", "error"); return; }
+            showToast("Login successful!", "success");
+            setTimeout(() => { window.location.href = "customer-dashboard.html"; }, 1000);
+        });
+    }
+
+    const signupForm = document.getElementById("signup-form");
+    if (signupForm) {
+        signupForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm-password") ? document.getElementById("confirm-password").value : "";
+            if (!email.includes("@")) { showToast("Please enter a valid email", "error"); return; }
+            if (password.length < 6) { showToast("Password must be at least 6 characters", "error"); return; }
+            if (password !== confirm) { showToast("Passwords do not match!", "error"); return; }
+            showToast("Account created successfully!", "success");
+            setTimeout(() => { window.location.href = "login.html"; }, 1500);
+        });
+    }
+
+    // Toggle Password Visibility
+    document.querySelectorAll(".toggle-password").forEach(toggle => {
+        toggle.addEventListener("click", function () {
+            const input = this.parentElement.querySelector("input");
+            if (input.type === "password") {
+                input.type = "text";
+                this.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                input.type = "password";
+                this.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        });
+    });
+
+    // ==========================================================================
+    // 14. Dynamic Food Card Enhancements (Badges & Delivery Time)
+    // ==========================================================================
+    document.querySelectorAll(".menu-card").forEach((card, index) => {
+        // Add Delivery Time
+        const priceContainer = card.querySelector(".menu-price");
+        if (priceContainer && !priceContainer.parentElement.querySelector(".delivery-time")) {
+            const deliveryHtml = `<div class="delivery-time"><i class="fa-regular fa-clock"></i> ${20 + (index % 3) * 5} mins</div>`;
+            priceContainer.insertAdjacentHTML("afterend", deliveryHtml);
+        }
+        
+        // Add Discount Badge dynamically if not exists (simulate offers)
+        if (index % 4 === 0 && !card.querySelector(".badge-discount")) {
+            const badgeHtml = `<div class="food-badge badge-discount" style="background:#FF3B30; color:white; top:15px; right:15px; left:auto;">20% OFF</div>`;
+            const imgBox = card.querySelector(".menu-img-box");
+            if (imgBox) imgBox.insertAdjacentHTML("afterbegin", badgeHtml);
+        }
+    });
 
 });
-
 
 
 
